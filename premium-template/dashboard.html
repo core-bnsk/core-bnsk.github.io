@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<!--
+═══════════════════════════════════════════════════════════════════════════════
+  ProProfile Pilates — 작업 현황 대시보드 (dashboard.html)
+  · 용도   : 이 프로젝트의 진행 상황·파일 인벤토리·자산·스킬 정보를 한 화면에서 확인
+  · 실행   : index.html 과 동일하게 http(s) 환경에서 열기
+             (data.js 를 import 해 페르소나 정보를 실시간 표시)
+  · 갱신   : 작업이 추가되면 아래 STATUS 객체와 섹션 테이블만 수정하면 됩니다.
+═══════════════════════════════════════════════════════════════════════════════
+-->
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>작업 현황 대시보드 — 이서윤 필라테스 템플릿</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap">
+  <style>
+  /* ── 토큰: 사이트와 동일한 웰니스 라이트 팔레트 ── */
+  :root {
+    --bg: #F8F7F2; --bg-soft: #F1EFE7; --surface: #FFFFFF;
+    --ink: #282C24; --sub: #5D6357; --mute: #8B9083;
+    --line: rgba(42,46,39,.10); --line-strong: rgba(42,46,39,.24);
+    --sage: #6C8A64; --sage-deep: #4F6A48; --sage-tint: rgba(108,138,100,.12);
+    --gold: #C0996B; --gold-tint: rgba(192,153,107,.14);
+    --ok: #4F6A48; --wait: #C0996B;
+    --shadow: 0 24px 48px -26px rgba(40,44,36,.3);
+    --radius: 16px;
+    --serif: 'Noto Serif KR', Georgia, serif;
+    --sans: 'Pretendard Variable', Pretendard, -apple-system, 'Malgun Gothic', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans); color: var(--ink); background: var(--bg);
+    line-height: 1.7; letter-spacing: -.01em; word-break: keep-all;
+    padding: clamp(1.5rem, 4vw, 3rem) var(--gutter, 1.5rem);
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1100px; margin-inline: auto; }
+
+  /* ── 헤더 ── */
+  header.top {
+    display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between;
+    gap: 1rem; padding-block: 1rem 1.6rem; border-bottom: 2px solid var(--ink); margin-bottom: 1.8rem;
+  }
+  h1 { font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.1rem); letter-spacing: -.02em; }
+  .top .meta { font-size: .8rem; color: var(--mute); }
+  .top .meta b { color: var(--sage-deep); }
+  .brand-chip {
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .45rem 1rem; border-radius: 99px;
+    background: var(--sage-deep); color: #F8F7F2; font-size: .8rem; font-weight: 700;
+  }
+
+  /* ── KPI 카드 ── */
+  .kpis { display: grid; grid-template-columns: repeat(2, 1fr); gap: .8rem; margin-bottom: 1.8rem; }
+  .kpi { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem 1.2rem; }
+  .kpi b { display: block; font-family: var(--serif); font-size: 1.7rem; line-height: 1.15; }
+  .kpi small { color: var(--mute); font-size: .75rem; }
+  @media (min-width: 760px) { .kpis { grid-template-columns: repeat(4, 1fr); } }
+
+  /* ── 공통 카드/섹션 ── */
+  section { margin-bottom: 2rem; }
+  h2 {
+    font-family: var(--serif); font-size: 1.15rem; margin-bottom: .9rem;
+    display: flex; align-items: center; gap: .6rem;
+  }
+  h2::before { content: ""; width: 18px; height: 2px; background: var(--sage); }
+  .card {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 1.2rem 1.4rem; box-shadow: var(--shadow);
+  }
+  .grid-2 { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+  .grid-3 { display: grid; grid-template-columns: 1fr; gap: .9rem; }
+  @media (min-width: 760px) {
+    .grid-2 { grid-template-columns: 1fr 1fr; }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* ── 배지 ── */
+  .badge {
+    display: inline-block; padding: .12rem .6rem; border-radius: 99px;
+    font-size: .7rem; font-weight: 700; letter-spacing: .04em;
+  }
+  .badge.ok { background: var(--sage-tint); color: var(--sage-deep); border: 1px solid rgba(108,138,100,.35); }
+  .badge.wait { background: var(--gold-tint); color: #7a5f36; border: 1px solid rgba(192,153,107,.4); }
+
+  /* ── 페르소나 (실시간 data.js) ── */
+  .persona { display: grid; grid-template-columns: 1fr; gap: 1.2rem; align-items: start; }
+  @media (min-width: 700px) { .persona { grid-template-columns: 180px 1fr; } }
+  .persona img {
+    width: 100%; aspect-ratio: 4/5; object-fit: cover; object-position: center top;
+    border-radius: 12px; border: 1px solid var(--line);
+  }
+  .persona .rows { display: grid; gap: .35rem; font-size: .9rem; }
+  .persona .rows dt { display: inline; color: var(--mute); font-size: .78rem; margin-right: .5rem; }
+  .persona .rows dd { display: inline; }
+  .persona .slogan { font-family: var(--serif); font-size: 1.25rem; font-weight: 600; margin: .4rem 0 .6rem; }
+  .persona .warn { color: var(--mute); font-size: .82rem; }
+
+  /* ── 테이블 ── */
+  table { width: 100%; border-collapse: collapse; font-size: .86rem; }
+  th, td { text-align: left; padding: .55rem .6rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--mute); font-weight: 700; }
+  td code { font-family: ui-monospace, Consolas, monospace; font-size: .8rem; background: var(--bg-soft); padding: .1rem .4rem; border-radius: 6px; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; color: var(--sub); }
+
+  /* ── 체크리스트 ── */
+  .check li {
+    display: flex; gap: .6rem; align-items: baseline;
+    padding: .4rem 0; border-bottom: 1px dashed var(--line); font-size: .9rem;
+  }
+  .check li:last-child { border-bottom: 0; }
+  .check .mark { flex: none; font-weight: 800; }
+  .check .done { color: var(--ok); }
+  .check .todo { color: var(--wait); }
+
+  /* ── 타임라인 ── */
+  .hist li { display: flex; gap: .9rem; padding: .45rem 0; font-size: .88rem; border-bottom: 1px dashed var(--line); }
+  .hist li:last-child { border-bottom: 0; }
+  .hist .d { flex: none; width: 5.4em; font-size: .72rem; font-weight: 700; color: var(--sage-deep); padding-top: .2em; }
+
+  /* ── 자산 썸네일 ── */
+  .thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; }
+  .thumbs figure { position: relative; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); }
+  .thumbs img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
+  .thumbs figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: .3rem .55rem;
+    font-size: .64rem; color: #F8F7F2; background: linear-gradient(transparent, rgba(40,44,36,.7)); }
+
+  /* ── 기타 ── */
+  .path { font-family: ui-monospace, Consolas, monospace; font-size: .78rem; background: var(--bg-soft);
+    padding: .15rem .5rem; border-radius: 6px; }
+  .muted { color: var(--mute); font-size: .8rem; }
+  .bar { height: 6px; border-radius: 99px; background: var(--bg-soft); overflow: hidden; margin-top: .3rem; }
+  .bar i { display: block; height: 100%; background: linear-gradient(90deg, #B7C7AB, var(--sage-deep)); }
+  footer { margin-top: 2.5rem; padding-top: 1.2rem; border-top: 1px solid var(--line);
+    font-size: .75rem; color: var(--mute); display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; }
+  a { color: var(--sage-deep); }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ═══ 헤더 ═══ -->
+  <header class="top">
+    <div>
+      <span class="brand-chip">SEYUN PILATES · TEMPLATE</span>
+      <h1 style="margin-top:.7rem">작업 현황 대시보드</h1>
+      <p class="meta">ProProfile Pilates 템플릿 프로젝트 · 갱신 <b id="gen-date">—</b></p>
+    </div>
+    <div style="text-align:right">
+      <p class="meta">스킬</p>
+      <p class="path">~/.agents/skills/premium-branding-onepage</p>
+    </div>
+  </header>
+
+  <!-- ═══ KPI ═══ -->
+  <div class="kpis">
+    <div class="kpi"><b>2,372</b><small>코드 라인 (html+css+js+data)</small></div>
+    <div class="kpi"><b>4.0<small style="font-size:.5em">MB</small></b><small>자산 9종 (사진 7 · 영상 1 · 포스터)</small></div>
+    <div class="kpi"><b>9+1</b><small>섹션 + 모바일 플로팅 CTA</small></div>
+    <div class="kpi"><b>100%</b><small>구현 · 검증 완료 (운영 입력 대기)</small></div>
+  </div>
+
+  <!-- ═══ 페르소나 (data.js 실시간) ═══ -->
+  <section>
+    <h2>현재 적용된 페르소나 <span class="badge ok">data.js 연동</span></h2>
+    <div class="card persona">
+      <img src="assets/img/profile.jpg" alt="현재 적용된 강사 프로필 사진">
+      <div>
+        <p class="muted">아래 값은 열릴 때마다 data.js 에서 읽어옵니다.</p>
+        <p class="slogan" id="pv-slogan">—</p>
+        <dl class="rows">
+          <div><dt>이름</dt><dd id="pv-name">—</dd></div>
+          <div><dt>영문</dt><dd id="pv-name-en">—</dd></div>
+          <div><dt>직함</dt><dd id="pv-title">—</dd></div>
+          <div><dt>소속</dt><dd id="pv-studio">—</dd></div>
+          <div><dt>활동지역</dt><dd id="pv-region">—</dd></div>
+          <div><dt>경력</dt><dd id="pv-years">—</dd></div>
+        </dl>
+        <p class="warn" id="pv-fallback" hidden>※ data.js 를 읽지 못했습니다 — http(s) 환경에서 열어주세요.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 섹션 구현 현황 ═══ -->
+  <section>
+    <h2>섹션 구현 현황</h2>
+    <div class="card">
+      <table>
+        <thead><tr><th>섹션</th><th>ID / 데이터</th><th>렌더러</th><th>상태</th></tr></thead>
+        <tbody>
+          <tr><td>히어로 (영상 + 카피 + CTA)</td><td><code>#hero</code> · profile</td><td><code>renderProfile</code></td><td><span class="badge ok">완료</span></td></tr>
+          <tr><td>핵심 지표 (카운트업)</td><td><code>#stats-grid</code> · stats[]</td><td><code>renderStats</code></td><td><span class="badge ok">완료</span></td></tr>
+          <tr><td>강사 소개 (사진·경력·자격증)</td><td><code>#about</code> · profile</td><td><code>renderAbout</code></td><td><span class="badge ok">완료</span></td></tr>
+          <tr><td>움직임 철학 (벤토 그리드)</td><td><code>#movement-grid</code> · philosophy[]</td><td><code>renderPhilosophy</code></td><td><span class="badge ok">완료</span></td></tr>
+          <tr><td>프로그램 카드</td><td><code>#programs-grid</code> · programs[]</td><td><code>renderPrograms</code></td><td><span class="badge ok">완료</span></td></tr>
+          <tr><td>수강생 후기 (평점 요약)</td><td><code>#reviews-grid</code> · reviews</td><td><code>renderReviews</code></td><td><span class="badge ok">완료</span></td></tr>
+          <tr><td>진행 과정 아코디언</td><td><code>#curriculum-accordion</code></td><td><code>renderCurriculum</code></td><td><span class="badge ok">완료</span></td></tr>
+          <tr><td>FAQ 아코디언</td><td><code>#faq-list</code> · faq[]</td><td><code>renderFaq</code></td><td><span class="badge ok">완료</span></td></tr>
+          <tr><td>문의 폼 + 스튜디오 인포</td><td><code>#contact-form</code> · profile.links</td><td><code>initContactForm</code></td><td><span class="badge ok">완료</span></td></tr>
+          <tr><td>모바일 플로팅 상담 CTA</td><td><code>#mobile-cta</code></td><td><code>initFloatingCta</code></td><td><span class="badge ok">완료</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══ 기능 체크리스트 ═══ -->
+  <section>
+    <h2>구현 · 검증 체크리스트</h2>
+    <div class="grid-2">
+      <div class="card">
+        <ul class="check">
+          <li><span class="mark done">✓</span>data.js 동적 import + normalizeData 방어</li>
+          <li><span class="mark done">✓</span>템플릿 리터럴 렌더링 + escapeHtml 이스케이프</li>
+          <li><span class="mark done">✓</span>Scroll Reveal (IntersectionObserver)</li>
+          <li><span class="mark done">✓</span>카운터 애니메이션 (easeOutQuart + 쉼표 포맷)</li>
+          <li><span class="mark done">✓</span>아코디언 단일 오픈 (grid-rows 전환 + 아이콘 회전)</li>
+          <li><span class="mark done">✓</span>플로팅 CTA (히어로 이탈 표시 · 컨택트 중 숨김)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <ul class="check">
+          <li><span class="mark done">✓</span>SEO: OG/Twitter + JSON-LD 동적 갱신</li>
+          <li><span class="mark done">✓</span>접근성: skip-link · aria-expanded · 48px 타깃</li>
+          <li><span class="mark done">✓</span>prefers-reduced-motion · noscript 폴백</li>
+          <li><span class="mark done">✓</span>비디오 실패 폴백 (.video-failed)</li>
+          <li><span class="mark done">✓</span>스크롤스파이 · 프로그레스 바 · 패럴랙스</li>
+          <li><span class="mark done">✓</span>데스크톱/모바일 스크린샷 회귀 검증 (다수)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 파일 인벤토리 ═══ -->
+  <section>
+    <h2>파일 인벤토리</h2>
+    <div class="card">
+      <table>
+        <thead><tr><th>파일</th><th>역할</th><th class="num">라인</th><th class="num">크기</th></tr></thead>
+        <tbody>
+          <tr><td><code>index.html</code></td><td>시맨틱 마크업 + SEO/OG + 섹션 골격</td><td class="num">464</td><td class="num">31 KB</td></tr>
+          <tr><td><code>styles.css</code></td><td>웰니스 라이트 테마 (Mobile-First, 토큰)</td><td class="num">894</td><td class="num">50 KB</td></tr>
+          <tr><td><code>app.js</code></td><td>렌더링 + 인터랙션 + 예외 처리 (ES Module)</td><td class="num">701</td><td class="num">34 KB</td></tr>
+          <tr><td><code>data.js</code></td><td>콘텐츠 단일 출처 (비전공자 수정 대상)</td><td class="num">313</td><td class="num">21 KB</td></tr>
+          <tr><td><code>backup-01-personal-branding.html</code></td><td>초기(김도윤) 라이트 템플릿 보존본</td><td class="num">—</td><td class="num">91 KB</td></tr>
+          <tr><td><code>assets/media/hero.mp4</code></td><td>후킹 히어로 영상 (12s · 1080p · 무음 루프)</td><td class="num">—</td><td class="num">2.4 MB</td></tr>
+          <tr><td><code>assets/media/hero-poster.jpg</code></td><td>영상 대표 썸네일 (저전력 폴백)</td><td class="num">—</td><td class="num">117 KB</td></tr>
+          <tr><td><code>assets/img/profile.jpg</code></td><td>강사 프로필 사진 (4:5, 아시안 여성)</td><td class="num">—</td><td class="num">38 KB</td></tr>
+          <tr><td><code>assets/img/activity-*.jpg</code></td><td>활동 사진 2종 (매트 재활 · 리포머 수업)</td><td class="num">—</td><td class="num">180 KB</td></tr>
+          <tr><td><code>assets/img/studio-*.jpg</code></td><td>스튜디오 인테리어 예비 사진 3종 (미사용)</td><td class="num">—</td><td class="num">1.2 MB</td></tr>
+          <tr><td><code>assets/img/og-image.jpg</code></td><td>SNS 공유 카드 (1200×630)</td><td class="num">—</td><td class="num">37 KB</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══ 자산 미리보기 ═══ -->
+  <section>
+    <h2>자산 미리보기</h2>
+    <div class="card">
+      <div class="thumbs">
+        <figure><img src="assets/img/profile.jpg" alt="프로필 사진"><figcaption>profile.jpg · About</figcaption></figure>
+        <figure><img src="assets/img/activity-reformer.jpg" alt="활동 사진 1"><figcaption>activity-reformer.jpg · Movement</figcaption></figure>
+        <figure><img src="assets/img/activity-coaching.jpg" alt="활동 사진 2"><figcaption>activity-coaching.jpg · Movement</figcaption></figure>
+      </div>
+      <p class="muted" style="margin-top:.7rem">
+        영상: assets/media/hero.mp4 — 사진 3장 Ken Burns + 크로스페이드 · 12초 · 1920×1080 · 30fps · 무음 (ffmpeg 제작).
+        세부 제작 레시피는 스킬 references/assets-pipeline.md 참고.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ 진행 히스토리 ═══ -->
+  <section>
+    <h2>진행 히스토리</h2>
+    <div class="card">
+      <ul class="hist">
+        <li><span class="d">STEP 1</span><span>초기 다크·라이트 템플릿 설계 (김도윤 페르소나) — <b>backup-01</b> 보존</span></li>
+        <li><span class="d">STEP 2</span><span>data.js 데이터 모듈 설계 (구조 + 비전공자 주석)</span></li>
+        <li><span class="d">STEP 3</span><span>동적 바인딩 index.html + app.js (예외 처리)</span></li>
+        <li><span class="d">STEP 4</span><span>styles.css 외부화 → 다크 에디션</span></li>
+        <li><span class="d">STEP 5</span><span>웰니스 라이트 재설계 + 경쟁 강점 3종 반영 (후기·About·예약 CTA)</span></li>
+        <li><span class="d">STEP 6</span><span>이서윤 페르소나 전환 (재활·통증 케어 정체성)</span></li>
+        <li><span class="d">STEP 7</span><span>아시안 강사 사진 3종 교체 + Ken Burns 히어로 영상 제작</span></li>
+        <li><span class="d">STEP 8</span><span>템플릿 스킬화 + 현황 대시보드 (현재)</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══ 스킬 ═══ -->
+  <section>
+    <h2>생성된 스킬</h2>
+    <div class="grid-2">
+      <div class="card">
+        <p><b>premium-branding-onepage</b> <span class="badge ok">설치됨</span></p>
+        <p class="muted" style="margin:.4rem 0">
+          사용자 수준 스킬 — 어느 워크스페이스에서나
+          "프리미엄 퍼스널 브랜딩 원페이지 / 강사 프로필 사이트 / data.js 사이트 수정" 요청으로 트리거됩니다.
+        </p>
+        <p class="path">~/.agents/skills/premium-branding-onepage/</p>
+        <ul class="check" style="margin-top:.7rem">
+          <li><span class="mark done">✓</span>SKILL.md — 7단계 워크플로 + 검증 체크리스트</li>
+          <li><span class="mark done">✓</span>assets/ — index·styles·app 템플릿 + data.sample.js</li>
+          <li><span class="mark done">✓</span>references/assets-pipeline.md — 사진 선정 · ffmpeg 영상 레시피</li>
+          <li><span class="mark done">✓</span>references/design-system.md — 무드 토큰 · 경쟁 강점 · 섹션 지도</li>
+        </ul>
+      </div>
+      <div class="card">
+        <p><b>운영 전 체크리스트</b> <span class="badge wait">대기</span></p>
+        <ul class="check">
+          <li><span class="mark todo">☐</span>강사 실사 사진·영상으로 교체 (같은 파일명 덮어쓰기)</li>
+          <li><span class="mark todo">☐</span>카카오톡 채널 · 인스타 · 유튜브 · 블로그 링크</li>
+          <li><span class="mark todo">☐</span>스튜디오 주소 · 운영시간 · 문의 이메일</li>
+          <li><span class="mark todo">☐</span>og:url 도메인 + 배포 (netlify/vercel 등)</li>
+          <li><span class="mark todo">☐</span>후기 6건 중 샘플 4건 → 실제 후기 교체</li>
+        </ul>
+        <div class="bar"><i style="width:62%"></i></div>
+        <p class="muted">템플릿 완성도 100% · 운영 입력 진행률 약 62% (사진/영상/후기 완료)</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>ProProfile Pilates Template — 이서윤 샘플 · 순수 HTML/CSS/JS</span>
+    <span>dashboard.html · 생성: ZCode</span>
+  </footer>
+</div>
+
+<script type="module">
+/* data.js 를 읽어 페르소나 카드를 채웁니다 (실패 시 안내 표시) */
+import('./data.js')
+  .then((mod) => {
+    const p = mod.profile ?? {};
+    const set = (sel, v) => { const el = document.querySelector(sel); if (el && v != null && v !== '') el.textContent = String(v); };
+    set('#pv-slogan', p.slogan);
+    set('#pv-name', p.name);
+    set('#pv-name-en', p.nameEn);
+    set('#pv-title', p.title);
+    set('#pv-studio', p.studio?.name);
+    set('#pv-region', p.region);
+    set('#pv-years', p.years ? `${p.years}년` : '');
+    document.querySelector('#gen-date').textContent = new Date().toLocaleDateString('ko-KR');
+  })
+  .catch((err) => {
+    console.error('[dashboard] data.js 로드 실패:', err);
+    document.querySelector('#pv-fallback').hidden = false;
+    document.querySelector('#gen-date').textContent = new Date().toLocaleDateString('ko-KR');
+  });
+</script>
+</body>
+</html>
