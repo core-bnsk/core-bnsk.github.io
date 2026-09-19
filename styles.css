@@ -99,10 +99,10 @@ del { color: var(--soft); }
 
 /* ═══ COVER — 여백과 절제 ═══════════════════════════════ */
 .cover {
-  padding: clamp(72px, 13vh, 150px) var(--pad) clamp(60px, 9vh, 110px);
+  padding: clamp(56px, 9vh, 110px) var(--pad) clamp(48px, 7vh, 88px);
   text-align: center;
 }
-.cover-kicker { margin-bottom: clamp(28px, 5vh, 56px); }
+.cover-kicker { margin-bottom: clamp(20px, 3.5vh, 40px); }
 
 .cover-title {
   font-family: var(--didone);
@@ -129,7 +129,7 @@ del { color: var(--soft); }
   font-weight: 800;
   font-size: clamp(21px, 2.6vw, 30px);
   color: var(--ink);
-  margin-top: clamp(40px, 7vh, 76px);
+  margin-top: clamp(28px, 5vh, 52px);
   line-height: 1.5;
 }
 .cover-lede {
@@ -142,7 +142,7 @@ del { color: var(--soft); }
 .cover-meta {
   display: flex; flex-wrap: wrap; justify-content: center;
   gap: 0 clamp(28px, 4.5vw, 64px);
-  margin-top: clamp(44px, 8vh, 84px);
+  margin-top: clamp(32px, 5vh, 56px);
   border-top: 1px solid var(--line);
   padding-top: clamp(24px, 4vh, 36px);
 }
@@ -523,4 +523,98 @@ del { color: var(--soft); }
     border-top: 1px solid var(--line); padding-top: 12px; margin-top: 4px;
   }
   .head-offer { grid-column: 2; grid-row: 1; }
+}
+
+/* ═══ 2026-09-19 개선 — CTA · 썸네일 · 문의 전환 ═══════════ */
+
+/* 헤더: 브랜드 한글 병기 + 오퍼 배지 링크화 */
+.head-mark { display: inline-flex; align-items: baseline; gap: 9px; }
+.mark-kr {
+  font-family: var(--kr-serif); font-weight: 700;
+  font-size: 12px; letter-spacing: .14em;
+  color: var(--soft);
+}
+a.head-offer { text-decoration: none; }
+a.head-offer:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+/* 히어로 CTA */
+.cover-cta {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 14px;
+  margin-top: clamp(28px, 4.5vh, 44px);
+}
+.btn-solid {
+  display: inline-block;
+  font-family: var(--mono); font-size: 12px; letter-spacing: .16em; text-transform: uppercase;
+  background: var(--ink); color: var(--paper);
+  border: 1px solid var(--ink);
+  padding: 16px 36px;
+  transition: background .35s, border-color .35s;
+}
+.btn-solid:hover { background: var(--accent); border-color: var(--accent); }
+@media (max-width: 480px) {
+  .cover-cta { flex-direction: column; align-items: stretch; }
+  .cover-cta .btn-solid, .cover-cta .btn-line { text-align: center; }
+}
+
+/* 워크 카드: 사이트 미리보기 썸네일 */
+.cov-shot {
+  display: block;
+  margin-top: 14px;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--paper-deep);
+}
+.cov-shot img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: top center;
+  filter: grayscale(.85) sepia(.05) contrast(1.02);
+  transition: filter .5s, transform .6s cubic-bezier(.22,1,.36,1);
+}
+.work-link:hover .cov-shot img { filter: none; transform: scale(1.035); }
+.work-link { aspect-ratio: auto; min-height: 100%; }
+.v-glyph .cov-glyph { font-size: clamp(64px, 7vw, 118px); margin: 14px 0 2px; }
+.v-rule .cov-name { padding-top: 16px; }
+.v-index .cov-idx { margin: 14px 0 auto; }
+
+/* 가격 카드 CTA */
+.plan-cta {
+  display: block; text-align: center;
+  margin-top: 18px;
+  font-family: var(--mono); font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase;
+  border: 1px solid var(--ink); color: var(--ink);
+  padding: 13px 10px;
+  transition: background .3s, color .3s, border-color .3s;
+}
+.plan-cta:hover { background: var(--ink); color: var(--paper); }
+.plan-hi .plan-cta { border-color: var(--paper); color: var(--paper); }
+.plan-hi .plan-cta:hover { background: var(--paper); color: var(--ink); }
+
+/* 문의: 준비물 3 + 링크 복사 */
+.prep {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--line);
+  border: 1px solid var(--line);
+  max-width: 780px;
+  margin: 0 auto clamp(36px, 6vh, 56px);
+  text-align: left;
+}
+.prep li { background: var(--paper); padding: 22px 20px; display: flex; flex-direction: column; gap: 6px; }
+.prep .mono { color: var(--accent); letter-spacing: .12em; }
+.prep strong { font-family: var(--kr-serif); font-weight: 800; font-size: 17px; color: var(--ink); }
+.prep em { font-style: normal; font-size: 12.5px; color: var(--soft); line-height: 1.6; }
+.contact-cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+.copy-toast {
+  margin-top: 18px; font-size: 12px; letter-spacing: .08em;
+  color: var(--accent);
+  opacity: 0; transform: translateY(4px);
+  transition: opacity .4s, transform .4s;
+}
+.copy-toast.is-on { opacity: 1; transform: none; }
+@media (max-width: 760px) {
+  .prep { grid-template-columns: 1fr; }
+  .contact-cta { flex-direction: column; align-items: stretch; max-width: 420px; margin: 0 auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cov-shot img { transition: none; }
 }

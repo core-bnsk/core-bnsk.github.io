@@ -95,4 +95,31 @@
   };
   window.addEventListener("scroll", onBarScroll, { passive: true });
   onBarScroll();
+
+  /* ── contact: 페이지 링크 복사 (오픈 전 웨이브리스트 대체 액션) ──
+     클립보드를 못 쓰는 환경(file://·구형 웹뷰)에서는 토스트에 주소를
+     그대로 보여줘서 수동 복사라도 가능하게 한다. 가짜 접수 완료는 보내지 않는다. */
+  const copyBtn = document.getElementById("copyLink");
+  const toast = document.getElementById("copyToast");
+  if (copyBtn && toast) {
+    const DEFAULT_MSG = toast.textContent;
+    let toastTimer = null;
+    const showToast = (msg, ms) => {
+      if (msg) toast.textContent = msg;
+      toast.classList.add("is-on");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("is-on"), ms || 2800);
+    };
+    copyBtn.addEventListener("click", () => {
+      const url = location.href.split("#")[0];
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard
+          .writeText(url)
+          .then(() => showToast(DEFAULT_MSG))
+          .catch(() => showToast("주소: " + url, 6000));
+      } else {
+        showToast("주소: " + url, 6000);
+      }
+    });
+  }
 })();

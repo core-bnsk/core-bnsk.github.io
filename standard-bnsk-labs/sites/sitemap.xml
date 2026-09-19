@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- ※ 배포 후 example.com 을 실제 도메인으로 교체하세요 (모든 <loc>). -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://example.com/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://example.com/01-maternity-lee-seoyeon/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://example.com/02-golf-kim-doyun/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://example.com/03-posture-jung-areum/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://example.com/04-senior-choi-jiwoo/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://example.com/05-corporate-park-geonwoo/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://example.com/06-posture-han-sohee/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://example.com/07-rehab-kang-yuri/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://example.com/08-corporate-yoon-bomi/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://example.com/09-maternity-song-hyejin/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://example.com/10-senior-im-sua/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://example.com/11-maternity-park-jimin/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://example.com/12-rehab-lee-minho/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://example.com/13-senior-kim-tahee/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://example.com/14-posture-jung-soomin/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+<url><loc>https://core-bnsk.github.io/standard-bnsk-labs/sites/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://core-bnsk.github.io/standard-bnsk-labs/sites/01-maternity-lee-seoyeon/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+<url><loc>https://core-bnsk.github.io/standard-bnsk-labs/sites/02-golf-kim-doyun/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+<url><loc>https://core-bnsk.github.io/standard-bnsk-labs/sites/03-posture-jung-areum/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+<url><loc>https://core-bnsk.github.io/standard-bnsk-labs/sites/04-senior-choi-jiwoo/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+<url><loc>https://core-bnsk.github.io/standard-bnsk-labs/sites/05-corporate-park-geonwoo/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+<url><loc>https://core-bnsk.github.io/standard-bnsk-labs/sites/06-posture-han-sohee/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+<url><loc>https://core-bnsk.github.io/standard-bnsk-labs/sites/07-rehab-kang-yuri/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+<url><loc>https://core-bnsk.github.io/standard-bnsk-labs/sites/08-corporate-yoon-bomi/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+<url><loc>https://core-bnsk.github.io/standard-bnsk-labs/sites/09-maternity-song-hyejin/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+<url><loc>https://core-bnsk.github.io/standard-bnsk-labs/sites/10-senior-im-sua/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+<url><loc>https://core-bnsk.github.io/standard-bnsk-labs/sites/11-maternity-park-jimin/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+<url><loc>https://core-bnsk.github.io/standard-bnsk-labs/sites/12-rehab-lee-minho/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+<url><loc>https://core-bnsk.github.io/standard-bnsk-labs/sites/13-senior-kim-tahee/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+<url><loc>https://core-bnsk.github.io/standard-bnsk-labs/sites/14-posture-jung-soomin/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+<url><loc>https://core-bnsk.github.io/standard-bnsk-labs/sites/15-editorial-han-seoa/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
 </urlset>
