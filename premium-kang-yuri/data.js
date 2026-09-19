@@ -86,7 +86,7 @@ export const profile = {
        · 값이 있으면 문의 폼이 메일 앱 없이 서버로 직접 전송됩니다 (권장)
        · 빈 값("")이면 강사 이메일로 메일 앱이 열리는 방식으로 동작합니다 */
   links: {
-    kakaoOpenChat: "https://open.kakao.com/o/instructor07",
+    kakaoOpenChat: "https://pf.kakao.com/_GVxlaX/chat",
     instagram:     "",
     youtube:       "",
     naverBlog:     "",

@@ -1,0 +1,9 @@
+# Cloudflare Pages / Netlify 공용 헤더 설정 — 프리미엄 원페이지
+# 정적 자산(사진·영상·폰트 파일)은 1년 캐시 — 파일명이 바뀌면 새로 내려받습니다.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# 보안 기본 헤더
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
