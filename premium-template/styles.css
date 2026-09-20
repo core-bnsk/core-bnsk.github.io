@@ -8,20 +8,26 @@
 
    ◆ 파일 구조 (모듈 인덱스)
      [00] 디자인 토큰          — 샌드 아이보리 팔레트 · 서체 · 모션의 SSOT
-     [01] 리셋 & 베이스        — 모바일 기준, 데스크톱은 [12]에서 확장
+     [01] 리셋 & 베이스        — 모바일 기준, 데스크톱은 [13]에서 확장
      [02] 유틸리티             — 컨테이너 · 섹션 헤드 · 버튼 · 리빌 · 그레인
      [03] 헤더 & GNB           — 라이트 글래스모피즘 · 모바일 메뉴 · 플로팅 CTA
      [04] 히어로               — 라이트 비디오 위 잉크 카피 · 스크롤 힌트
      [05] 스탯                 — 숫자 카운트업 (샴페인 골드 접미사)
      [06] 강사 소개 (ABOUT)    — 프로필 사진 · 팩트 칩 · 경력 타임라인 · 자격증
      [07] 무브먼트 & 필로소피  — 이미지 + 철학 타일 벤토 그리드
-     [08] 프로그램 카드        — 레슨 라인업 (호버 리프트 -4px)
-     [09] 후기 (REVIEWS)       — 평점 요약 + 리뷰 카드 (경쟁 강점 ①)
+     [08] 프로그램 카드        — 레슨 라인업 (호버 리프트 + 광택 스윕)
+     [09] 후기 (REVIEWS)       — 평점 요약 + 후기 카드 (세리프 인용구)
      [10] 아코디언             — 과정(PROCESS)·FAQ 공용 (+ → − 회전 아이콘)
      [11] 컨택트               — 예약 폼 · 스튜디오 인포
      [12] 푸터
      [13] 브레이크포인트       — min-width 640 / 900 / 1024
+     [13.5] 채용·협업 (HIRING) — 원장님·기업용 조건표
      [14] 모션 최소화          — prefers-reduced-motion
+     [15] 프리로더             — 브랜드 모노그램 오프닝 (v2)
+     [16] 마퀴 리본            — 에디토리얼 키워드 흐름 (v2)
+     [17] 스튜디오 갤러리      — masonry + 라이트박스 (v2)
+     [18] 도트 내비            — 데스크톱 우측 섹션 인디케이터 (v2)
+     [19] 히어로 v2 디테일     — 단어 스태거 · 마그네틱 버튼
 
    ◆ 테마 교체 가이드
      ┌──────────────────────────────────────────────────────────────┐
@@ -563,6 +569,15 @@ strong { font-weight: 600; }
   display: flex; flex-direction: column; gap: 1rem;
   transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) ease, border-color var(--dur-base) ease;
 }
+/* 호버 광택 스윕 — 좌상단에서 우하단으로 지나가는 은은한 라이트 리본 */
+.program-card::before {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.5) 48%, transparent 62%);
+  transform: translateX(-110%);
+  transition: transform 1.05s var(--ease-out);
+  pointer-events: none;
+}
+.program-card:hover::before { transform: translateX(110%); }
 .program-card:hover {
   transform: translateY(-4px);                                  /* 요구사항: -4px 리프트 */
   box-shadow: var(--shadow-card);
@@ -612,12 +627,23 @@ strong { font-weight: 600; }
 
 .reviews__grid { display: grid; grid-template-columns: 1fr; gap: clamp(1rem, 2vw, 1.5rem); }
 .review-card {
+  position: relative;
   display: flex; flex-direction: column; gap: .8rem;
   border: 1px solid var(--color-border); border-radius: var(--radius-lg);
   background: var(--color-surface);
   padding: clamp(1.4rem, 2.4vw, 1.9rem);
   transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) ease, border-color var(--dur-base) ease;
 }
+/* 세리프 여는 따옴표 — 후기 카드의 에디토리얼 시그니처 */
+.review-card::before {
+  content: "\201C";
+  position: absolute; top: .4rem; right: 1.3rem;
+  font-family: var(--font-serif); font-size: 3.4rem; line-height: 1;
+  color: var(--color-accent-tint);
+  pointer-events: none;
+  transition: color var(--dur-base) ease;
+}
+.review-card:hover::before { color: rgba(108,138,100,.28); }
 .review-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); border-color: rgba(192,153,107,.45); }
 .review-card__stars { color: var(--color-accent-2); letter-spacing: .22em; font-size: .95rem; }
 .review-card__text { font-size: .93rem; color: var(--color-text-sub); line-height: 1.85; }
@@ -967,4 +993,208 @@ strong { font-weight: 600; }
   .hero__line > span, .hero__fade { animation: none; opacity: 1; transform: none; }
   [data-reveal] { opacity: 1; transform: none; transition: none; }
   .hero__media::before { animation: none; }
+  .marquee__track { animation: none; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   [15] 프리미엄 v2 — 오프닝 프리로더
+   · 로드 전 아이보리 베일 + 모노그램 + 워드마크 + 진행 헤어라인
+   · app.js 가 완료 시 .is-done → 페이드/스케일 아웃 후 제거
+   ═══════════════════════════════════════════════════════════════════ */
+.preloader {
+  position: fixed; inset: 0; z-index: 200;
+  display: grid; place-items: center;
+  background: var(--color-bg);
+  transition: opacity .7s var(--ease-out), visibility 0s .7s;
+}
+.preloader.is-done { opacity: 0; visibility: hidden; pointer-events: none; }
+.preloader__inner {
+  display: grid; justify-items: center; gap: 1.1rem;
+  transform: translateY(6px);
+  transition: transform .7s var(--ease-out);
+}
+.preloader.is-done .preloader__inner { transform: translateY(-10px); }
+.preloader__mark {
+  width: 56px; height: 56px; border-radius: 14px;
+  display: grid; place-items: center;
+  background: var(--color-accent-deep); color: #F8F7F2;
+  font-family: var(--font-serif); font-size: 1.5rem; font-weight: 700;
+  animation: preloader-pulse 1.6s var(--ease-inout) infinite;
+}
+@keyframes preloader-pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(108,138,100,.25); }
+  50% { transform: scale(1.04); box-shadow: 0 0 0 14px rgba(108,138,100,0); }
+}
+.preloader__brand {
+  font-family: var(--font-serif); font-size: .82rem; font-weight: 700;
+  letter-spacing: .34em; text-transform: uppercase;
+  color: var(--color-text-sub);
+  animation: preloader-track 1.4s var(--ease-out) both;
+}
+@keyframes preloader-track { from { opacity: 0; letter-spacing: .5em; } to { opacity: 1; letter-spacing: .34em; } }
+.preloader__bar {
+  width: 120px; height: 1px; overflow: hidden;
+  background: var(--color-border);
+}
+.preloader__bar::after {
+  content: ""; display: block; height: 100%; width: 40%;
+  background: var(--color-accent);
+  animation: preloader-slide 1.1s var(--ease-inout) infinite;
+}
+@keyframes preloader-slide { from { transform: translateX(-120%); } to { transform: translateX(320%); } }
+
+/* ═══════════════════════════════════════════════════════════════════
+   [16] 에디토리얼 마퀴 리본 — 히어로 ↔ 스탯 사이 키워드 흐름
+   · 세리프 이탤릭 + 대문자 트래킹의 잉크 스트립 (장식, aria-hidden)
+   ═══════════════════════════════════════════════════════════════════ */
+.marquee {
+  overflow: hidden;
+  border-block: 1px solid var(--color-border);
+  background: var(--color-bg);
+  padding-block: 1.05rem;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee__track {
+  display: flex; align-items: baseline; gap: 1.4rem;
+  width: max-content;
+  animation: marquee-run 36s linear infinite;
+}
+.marquee__track span {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: .95rem; letter-spacing: .06em;
+  color: var(--color-text-sub); white-space: nowrap;
+}
+.marquee__track span:nth-child(4n+3) { font-style: normal; font-size: .8rem; letter-spacing: .3em; text-transform: uppercase; color: var(--color-accent); }
+.marquee__track i { font-style: normal; color: var(--color-accent-2); font-size: .7rem; transform: translateY(-2px); }
+@keyframes marquee-run { to { transform: translateX(-50%); } }
+
+/* ═══════════════════════════════════════════════════════════════════
+   [17] 스튜디오 갤러리 (masonry) + 라이트박스
+   ═══════════════════════════════════════════════════════════════════ */
+.studio { background: var(--color-bg); }
+.studio__grid { columns: 2; column-gap: clamp(.8rem, 1.8vw, 1.4rem); }
+.g-card {
+  position: relative; display: block; width: 100%;
+  margin-bottom: clamp(.8rem, 1.8vw, 1.4rem);
+  border-radius: var(--radius-md); overflow: hidden;
+  background: var(--color-bg-soft);
+  box-shadow: var(--shadow-lift);
+  break-inside: avoid;
+  cursor: zoom-in;
+}
+.g-card img {
+  width: 100%; height: auto; display: block;
+  transform: scale(1.01);
+  transition: transform 1.1s var(--ease-out);
+}
+.g-card:hover img, .g-card:focus-visible img { transform: scale(1.05); }
+.g-card__scrim {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(40,44,36,.42) 100%);
+  opacity: 0; transition: opacity var(--dur-base) ease;
+}
+.g-card:hover .g-card__scrim, .g-card:focus-visible .g-card__scrim { opacity: 1; }
+.g-card__cap {
+  position: absolute; left: 1.1rem; bottom: .95rem;
+  font-size: .64rem; letter-spacing: .26em; text-transform: uppercase;
+  color: rgba(248,247,242,.95);
+  opacity: 0; transform: translateY(6px);
+  transition: opacity var(--dur-base) ease, transform var(--dur-base) var(--ease-out);
+}
+.g-card:hover .g-card__cap, .g-card:focus-visible .g-card__cap { opacity: 1; transform: none; }
+.g-card__zoom {
+  position: absolute; right: 1rem; top: 1rem;
+  width: 38px; height: 38px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: rgba(248,247,242,.9); color: var(--color-text);
+  opacity: 0; transform: translateY(-4px);
+  transition: opacity var(--dur-base) ease, transform var(--dur-base) var(--ease-out);
+}
+.g-card:hover .g-card__zoom, .g-card:focus-visible .g-card__zoom { opacity: 1; transform: none; }
+@media (min-width: 900px) { .studio__grid { columns: 3; } }
+
+/* 라이트박스 */
+.lightbox {
+  position: fixed; inset: 0; z-index: 150;
+  display: grid; place-items: center;
+  background: rgba(40, 44, 36, .55);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  opacity: 0; visibility: hidden;
+  transition: opacity var(--dur-base) ease, visibility 0s var(--dur-base);
+}
+.lightbox.is-open { opacity: 1; visibility: visible; transition: opacity var(--dur-base) ease; }
+.lightbox__stage {
+  max-width: min(92vw, 1100px); max-height: 86vh;
+  display: grid; gap: .9rem; justify-items: center;
+  transform: scale(.96); transition: transform var(--dur-base) var(--ease-out);
+}
+.lightbox.is-open .lightbox__stage { transform: scale(1); }
+.lightbox__stage img {
+  max-width: 100%; max-height: 78vh; width: auto; height: auto;
+  border-radius: var(--radius-md);
+  box-shadow: 0 40px 90px -30px rgba(20, 24, 18, .6);
+}
+.lightbox__cap {
+  display: flex; align-items: baseline; gap: .9rem;
+  color: rgba(248,247,242,.9); font-size: .82rem; letter-spacing: .06em;
+}
+.lightbox__cap b { font-variant-numeric: tabular-nums; color: rgba(248,247,242,.55); font-weight: 500; }
+.lightbox__close, .lightbox__nav {
+  position: absolute; z-index: 1;
+  width: 46px; height: 46px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: rgba(248,247,242,.92); color: var(--color-text);
+  transition: transform var(--dur-fast) var(--ease-out), background var(--dur-fast) ease;
+}
+.lightbox__close:hover, .lightbox__nav:hover:not([disabled]) { transform: translateY(-2px); background: #fff; }
+.lightbox__nav:disabled { opacity: .35; cursor: default; }
+.lightbox__close { top: clamp(1rem, 3vw, 2rem); right: clamp(1rem, 3vw, 2rem); }
+.lightbox__nav--prev { left: clamp(.6rem, 2.4vw, 2.4rem); top: 50%; transform: translateY(-50%); }
+.lightbox__nav--next { right: clamp(.6rem, 2.4vw, 2.4rem); top: 50%; transform: translateY(-50%); }
+.lightbox__nav--prev:hover:not([disabled]) { transform: translateY(-50%) translateX(-2px); }
+.lightbox__nav--next:hover:not([disabled]) { transform: translateY(-50%) translateX(2px); }
+
+/* ═══════════════════════════════════════════════════════════════════
+   [18] 도트 내비 — 데스크톱 우측 섹션 인디케이터 (≥1024px)
+   ═══════════════════════════════════════════════════════════════════ */
+.dot-nav {
+  display: none;
+  position: fixed; right: 1.6rem; top: 50%; transform: translateY(-50%);
+  z-index: 80;
+  flex-direction: column; gap: .95rem;
+}
+.dot-nav a { position: relative; display: grid; place-items: center; width: 22px; height: 22px; }
+.dot-nav i {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: rgba(42,46,39,.28);
+  transition: transform var(--dur-base) var(--ease-out), background var(--dur-base) ease,
+              box-shadow var(--dur-base) ease;
+}
+.dot-nav span {
+  position: absolute; right: 26px; top: 50%; transform: translateY(-50%) translateX(6px);
+  padding: .3rem .7rem; border-radius: var(--radius-full);
+  background: var(--color-text); color: var(--color-bg);
+  font-size: .72rem; font-weight: 600; letter-spacing: .04em; white-space: nowrap;
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--dur-fast) ease, transform var(--dur-fast) var(--ease-out);
+}
+.dot-nav a:hover span { opacity: 1; transform: translateY(-50%) translateX(0); }
+.dot-nav a.is-active i { background: var(--color-accent-deep); transform: scale(1.5); box-shadow: 0 0 0 5px var(--color-accent-tint); }
+@media (min-width: 1024px) { .dot-nav { display: flex; } }
+
+/* ═══════════════════════════════════════════════════════════════════
+   [19] 히어로 v2 디테일 — 단어 스태거 · 마그네틱 버튼 유틸
+   ═══════════════════════════════════════════════════════════════════ */
+.hero__word {
+  display: inline-block;
+  opacity: 0; transform: translateY(.5em) rotate(.4deg);
+  animation: hero-word .8s var(--ease-out) calc(.55s + var(--wd, 0s)) both;
+}
+/* 단어 스태거 사용 시 라인 단위 라이즈 애니메이션은 끈다 (이중 동작 방지) */
+.hero__line--split > span { animation: none; transform: none; }
+@keyframes hero-word { to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .hero__word { animation: none; opacity: 1; transform: none; } }
+
+/* 마그네틱 버튼 — JS 가 transform 을 덮어쓰므로 이탈 시 원복 트랜지션만 제공 */
+.hero__actions .btn, .header-cta { will-change: transform; }

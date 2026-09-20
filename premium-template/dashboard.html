@@ -240,15 +240,17 @@
       <table>
         <thead><tr><th>파일</th><th>역할</th><th class="num">라인</th><th class="num">크기</th></tr></thead>
         <tbody>
-          <tr><td><code>index.html</code></td><td>시맨틱 마크업 + SEO/OG + 섹션 골격</td><td class="num">464</td><td class="num">31 KB</td></tr>
-          <tr><td><code>styles.css</code></td><td>웰니스 라이트 테마 (Mobile-First, 토큰)</td><td class="num">894</td><td class="num">50 KB</td></tr>
-          <tr><td><code>app.js</code></td><td>렌더링 + 인터랙션 + 예외 처리 (ES Module)</td><td class="num">701</td><td class="num">34 KB</td></tr>
-          <tr><td><code>data.js</code></td><td>콘텐츠 단일 출처 (비전공자 수정 대상)</td><td class="num">313</td><td class="num">21 KB</td></tr>
+          <tr><td><code>index.html</code></td><td>시맨틱 마크업 + SEO/OG + 섹션 골격 (v2: 프리로더·마퀴·갤러리·도트내비·라이트박스)</td><td class="num">573</td><td class="num">38 KB</td></tr>
+          <tr><td><code>styles.css</code></td><td>웰니스 라이트 테마 (Mobile-First, 토큰 + v2 모듈 15~19)</td><td class="num">1200</td><td class="num">66 KB</td></tr>
+          <tr><td><code>app.js</code></td><td>렌더링 + 인터랙션 + 예외 처리 (ES Module + v2: 갤러리·라이트박스·도트내비)</td><td class="num">999</td><td class="num">48 KB</td></tr>
+          <tr><td><code>data.js</code></td><td>콘텐츠 단일 출처 (비전공자 수정 대상)</td><td class="num">405</td><td class="num">27 KB</td></tr>
           <tr><td><code>backup-01-personal-branding.html</code></td><td>초기(김도윤) 라이트 템플릿 보존본</td><td class="num">—</td><td class="num">91 KB</td></tr>
-          <tr><td><code>assets/media/hero.mp4</code></td><td>후킹 히어로 영상 (12s · 1080p · 무음 루프)</td><td class="num">—</td><td class="num">2.4 MB</td></tr>
-          <tr><td><code>assets/media/hero-poster.jpg</code></td><td>영상 대표 썸네일 (저전력 폴백)</td><td class="num">—</td><td class="num">117 KB</td></tr>
+          <tr><td><code>assets/media/hero-desktop.mp4</code></td><td>히어로 영상 데스크톱 (17s 루프 · 1920×1080 · 무음)</td><td class="num">—</td><td class="num">4.7 MB</td></tr>
+          <tr><td><code>assets/media/hero-mobile.mp4</code></td><td>히어로 영상 모바일 (17s 루프 · 1080×1920 · 무음)</td><td class="num">—</td><td class="num">3.9 MB</td></tr>
+          <tr><td><code>assets/media/hero-poster(-m).jpg</code></td><td>영상 대표 썸네일 2종 (저전력 폴백)</td><td class="num">—</td><td class="num">235 KB</td></tr>
           <tr><td><code>assets/img/profile.jpg</code></td><td>강사 프로필 사진 (4:5, 아시안 여성)</td><td class="num">—</td><td class="num">38 KB</td></tr>
           <tr><td><code>assets/img/activity-*.jpg</code></td><td>활동 사진 2종 (매트 재활 · 리포머 수업)</td><td class="num">—</td><td class="num">180 KB</td></tr>
+          <tr><td><code>assets/img/gallery/g*.jpg</code></td><td>스튜디오 갤러리 6종 (무드 소스 재사용)</td><td class="num">—</td><td class="num">1.3 MB</td></tr>
           <tr><td><code>assets/img/studio-*.jpg</code></td><td>스튜디오 인테리어 예비 사진 3종 (미사용)</td><td class="num">—</td><td class="num">1.2 MB</td></tr>
           <tr><td><code>assets/img/og-image.jpg</code></td><td>SNS 공유 카드 (1200×630)</td><td class="num">—</td><td class="num">37 KB</td></tr>
         </tbody>
@@ -266,8 +268,10 @@
         <figure><img src="assets/img/activity-coaching.jpg" alt="활동 사진 2"><figcaption>activity-coaching.jpg · Movement</figcaption></figure>
       </div>
       <p class="muted" style="margin-top:.7rem">
-        영상: assets/media/hero.mp4 — 사진 3장 Ken Burns + 크로스페이드 · 12초 · 1920×1080 · 30fps · 무음 (ffmpeg 제작).
-        세부 제작 레시피는 스킬 references/assets-pipeline.md 참고.
+        영상: assets/media/hero-{desktop,mobile}.mp4 — 무드팩 6샷 시네마틱 파이프라인 v2
+        (랭코즈 프리스케일 + 줌팬 + 크로스페이드 + 블룸·웜 그레이드·비네트·그레인 · 17초 무한 루프 · 무음).
+        재생성: <code>python _build/hero/make_hero.py --mood calm-morning</code> —
+        무드 소스 교체는 <code>_build/hero/moods/calm-morning/src/</code> 에 같은 파일명으로 덮어쓰면 됩니다 (z.ai/codex 산출물 그대로 드롭인).
       </p>
     </div>
   </section>
@@ -284,7 +288,8 @@
         <li><span class="d">STEP 5</span><span>웰니스 라이트 재설계 + 경쟁 강점 3종 반영 (후기·About·예약 CTA)</span></li>
         <li><span class="d">STEP 6</span><span>이서윤 페르소나 전환 (재활·통증 케어 정체성)</span></li>
         <li><span class="d">STEP 7</span><span>아시안 강사 사진 3종 교체 + Ken Burns 히어로 영상 제작</span></li>
-        <li><span class="d">STEP 8</span><span>템플릿 스킬화 + 현황 대시보드 (현재)</span></li>
+        <li><span class="d">STEP 8</span><span>템플릿 스킬화 + 현황 대시보드</span></li>
+        <li><span class="d">STEP 9</span><span><b>v2 고도화 (2026-09-20)</b> — 무드팩 히어로 영상 엔진 (calm-morning 6샷 시네마틱, 데스크톱/모바일 분기, 루프 봉합) · 브랜드 프리로더 · 에디토리얼 마퀴 리본 · 스튜디오 갤러리 6종 + 라이트박스 · 도트 내비 · 히어로 단어 스태거 · 마그네틱 CTA · 카드 광택/인용구 디테일 (현재)</span></li>
       </ul>
     </div>
   </section>

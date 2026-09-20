@@ -15,6 +15,7 @@
 
   ── 문서 구조 지도 & 바인딩 맵 ───────────────────────────────────────────────
   <body>
+   ├─ div#preloader                        프리미엄 오프닝 — 모노그램 로드 후 페이드
    ├─ a.skip-link                          접근성: 본문 건너뛰기
    ├─ div.progress > #progress-bar         상단 스크롤 진행 바
    ├─ header#site-header                   글래스모피즘 GNB (#header-logo, #gnb,
@@ -22,22 +23,27 @@
    │   └─ #mobile-menu                     모바일 풀스크린 메뉴 (#mobile-menu-list)
    ├─ main
    │   ├─ section#hero                     비디오 레이어(#hero-video) + 다크 비네팅
-   │   │                                   #hero-eyebrow / #hero-slogan /
+   │   │                                   #hero-eyebrow / #hero-slogan(단어 스태거)
    │   │                                   #hero-slogan-sub / #hero-cta-* /
    │   │                                   #hero-meta-* / 스크롤 힌트
+   │   ├─ div.marquee                      에디토리얼 키워드 흐름 리본 (장식)
    │   ├─ section#stats   → #stats-grid            [stats] 카운트업 주입
+   │   ├─ section#about   → 사진/팩트/경력/자격증   [profile.*] 주입
    │   ├─ section#movement→ #philosophy-intro      [profile.intro] 주입
    │   │                  → #movement-grid         [philosophy] 타일 주입
+   │   ├─ section#studio  → #gallery-grid          [gallery] masonry 주입
    │   ├─ section#programs→ #programs-grid         [programs] 카드 주입
    │   ├─ section#process → #curriculum-accordion  [curriculumAccordion] 주입
    │   ├─ section#faq     → #faq-list              [faq] 주입
-   │   └─ section#contact → #contact-form (#f-name/#f-phone/#f-program/#f-message/
-   │                                        #form-status) + #contact-info-* 바인딩
+   │   ├─ section#partners→ 채용·협업 조건          [hiring] 주입
+   │   └─ section#contact → #contact-form + #contact-info-*
    ├─ footer#site-footer                   #footer-brand / #footer-links / #year
+   ├─ nav#dot-nav                          데스크톱 우측 섹션 도트 내비 (≥1024px)
+   ├─ div#lightbox                         갤러리 라이트박스 (확대 보기)
    └─ #mobile-cta > #mobile-cta-link       모바일 하단 고정 '상담 예약' 버튼
 
   ※ 위 ID 컨테이너에 데이터를 주입하는 로직은 전부 app.js 에 있습니다.
-    함수별 매핑: renderStats / renderPhilosophy / renderPrograms /
+    함수별 매핑: renderStats / renderPhilosophy / renderGallery / renderPrograms /
                  renderCurriculum / renderFaq / renderProfile / renderLinks
 ═══════════════════════════════════════════════════════════════════════════════
 -->
@@ -82,6 +88,15 @@
 </head>
 
 <body>
+  <!-- ═══ 프리미엄 오프닝 — 브랜드 모노그램 프리로더 (app.js 가 로드 후 제거) ═══ -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader__inner">
+      <span class="preloader__mark">S</span>
+      <span class="preloader__brand">SEYUN PILATES</span>
+      <span class="preloader__bar" aria-hidden="true"></span>
+    </div>
+  </div>
+
   <!-- ═══ 접근성: 키보드 사용자가 GNB를 건너뛰고 본문으로 이동 ═══ -->
   <a class="skip-link" href="#main">본문 바로가기</a>
 
@@ -152,7 +167,7 @@
          · 카피: #hero-eyebrow ← profile.title / #hero-slogan ← profile.slogan
                  #hero-slogan-sub ← profile.sloganSub
     ══════════════════════════════════════════════════════════ -->
-    <section class="hero" id="hero" aria-label="소개">
+    <section class="hero" id="hero" aria-label="소개" data-dot="시작">
 
       <!-- (1) 배경 미디어 레이어 — 소스는 app.js 가 data.js 로부터 주입 -->
       <div class="hero__media" aria-hidden="true">
@@ -197,12 +212,24 @@
       </div>
     </section>
 
+    <!-- ═══ 에디토리얼 키워드 리본 — 히어로와 스탯 사이 흐르는 마퀴 (장식) ═══ -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Breath</span><i>·</i><span>Alignment</span><i>·</i><span>재활</span><i>·</i>
+        <span>Stability</span><i>·</i><span>통증 없는 움직임</span><i>·</i><span>Pain-Free</span><i>·</i>
+        <span>호흡</span><i>·</i><span>Posture</span><i>·</i><span>일상 회복</span><i>·</i>
+        <span>Breath</span><i>·</i><span>Alignment</span><i>·</i><span>재활</span><i>·</i>
+        <span>Stability</span><i>·</i><span>통증 없는 움직임</span><i>·</i><span>Pain-Free</span><i>·</i>
+        <span>호흡</span><i>·</i><span>Posture</span><i>·</i><span>일상 회복</span><i>·</i>
+      </div>
+    </div>
+
     <!-- ══════════════════════════════════════════════════════════
          [SECTION 02] STATS — #stats
          · #stats-grid 안에 stats[] 배열이 카드로 주입됩니다 (app.js renderStats)
          · 각 항목은 0부터 목표 숫자까지 카운트업됩니다 (app.js initCounters)
     ══════════════════════════════════════════════════════════ -->
-    <section class="stats section" id="stats" aria-label="전문성 지표">
+    <section class="stats section" id="stats" aria-label="전문성 지표" data-dot="지표">
       <div class="container">
         <header class="section__head" data-reveal>
           <p class="eyebrow">By the Numbers</p>
@@ -220,7 +247,7 @@
          · 팩트 칩: #about-age ← profile.age / #about-region ← profile.region /
            #about-years ← profile.years  (경쟁 강점 ②: 강사 신뢰의 시각화)
     ══════════════════════════════════════════════════════════ -->
-    <section class="about section" id="about" aria-label="강사 소개">
+    <section class="about section" id="about" aria-label="강사 소개" data-dot="강사 소개">
       <div class="container">
         <header class="section__head" data-reveal>
           <p class="eyebrow">About the Instructor</p>
@@ -281,10 +308,27 @@
     </section>
 
     <!-- ══════════════════════════════════════════════════════════
+         [SECTION 03.5] STUDIO GALLERY — #studio
+         · #gallery-grid 안에 gallery[] 가 masonry 카드로 주입됩니다
+           (app.js renderGallery — 비면 섹션째로 제거)
+         · 카드 클릭 → 라이트박스 확대 (#lightbox, 방향키·Esc 지원)
+    ══════════════════════════════════════════════════════════ -->
+    <section class="studio section" id="studio" aria-label="스튜디오" data-dot="스튜디오">
+      <div class="container">
+        <header class="section__head" data-reveal>
+          <p class="eyebrow">The Studio</p>
+          <h2 class="section-title">수업이 이루어지는,<br>고요한 공간</h2>
+          <p class="section-lede">아침 햇살이 커튼을 통과해 닿는 리포머 룸. 치료적인 고요함 속에서 50분이 진행됩니다. 사진을 누르면 크게 보실 수 있습니다.</p>
+        </header>
+        <div class="studio__grid" id="gallery-grid"><!-- [gallery] 주입 지점 --></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════
          [SECTION 04] PROGRAMS — #programs
          · #programs-grid 안에 programs[] 카드가 주입됩니다 (app.js renderPrograms)
     ══════════════════════════════════════════════════════════ -->
-    <section class="programs section" id="programs" aria-label="프로그램">
+    <section class="programs section" id="programs" aria-label="프로그램" data-dot="프로그램">
       <div class="container">
         <header class="section__head" data-reveal>
           <p class="eyebrow">Programs</p>
@@ -300,7 +344,7 @@
          · #review-score / #review-count / #review-source ← reviews.summary
          · #reviews-grid ← reviews.items  (경쟁 강점 ①: 실제 후기 섹션)
     ══════════════════════════════════════════════════════════ -->
-    <section class="reviews section" id="reviews" aria-label="수강생 후기">
+    <section class="reviews section" id="reviews" aria-label="수강생 후기" data-dot="후기">
       <div class="container">
         <header class="section__head" data-reveal>
           <p class="eyebrow">Reviews</p>
@@ -325,7 +369,7 @@
          · #curriculum-accordion 안에 curriculumAccordion[] 이 주입됩니다 (app.js renderCurriculum)
          · 첫 단계가 기본으로 펼쳐지고, 클릭 시 부드럽게 펼쳐집니다 (initAccordions)
     ══════════════════════════════════════════════════════════ -->
-    <section class="process section" id="process" aria-label="수업 과정">
+    <section class="process section" id="process" aria-label="수업 과정" data-dot="과정">
       <div class="container">
         <header class="section__head" data-reveal>
           <p class="eyebrow">Process &amp; Curriculum</p>
@@ -394,7 +438,7 @@
            (백엔드 연동은 app.js initContactForm 의 주석 참고)
          · 인포: #contact-info-* ← profile.studio / links
     ══════════════════════════════════════════════════════════ -->
-    <section class="contact section" id="contact" aria-label="상담 예약 및 문의">
+    <section class="contact section" id="contact" aria-label="상담 예약 및 문의" data-dot="상담">
       <div class="container">
         <header class="section__head" data-reveal>
           <p class="eyebrow">Contact &amp; Reservation</p>
@@ -475,7 +519,32 @@
     </div>
   </footer>
 
-  <!-- ════════════════════════════════════════════════════════════
+  <!-- ═══════════════════════════════════════════════════════════
+       [DOT NAV] 데스크톱 우측 섹션 도트 내비 — app.js 가 data-dot 섹션으로 생성
+       (1024px 이상에서만 표시. 스크롤 위치에 따라 활성 도트가 이동)
+  ═════════════════════════════════════════════════════════════ -->
+  <nav class="dot-nav" id="dot-nav" aria-label="섹션 바로가기"><!-- app.js 주입 --></nav>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       [LIGHTBOX] 갤러리 확대 보기 — 방향키 ←/→ 이동 · Esc 닫기
+  ═════════════════════════════════════════════════════════════ -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="갤러리 확대 보기" aria-hidden="true">
+    <button class="lightbox__close" id="lb-close" type="button" aria-label="닫기">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <button class="lightbox__nav lightbox__nav--prev" id="lb-prev" type="button" aria-label="이전 사진">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    </button>
+    <figure class="lightbox__stage">
+      <img id="lb-img" src="" alt="">
+      <figcaption class="lightbox__cap"><span id="lb-caption"></span><b id="lb-count"></b></figcaption>
+    </figure>
+    <button class="lightbox__nav lightbox__nav--next" id="lb-next" type="button" aria-label="다음 사진">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
        [MOBILE CTA] 모바일 하단 고정 상담 버튼
        · 900px 이하에서만 표시, 히어로 이탈 시 app.js 가 .is-visible 부착
   ═════════════════════════════════════════════════════════════ -->

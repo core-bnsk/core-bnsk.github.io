@@ -93,8 +93,17 @@ export const profile = {
      빈 값("")이면 index.html 의 기본 메타 설정이 그대로 유지됩니다. */
   siteUrl: "",
 
-  /* 후킹 영상 & 대표 썸네일 — assets/media/ 안의 파일 경로 */
-  heroVideoUrl: "assets/media/hero.mp4",
+  /* 후킹 영상 & 대표 썸네일 — assets/media/ 안의 파일 경로
+     · heroVideo: 데스크톱/모바일 분기 소스 (자동 교체, 768px 경계)
+       → _build/hero/make_hero.py --mood calm-morning 으로 재생성됩니다
+     · heroVideoUrl: 구버전 호환용 단일 소스 (heroVideo 가 있으면 무시됨) */
+  heroVideo: {
+    desktop:       "assets/media/hero-desktop.mp4",
+    mobile:        "assets/media/hero-mobile.mp4",
+    posterDesktop: "assets/media/hero-poster.jpg",
+    posterMobile:  "assets/media/hero-poster-m.jpg",
+  },
+  heroVideoUrl: "",
   posterImgUrl: "assets/media/hero-poster.jpg",
 
   /* 강사 프로필 사진 — About 섹션에 표시 (assets/img/profile.jpg) */
@@ -117,6 +126,21 @@ export const stats = [
   { value: 1400, suffix: "+",  label: "통증·교정 케이스",    description: "허리·목 디스크, 오십견 등" },
   { value: 8,    suffix: "년", label: "재활·필라테스 경력",  description: "정형외과 부설 센터 포함" },
   { value: 3,    suffix: "년", label: "정형외과 부설 근무",  description: "운동처방사로 환자 지도" },
+];
+
+
+/* ─────────────────────────────────────────────────────────────────
+   [2.5] GALLERY — 스튜디오 갤러리 (Studio 섹션 masonry + 라이트박스)
+   · 같은 파일명(assets/img/gallery/gN-*.jpg)으로 덮어쓰면 자동 반영
+   · cap 은 이미지 위에 겹쳐지는 영문 캡션 (비우면 표시 안 함)
+   ───────────────────────────────────────────────────────────────── */
+export const gallery = [
+  { src: "assets/img/gallery/g1-curtain.jpg",   alt: "커튼을 통한 아침 햇살",      cap: "Morning Light" },
+  { src: "assets/img/gallery/g2-reformer.jpg",  alt: "리포머가 놓인 밝은 레슨 룸",  cap: "Reformer Room" },
+  { src: "assets/img/gallery/g3-studio.jpg",    alt: "우아한 스튜디오 내부",        cap: "The Studio" },
+  { src: "assets/img/gallery/g4-window.jpg",    alt: "정원이 보이는 창가",          cap: "Garden Window" },
+  { src: "assets/img/gallery/g5-linenroom.jpg", alt: "린넨 소파의 휴식 공간",       cap: "Rest Space" },
+  { src: "assets/img/gallery/g6-tower.jpg",     alt: "화이트 타워 룸",             cap: "Tower Room" },
 ];
 
 
@@ -377,4 +401,5 @@ export default {
   reviews,
   faq,
   hiring,
+  gallery,
 };
