@@ -416,13 +416,20 @@ const renderLinks = (data) => {
     el.setAttribute('href', url);
     if (/^https?:/.test(url)) { el.setAttribute('target', '_blank'); el.setAttribute('rel', 'noopener'); }
   });
-  // 스튜디오 메타 · 메일 · 모바일 메뉴 하단 · 푸터 소셜
+  // 스튜디오 메타 · 메일 · 모바일 메뉴 하단 · 푸터 소셜 · 오시는 길
   textBindAll([
     ['#contact-studio-name', data.profile.studio?.name],
     ['#contact-studio-address', data.profile.studio?.address],
     ['#contact-studio-hours', data.profile.studio?.hours],
     ['#mobile-menu-foot', data.profile.links?.email ? `상담 · 예약 — ${data.profile.links.email}` : ''],
   ]);
+  // 오시는 길 — 카카오맵 링크 (studio.mapUrl 없으면 링크 제거)
+  const mapEl = $('#contact-map-link');
+  if (mapEl) {
+    const mapUrl = data.profile.studio?.mapUrl;
+    if (mapUrl) mapEl.href = mapUrl;
+    else mapEl.remove();
+  }
   // 값이 채워지지 않은 스튜디오 메타 행(주소·운영시간 등)은 줄째로 숨김
   ['#contact-studio-address', '#contact-studio-hours'].forEach((sel) => {
     const node = $(sel);

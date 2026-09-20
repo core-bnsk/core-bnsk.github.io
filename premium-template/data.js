@@ -32,6 +32,9 @@ export const profile = {
     name: "온앤온 필라테스 도곡점",
     address: "서울특별시 강남구 도곡로 00길 00, 3층",
     hours: "월–금 06:30–21:30 · 토 09:00–14:00 · 일 휴무",
+    /* 오시는 길 — 카카오맵 검색 링크 (주소 기반, API 키 불필요).
+       실제 스튜디오로 교체할 때 검색 URL 을 그대로 붙여 넣으면 됩니다. */
+    mapUrl: "https://map.kakao.com/?q=%EC%84%9C%EC%9A%B8%20%EA%B0%95%EB%82%A8%EA%B5%AC%20%EB%8F%84%EA%B3%A1%EB%A1%9C%20%EC%98%A8%EC%95%A4%EC%98%A8%20%ED%95%84%EB%9D%BC%ED%85%8C%EC%8A%A4",
   },
 
   /* 강사 기본 정보 */
@@ -135,12 +138,12 @@ export const stats = [
    · cap 은 이미지 위에 겹쳐지는 영문 캡션 (비우면 표시 안 함)
    ───────────────────────────────────────────────────────────────── */
 export const gallery = [
-  { src: "assets/img/gallery/g1-curtain.jpg",   alt: "커튼을 통한 아침 햇살",      cap: "Morning Light" },
-  { src: "assets/img/gallery/g2-reformer.jpg",  alt: "리포머가 놓인 밝은 레슨 룸",  cap: "Reformer Room" },
-  { src: "assets/img/gallery/g3-studio.jpg",    alt: "우아한 스튜디오 내부",        cap: "The Studio" },
-  { src: "assets/img/gallery/g4-window.jpg",    alt: "정원이 보이는 창가",          cap: "Garden Window" },
-  { src: "assets/img/gallery/g5-linenroom.jpg", alt: "린넨 소파의 휴식 공간",       cap: "Rest Space" },
-  { src: "assets/img/gallery/g6-tower.jpg",     alt: "화이트 타워 룸",             cap: "Tower Room" },
+  { src: "assets/img/gallery/g1-mirror.jpg",   alt: "아치 거울에 비친 스튜디오",         cap: "Mirror & Light" },
+  { src: "assets/img/gallery/g2-reformer.jpg",  alt: "리포머가 놓인 밝은 레슨 룸",        cap: "The Studio" },
+  { src: "assets/img/gallery/g3-studio.jpg",    alt: "우아한 화이트 리포머 스튜디오",      cap: "Reformer Studio" },
+  { src: "assets/img/gallery/g4-detail.jpg",    alt: "우드 리포머 캐리지 디테일",         cap: "Carriage Detail" },
+  { src: "assets/img/gallery/g5-corner.jpg",    alt: "러그와 원목 바닥의 조용한 코너",     cap: "Quiet Corner" },
+  { src: "assets/img/gallery/g6-tower.jpg",     alt: "화이트 타워 룸",                   cap: "Tower Room" },
 ];
 
 
