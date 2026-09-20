@@ -39,6 +39,7 @@ export const profile = {
   /* 강사 기본 정보 */
   name: "강유리",                                  // 한글 이름
   nameEn: "KANG YURI",                            // 영문 표기
+  specialtyEn: "Rehab & Myofascial Care",       // 헤더 영문 전문분야 (퍼스널 헤더 하단)
   region: "경기 고양시 일산",                       // 활동 지역
   years: 8,                                       // 2018년 시작 — 도수치료 센터 3년 포함 (숫자만)
   specialty: "재활 · 근막 케어",                    // 전문 분야 (팩트 칩에 표시)

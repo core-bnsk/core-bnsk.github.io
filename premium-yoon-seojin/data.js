@@ -39,6 +39,7 @@ export const profile = {
   /* 강사 기본 정보 */
   name: "윤서진",                                  // 한글 이름
   nameEn: "SEOJIN YOON",                          // 영문 표기
+  specialtyEn: "Condition & Movement Care",      // 헤더 영문 전문분야 (퍼스널 헤더 하단)
   region: "경기 성남시",                            // 활동 지역
   years: 8,                                       // 2018.10 전 기구 국제 지도자 자격 취득 기준 (숫자만)
   specialty: "컨디션 케어 · 움직임 회복",             // 전문 분야 (팩트 칩에 표시)

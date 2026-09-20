@@ -40,6 +40,7 @@ export const profile = {
   /* 강사 기본 정보 */
   name: "이서윤",                                  // 한글 이름
   nameEn: "SEYUN LEE",                            // 영문 표기
+  specialtyEn: "Rehab & Pain Care",               // 헤더 영문 전문분야 (퍼스널 헤더 하단)
   region: "서울 강남구 (도곡·대치·양재) · 서초구",    // 활동 지역
   years: 8,                                       // 필라테스·재활 전문 경력 (숫자만)
   specialty: "재활 · 통증 케어",                     // 전문 분야 (팩트 칩에 표시)

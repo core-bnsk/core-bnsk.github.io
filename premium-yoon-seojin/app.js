@@ -110,8 +110,8 @@ const renderProfile = (data) => {
     ['#hero-slogan-sub', p.sloganSub],
     ['#hero-meta-brand', p.heroMeta?.[0]],      // 예: "강서연 — 서울 강남 · 청담"
     ['#hero-meta-hours', p.heroMeta?.[1]],      // 예: "누적 티칭 12,000시간 · 재등록률 94%"
-    ['#header-logo .logo__brand', p.name],               // 퍼스널 헤더: 한글 이름
-    ['#header-logo .logo__en', p.nameEn],                  // 퍼스널 헤더: 영문 이름
+    ['#header-logo .logo__brand', p.nameEn],             // 퍼스널 헤더: 영문 이름
+    ['#header-logo .logo__sub', p.specialtyEn],          // 퍼스널 헤더: 영문 전문분야
     ['#footer-brand', p.brandName],
     ['#footer-instructor', p.name && p.title ? `${p.name} · ${p.title}` : ''],
   ]);
@@ -253,7 +253,10 @@ const renderReviews = (data) => {
   ]);
   const grid = requireEl('#reviews-grid', '리뷰 그리드');
   if (!grid) return;
-  grid.innerHTML = (r.items ?? []).map((rv, i) => {
+  const items = r.items ?? [];
+  // 3의 배수가 아니면 2열 그리드 — 마지막 행 구멍(들쭉날쭉) 방지
+  if (items.length && items.length % 3 !== 0) grid.dataset.cols = '2';
+  grid.innerHTML = items.map((rv, i) => {
     const rating = Math.max(0, Math.min(5, Number(rv.rating) || 0));
     return `
       <article class="review-card" data-reveal data-reveal-delay="${(i % 3) + 1}">
@@ -422,7 +425,7 @@ const renderLinks = (data) => {
     ['#contact-studio-name', data.profile.studio?.name],
     ['#contact-studio-address', data.profile.studio?.address],
     ['#contact-studio-hours', data.profile.studio?.hours],
-    ['#mobile-menu-foot', data.profile.links?.email ? `상담 · 예약 — ${data.profile.links.email}` : '상담 및 예약 — 카카오톡 채널'],
+    ['#mobile-menu-foot', data.profile.links?.email ? `상담 · 예약 — ${data.profile.links.email}` : '상담 및 예약은 카카오톡 채널에서'],
   ]);
   // 오시는 길 — 카카오맵 링크 (studio.mapUrl 없으면 링크 제거)
   const mapEl = $('#contact-map-link');
