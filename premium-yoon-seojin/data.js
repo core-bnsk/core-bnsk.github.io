@@ -96,11 +96,14 @@ export const profile = {
   siteUrl: "",
 
   /* 후킹 영상 & 대표 썸네일 — assets/media/ 안의 파일 경로
-     · 기본은 인물 미등장 공통 에셋(스튜디오 공간·기구 연출) — 어떤 강사에게도 적용 가능
-     · 고객 요구 시 전용 영상 제작 후 동일 파일명으로 교체 (_build/make_hero_video.py 참고) */
+     · 무드팩 'soft-air'(밝은 화이트 리포머 스튜디오) 단일 세계관 루프 — 인물 미등장
+     · 재생성: python _build/hero/make_hero.py --mood soft-air
+       (무드 소스 교체는 _build/hero/moods/soft-air/src/01-studio.jpg 같은 파일명 덮어쓰기) */
   heroVideo: {
-    desktop: "assets/media/hero-desktop.mp4",
-    mobile:  "assets/media/hero-mobile.mp4",
+    desktop:       "assets/media/hero-desktop.mp4?v=20260920",
+    mobile:        "assets/media/hero-mobile.mp4?v=20260920",
+    posterDesktop: "assets/media/hero-poster.jpg",
+    posterMobile:  "assets/media/hero-poster-m.jpg",
   },
   posterImgUrl: "assets/media/hero-poster.jpg",
 
@@ -322,8 +325,12 @@ export const faq = [
    [8] GALLERY — 움직임 철학 섹션 이미지 (고객 제공 사진)
    ───────────────────────────────────────────────────────────────── */
 export const gallery = [
-  { src: "assets/img/activity-release.jpg", alt: "폼롤러 근막 이완 훈련 장면", cap: "Myofascial Release" },
-  { src: "assets/img/activity-coaching.jpg", alt: "듀엣 레슨 — 팔 스트레칭 지도 장면", cap: "Duet Lesson" },
+  { src: "assets/img/gallery/g1-mirror.jpg",    alt: "골드 프레임 거울에 비친 스튜디오",      cap: "Mirror & Light" },
+  { src: "assets/img/gallery/g2-studio.jpg",    alt: "화이트 리포머 스튜디오 전경",           cap: "The Studio" },
+  { src: "assets/img/gallery/g3-detail.jpg",    alt: "화이트 리포머 디테일",                cap: "Reformer" },
+  { src: "assets/img/activity-release.jpg",     alt: "폼롤러 근막 이완 훈련 장면",           cap: "Myofascial Release" },
+  { src: "assets/img/gallery/g5-floor.jpg",     alt: "헤링본 바닥과 리포머 베이스",          cap: "Quiet Corner" },
+  { src: "assets/img/activity-coaching.jpg",    alt: "듀엣 레슨 — 팔 스트레칭 지도 장면",      cap: "Duet Lesson" },
 ];
 
 

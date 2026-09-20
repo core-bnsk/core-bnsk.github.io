@@ -87,13 +87,13 @@ const normalizeData = (mod) => {
     stats:      asArray(mod.stats, 'stats'),
     philosophy: asArray(mod.philosophy, 'philosophy'),
     programs:   asArray(mod.programs, 'programs'),
+    gallery:    asArray(mod.gallery, 'gallery'),
     curriculum: asArray(mod.curriculumAccordion ?? mod.curriculum, 'curriculumAccordion'),
     reviews:    (mod.reviews && typeof mod.reviews === 'object')
                   ? { summary: mod.reviews.summary ?? {}, items: Array.isArray(mod.reviews.items) ? mod.reviews.items : [] }
                   : { summary: {}, items: [] },
     faq:        asArray(mod.faq, 'faq'),
     hiring:     (mod.hiring && typeof mod.hiring === 'object') ? mod.hiring : null,
-    gallery:    asArray(mod.gallery, 'gallery'),
   };
 };
 
@@ -110,8 +110,8 @@ const renderProfile = (data) => {
     ['#hero-slogan-sub', p.sloganSub],
     ['#hero-meta-brand', p.heroMeta?.[0]],      // 예: "강서연 — 서울 강남 · 청담"
     ['#hero-meta-hours', p.heroMeta?.[1]],      // 예: "누적 티칭 12,000시간 · 재등록률 94%"
-    ['#header-logo .logo__brand', p.name],              // 퍼스널 헤더: 한글 이름
-    ['#header-logo .logo__en', p.nameEn],               // 퍼스널 헤더: 영문 이름
+    ['#header-logo .logo__brand', p.name],               // 퍼스널 헤더: 한글 이름
+    ['#header-logo .logo__en', p.nameEn],                  // 퍼스널 헤더: 영문 이름
     ['#footer-brand', p.brandName],
     ['#footer-instructor', p.name && p.title ? `${p.name} · ${p.title}` : ''],
   ]);
@@ -190,8 +190,8 @@ const renderPhilosophy = (data) => {
   const gallery = (Array.isArray(data.gallery) && data.gallery.length >= 2)
     ? data.gallery
     : [
-      { src: 'assets/img/activity-release.jpg', alt: '근막 이완 훈련 레슨 장면', cap: 'Myofascial Release' },
-      { src: 'assets/img/activity-studio.jpg', alt: '필라테스 스튜디오 전경', cap: 'Studio' },
+      { src: 'assets/img/activity-reformer.jpg', alt: '리포머 레슨 룸', cap: 'Reformer Room' },
+      { src: 'assets/img/studio-bright.jpg', alt: '필라테스 스튜디오 전경', cap: 'Studio' },
     ];
   const fig = (g, cls) => `
     <figure class="m-img ${cls}" data-reveal>
@@ -214,6 +214,26 @@ const renderPhilosophy = (data) => {
     const body = document.createElement('p');    body.className = 'phil-tile__body'; body.textContent = item.body ?? '';
     slot.append(num, h3, body);
   });
+};
+
+/** gallery[] → 스튜디오 masonry 갤러리 (비면 섹션째로 제거)
+    · 각 카드는 <button> — 클릭 시 initLightbox 로 확대된다 */
+const renderGallery = (data) => {
+  const grid = $('#gallery-grid');
+  const section = $('#studio');
+  if (!grid || !section) return;
+  const items = (data.gallery ?? []).filter((g) => g && g.src);
+  if (!items.length) { section.remove(); return; }
+  grid.innerHTML = items.map((g, i) => `
+    <button class="g-card" type="button" data-lb-index="${i}"
+            aria-label="${escapeHtml(g.alt ?? `스튜디오 사진 ${i + 1}`)} 확대해서 보기">
+      <img src="${escapeHtml(g.src)}" alt="${escapeHtml(g.alt ?? '')}" loading="lazy" decoding="async">
+      <span class="g-card__scrim" aria-hidden="true"></span>
+      ${g.cap ? `<span class="g-card__cap">${escapeHtml(g.cap)}</span>` : ''}
+      <span class="g-card__zoom" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg>
+      </span>
+    </button>`).join('');
 };
 
 /** reviews → 평점 요약 + 후기 카드 (경쟁 강점 ①: 실제 후기로 신뢰 전환) */
@@ -366,7 +386,7 @@ const renderHiring = (data) => {
   }
 };
 
-
+/** faq[] → 토글 아코디언 */
 const renderFaq = (data) => {
   const wrap = requireEl('#faq-list', 'FAQ 아코디언');
   if (!wrap) return;
@@ -397,13 +417,20 @@ const renderLinks = (data) => {
     el.setAttribute('href', url);
     if (/^https?:/.test(url)) { el.setAttribute('target', '_blank'); el.setAttribute('rel', 'noopener'); }
   });
-  // 스튜디오 메타 · 메일 · 모바일 메뉴 하단 · 푸터 소셜
+  // 스튜디오 메타 · 메일 · 모바일 메뉴 하단 · 푸터 소셜 · 오시는 길
   textBindAll([
     ['#contact-studio-name', data.profile.studio?.name],
     ['#contact-studio-address', data.profile.studio?.address],
     ['#contact-studio-hours', data.profile.studio?.hours],
     ['#mobile-menu-foot', data.profile.links?.email ? `상담 · 예약 — ${data.profile.links.email}` : '상담 및 예약 — 카카오톡 채널'],
   ]);
+  // 오시는 길 — 카카오맵 링크 (studio.mapUrl 없으면 링크 제거)
+  const mapEl = $('#contact-map-link');
+  if (mapEl) {
+    const mapUrl = data.profile.studio?.mapUrl;
+    if (mapUrl) mapEl.href = mapUrl;
+    else mapEl.remove();
+  }
   // 값이 채워지지 않은 스튜디오 메타 행(주소·운영시간 등)은 줄째로 숨김
   ['#contact-studio-address', '#contact-studio-hours'].forEach((sel) => {
     const node = $(sel);
@@ -640,6 +667,130 @@ const initFloatingCta = () => {
   }
 };
 
+/** 라이트박스 — 갤러리 카드 클릭 시 확대 보기 (←/→ 이동 · Esc/백드롭 닫기) */
+const initLightbox = (data) => {
+  const box = $('#lightbox');
+  if (!box) return;
+  const items = (data.gallery ?? []).filter((g) => g && g.src);
+  if (!items.length) { box.remove(); return; }
+  const img = $('#lb-img'), cap = $('#lb-caption'), count = $('#lb-count');
+  let index = 0;
+  let lastFocus = null;
+
+  const render = () => {
+    const g = items[index];
+    if (!g) return;
+    img.src = g.src;
+    img.alt = g.alt ?? '';
+    cap.textContent = g.cap ?? g.alt ?? '';
+    count.textContent = `${index + 1} / ${items.length}`;
+    $('#lb-prev')?.toggleAttribute('disabled', items.length < 2);
+    $('#lb-next')?.toggleAttribute('disabled', items.length < 2);
+  };
+  const open = (i) => {
+    index = i; render();
+    lastFocus = document.activeElement;
+    box.classList.add('is-open');
+    box.setAttribute('aria-hidden', 'false');
+    document.documentElement.classList.add('menu-open');   // 배경 스크롤 잠금 재사용
+    $('#lb-close')?.focus();
+  };
+  const close = () => {
+    box.classList.remove('is-open');
+    box.setAttribute('aria-hidden', 'true');
+    document.documentElement.classList.remove('menu-open');
+    lastFocus?.focus?.();
+  };
+  const move = (d) => { index = (index + d + items.length) % items.length; render(); };
+
+  $$('#gallery-grid .g-card').forEach((card) => {
+    card.addEventListener('click', () => open(Number(card.dataset.lbIndex) || 0));
+  });
+  $('#lb-close')?.addEventListener('click', close);
+  $('#lb-prev')?.addEventListener('click', () => move(-1));
+  $('#lb-next')?.addEventListener('click', () => move(1));
+  box.addEventListener('click', (e) => { if (e.target === box) close(); });
+  window.addEventListener('keydown', (e) => {
+    if (!box.classList.contains('is-open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') move(-1);
+    if (e.key === 'ArrowRight') move(1);
+  });
+};
+
+/** 도트 내비 — data-dot 섹션에서 생성, 스크롤 위치에 따라 활성 도트 이동 (≥1024px) */
+const initDotNav = () => {
+  const nav = $('#dot-nav');
+  if (!nav) return;
+  const sections = $$('main section[data-dot]');
+  if (!sections.length || !('IntersectionObserver' in window)) { nav.remove(); return; }
+  const links = sections.map((sec, i) => {
+    const a = document.createElement('a');
+    a.href = `#${sec.id}`;
+    a.setAttribute('aria-label', sec.dataset.dot);
+    a.innerHTML = `<i aria-hidden="true"></i><span>${escapeHtml(sec.dataset.dot)}</span>`;
+    nav.appendChild(a);
+    a.addEventListener('click', (e) => {                    // 스무스 스크롤 (scroll-padding 준수)
+      e.preventDefault();
+      document.querySelector(`#${CSS.escape(sec.id)}`)?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' });
+    });
+    return a;
+  });
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      links.forEach((l) => l.classList.remove('is-active'));
+      const i = sections.indexOf(entry.target);
+      links[i]?.classList.add('is-active');
+    });
+  }, { rootMargin: '-42% 0px -52% 0px' });
+  sections.forEach((sec) => spy.observe(sec));
+};
+
+/** 프리로더 — 로드 완료(또는 최대 1.4s) 후 브랜드 페이드아웃. 실패해도 사이트는 그대로 노출 */
+const initPreloader = () => {
+  const pre = $('#preloader');
+  if (!pre) return;
+  const done = () => {
+    pre.classList.add('is-done');
+    window.setTimeout(() => pre.remove(), 900);
+  };
+  if (reducedMotion) { pre.remove(); return; }
+  if (document.readyState === 'complete') window.setTimeout(done, 450);
+  else window.addEventListener('load', () => window.setTimeout(done, 450), { once: true });
+  window.setTimeout(done, 1400);                            // 안전 밸브 — 어떤 일이 있어도 해제
+};
+
+/** 히어로 헤드라인 단어 스태거 — #hero-slogan 을 단어 단위 <span> 으로 쪼개 순차 등장 */
+const splitHeroHeadline = () => {
+  const el = $('#hero-slogan');
+  if (!el || reducedMotion) return;
+  const words = (el.textContent ?? '').trim().split(/\s+/).filter(Boolean);
+  if (words.length < 2) return;
+  el.innerHTML = words.map((w, i) => {
+    const s = document.createElement('span');
+    s.className = 'hero__word';
+    s.textContent = w;
+    s.style.setProperty('--wd', `${(i * 0.09).toFixed(2)}s`);
+    return s.outerHTML;
+  }).join(' ');
+  el.closest('.hero__line')?.classList.add('hero__line--split');
+};
+
+/** 마그네틱 버튼 — 정밀 포인터(데스크톱 마우스)에서 CTA 가 커서를 살짝 따라온다 */
+const initMagneticButtons = () => {
+  if (reducedMotion || !window.matchMedia('(pointer: fine)').matches) return;
+  $$('.hero__actions .btn, .header-cta').forEach((btn) => {
+    btn.addEventListener('mousemove', (e) => {
+      const r = btn.getBoundingClientRect();
+      const x = (e.clientX - r.left - r.width / 2) / r.width;
+      const y = (e.clientY - r.top - r.height / 2) / r.height;
+      btn.style.transform = `translate(${x * 7}px, ${y * 5}px)`;
+    });
+    btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+  });
+};
+
 /** 헤더 글래스 상태 · 스크롤 진행 바 · 히어로 패럴랙스 (rAF 스로틀) */
 const initHeaderScroll = () => {
   const header = $('#site-header');
@@ -814,7 +965,7 @@ const initApp = async () => {
   }
   try {
     // 동적 import → data.js 누락/구문 오류를 여기서 잡는다
-    const mod = await import('./data.js?v=20260913');
+    const mod = await import('./data.js?v=20260920');
     const data = normalizeData(mod);
 
     // ── 렌더링 (각 단계 격리) ──
@@ -823,6 +974,7 @@ const initApp = async () => {
     safeRun('스탯 렌더',     () => renderStats(data));
     safeRun('강사 소개 렌더', () => renderAbout(data));
     safeRun('철학 렌더',     () => renderPhilosophy(data));
+    safeRun('갤러리 렌더',   () => renderGallery(data));
     safeRun('프로그램 렌더', () => renderPrograms(data));
     safeRun('후기 렌더',     () => renderReviews(data));
     safeRun('과정 렌더',     () => renderCurriculum(data));
@@ -833,10 +985,15 @@ const initApp = async () => {
 
     // ── 인터랙션 (렌더 완료 후 초기화되어야 동적 요소도 관찰 대상이 됨) ──
     safeRun('히어로 비디오',  () => initHeroVideo(data));
+    safeRun('히어로 헤드라인', () => splitHeroHeadline());
+    safeRun('프리로더',      () => initPreloader());
     safeRun('스크롤 리빌',    () => initScrollReveal());
     safeRun('카운터',        () => initCounters());
     safeRun('아코디언',      () => initAccordions());
     safeRun('플로팅 CTA',    () => initFloatingCta());
+    safeRun('라이트박스',    () => initLightbox(data));
+    safeRun('도트 내비',     () => initDotNav());
+    safeRun('마그네틱 버튼', () => initMagneticButtons());
     safeRun('헤더 스크롤',    () => initHeaderScroll());
     safeRun('스크롤스파이',   () => initScrollSpy());
     safeRun('모바일 메뉴',    () => initMobileMenu());

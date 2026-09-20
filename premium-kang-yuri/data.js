@@ -104,12 +104,12 @@ export const profile = {
        — app.js 가 뷰포트에 맞는 영상·포스터를 자동 선택합니다.
      · heroVideoUrl/posterImgUrl: 구버전 호환 폴백 (단일 파일 사용 시) */
   heroVideo: {
-    desktop:      "assets/media/hero-desktop.mp4?v=20260913a",
-    mobile:       "assets/media/hero-mobile.mp4?v=20260913a",
+    desktop:      "assets/media/hero-desktop.mp4?v=20260920",
+    mobile:       "assets/media/hero-mobile.mp4?v=20260920",
     posterDesktop: "assets/media/hero-poster.jpg",
     posterMobile:  "assets/media/hero-poster-m.jpg",
   },
-  heroVideoUrl: "assets/media/hero-desktop.mp4?v=20260913a",
+  heroVideoUrl: "",
   posterImgUrl: "assets/media/hero-poster.jpg",
 
   /* 강사 프로필 사진 — About 섹션에 표시 (assets/img/profile.jpg) */
@@ -125,8 +125,12 @@ export const profile = {
 /* 무브먼트 섹션 갤러리 — app.js 가 이 순서대로 사진을 배치합니다.
    (데이터가 없으면 엔진 기본 이미지가 사용됩니다) */
 export const gallery = [
-  { src: "assets/img/activity-release.jpg", alt: "폼롤러로 근막 이완 훈련을 진행하는 강유리 강사", cap: "Myofascial Release" },
-  { src: "assets/img/activity-studio.jpg",  alt: "리포머 기구가 갖춰진 반석 필라테스 일산 스튜디오", cap: "Studio in Ilsan" },
+  { src: "assets/img/gallery/g1-window.jpg",    alt: "아치창으로 들어오는 오후의 빛",           cap: "Arched Light" },
+  { src: "assets/img/gallery/g2-studio.jpg",    alt: "리포머 2대가 놓인 원목 스튜디오 전경",      cap: "The Studio" },
+  { src: "assets/img/gallery/g3-reformer.jpg",  alt: "리포머 기구 디테일",                     cap: "Reformer" },
+  { src: "assets/img/activity-release.jpg",     alt: "폼롤러로 근막 이완 훈련을 진행하는 강유리 강사", cap: "Myofascial Release" },
+  { src: "assets/img/gallery/g5-corner.jpg",    alt: "매트가 놓인 원목 바닥 코너",              cap: "Quiet Corner" },
+  { src: "assets/img/activity-studio.jpg",      alt: "리포머 기구가 갖춰진 반석 필라테스 일산 스튜디오", cap: "Studio in Ilsan" },
 ];
 
 

@@ -15,6 +15,7 @@
 
   ── 문서 구조 지도 & 바인딩 맵 ───────────────────────────────────────────────
   <body>
+   ├─ div#preloader                        프리미엄 오프닝 — 모노그램 로드 후 페이드
    ├─ a.skip-link                          접근성: 본문 건너뛰기
    ├─ div.progress > #progress-bar         상단 스크롤 진행 바
    ├─ header#site-header                   글래스모피즘 GNB (#header-logo, #gnb,
@@ -22,22 +23,27 @@
    │   └─ #mobile-menu                     모바일 풀스크린 메뉴 (#mobile-menu-list)
    ├─ main
    │   ├─ section#hero                     비디오 레이어(#hero-video) + 다크 비네팅
-   │   │                                   #hero-eyebrow / #hero-slogan /
+   │   │                                   #hero-eyebrow / #hero-slogan(단어 스태거)
    │   │                                   #hero-slogan-sub / #hero-cta-* /
    │   │                                   #hero-meta-* / 스크롤 힌트
+   │   ├─ div.marquee                      에디토리얼 키워드 흐름 리본 (장식)
    │   ├─ section#stats   → #stats-grid            [stats] 카운트업 주입
+   │   ├─ section#about   → 사진/팩트/경력/자격증   [profile.*] 주입
    │   ├─ section#movement→ #philosophy-intro      [profile.intro] 주입
    │   │                  → #movement-grid         [philosophy] 타일 주입
+   │   ├─ section#studio  → #gallery-grid          [gallery] masonry 주입
    │   ├─ section#programs→ #programs-grid         [programs] 카드 주입
    │   ├─ section#process → #curriculum-accordion  [curriculumAccordion] 주입
    │   ├─ section#faq     → #faq-list              [faq] 주입
-   │   └─ section#contact → #contact-form (#f-name/#f-phone/#f-program/#f-message/
-   │                                        #form-status) + #contact-info-* 바인딩
+   │   ├─ section#partners→ 채용·협업 조건          [hiring] 주입
+   │   └─ section#contact → #contact-form + #contact-info-*
    ├─ footer#site-footer                   #footer-brand / #footer-links / #year
+   ├─ nav#dot-nav                          데스크톱 우측 섹션 도트 내비 (≥1024px)
+   ├─ div#lightbox                         갤러리 라이트박스 (확대 보기)
    └─ #mobile-cta > #mobile-cta-link       모바일 하단 고정 '상담 예약' 버튼
 
   ※ 위 ID 컨테이너에 데이터를 주입하는 로직은 전부 app.js 에 있습니다.
-    함수별 매핑: renderStats / renderPhilosophy / renderPrograms /
+    함수별 매핑: renderStats / renderPhilosophy / renderGallery / renderPrograms /
                  renderCurriculum / renderFaq / renderProfile / renderLinks
 ═══════════════════════════════════════════════════════════════════════════════
 -->
@@ -66,7 +72,6 @@
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- 파비콘: 인라인 SVG 데이터 URI (오프화이트 배경 + 잉크 'H' 모노그램) -->
-  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23f5f5f7'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='32' fill='%23121214' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
 
   <!-- ══════════ 웹폰트 (프리미엄 타이포 세트) ══════════
@@ -77,13 +82,21 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 
   <!-- ══════════ 사이트 스타일 — 다크 에디션 (styles.css) ══════════ -->
-  <link rel="stylesheet" href="styles.css?v=20260913">
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
+  <!-- ═══ 프리미엄 오프닝 — 브랜드 모노그램 프리로더 (app.js 가 로드 후 제거) ═══ -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader__inner">
+      <span class="preloader__mark">J</span>
+      <span class="preloader__brand">SEOJIN PILATES</span>
+      <span class="preloader__bar" aria-hidden="true"></span>
+    </div>
+  </div>
+
   <!-- ═══ 접근성: 키보드 사용자가 GNB를 건너뛰고 본문으로 이동 ═══ -->
   <a class="skip-link" href="#main">본문 바로가기</a>
 
@@ -117,6 +130,11 @@
         <a class="gnb__link" href="#partners" data-nav-link id="nav-partners">채용·협업</a>
       </nav>
 
+      <!-- 우측 상단 돋보이는 '상담 예약' CTA — 카카오톡 오픈채팅으로 연결 -->
+      <a class="header-cta" id="header-cta" href="#contact" data-link="kakaoOpenChat" data-link-item>
+        상담 예약
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>
+      </a>
 
       <!-- 모바일 햄버거: aria-expanded가 X 변형과 메뉴 상태의 단일 근원 -->
       <button class="nav-toggle" id="nav-toggle" type="button"
@@ -149,7 +167,7 @@
          · 카피: #hero-eyebrow ← profile.title / #hero-slogan ← profile.slogan
                  #hero-slogan-sub ← profile.sloganSub
     ══════════════════════════════════════════════════════════ -->
-    <section class="hero" id="hero" aria-label="소개">
+    <section class="hero" id="hero" aria-label="소개" data-dot="시작">
 
       <!-- (1) 배경 미디어 레이어 — 소스는 app.js 가 data.js 로부터 주입 -->
       <div class="hero__media" aria-hidden="true">
@@ -194,12 +212,24 @@
       </div>
     </section>
 
+    <!-- ═══ 에디토리얼 키워드 리본 — 히어로와 스탯 사이 흐르는 마퀴 (장식) ═══ -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Breath</span><i>·</i><span>Alignment</span><i>·</i><span>재활</span><i>·</i>
+        <span>Stability</span><i>·</i><span>통증 없는 움직임</span><i>·</i><span>Pain-Free</span><i>·</i>
+        <span>호흡</span><i>·</i><span>Posture</span><i>·</i><span>일상 회복</span><i>·</i>
+        <span>Breath</span><i>·</i><span>Alignment</span><i>·</i><span>재활</span><i>·</i>
+        <span>Stability</span><i>·</i><span>통증 없는 움직임</span><i>·</i><span>Pain-Free</span><i>·</i>
+        <span>호흡</span><i>·</i><span>Posture</span><i>·</i><span>일상 회복</span><i>·</i>
+      </div>
+    </div>
+
     <!-- ══════════════════════════════════════════════════════════
          [SECTION 02] STATS — #stats
          · #stats-grid 안에 stats[] 배열이 카드로 주입됩니다 (app.js renderStats)
          · 각 항목은 0부터 목표 숫자까지 카운트업됩니다 (app.js initCounters)
     ══════════════════════════════════════════════════════════ -->
-    <section class="stats section" id="stats" aria-label="전문성 지표">
+    <section class="stats section" id="stats" aria-label="전문성 지표" data-dot="지표">
       <div class="container">
         <header class="section__head" data-reveal>
           <p class="eyebrow">By the Numbers</p>
@@ -217,7 +247,7 @@
          · 팩트 칩: #about-age ← profile.age / #about-region ← profile.region /
            #about-years ← profile.years  (경쟁 강점 ②: 강사 신뢰의 시각화)
     ══════════════════════════════════════════════════════════ -->
-    <section class="about section" id="about" aria-label="강사 소개">
+    <section class="about section" id="about" aria-label="강사 소개" data-dot="강사 소개">
       <div class="container">
         <header class="section__head" data-reveal>
           <p class="eyebrow">About the Instructor</p>
@@ -228,10 +258,10 @@
         <div class="about__layout">
           <!-- 프로필 사진 (assets/img/profile.jpg — 실제 사진으로 교체하세요) -->
           <figure class="about__media" data-reveal>
-            <img id="about-photo" src="" alt="윤서진 강사 프로필 사진">
+            <img id="about-photo" src="" alt="이서윤 강사 프로필 사진">
             <figcaption class="about__plate">
-              <strong id="about-plate-name">윤서진</strong>
-              <span id="about-plate-en">SEOJIN YOON</span>
+              <strong id="about-plate-name">이서윤</strong>
+              <span id="about-plate-en">SEYUN LEE</span>
             </figcaption>
           </figure>
 
@@ -278,10 +308,27 @@
     </section>
 
     <!-- ══════════════════════════════════════════════════════════
+         [SECTION 03.5] STUDIO GALLERY — #studio
+         · #gallery-grid 안에 gallery[] 가 masonry 카드로 주입됩니다
+           (app.js renderGallery — 비면 섹션째로 제거)
+         · 카드 클릭 → 라이트박스 확대 (#lightbox, 방향키·Esc 지원)
+    ══════════════════════════════════════════════════════════ -->
+    <section class="studio section" id="studio" aria-label="스튜디오" data-dot="스튜디오">
+      <div class="container">
+        <header class="section__head" data-reveal>
+          <p class="eyebrow">The Studio</p>
+          <h2 class="section-title">수업이 이루어지는,<br>고요한 공간</h2>
+          <p class="section-lede">아침 햇살이 거울에 내려앉는 리포머 룸. 치료적인 고요함 속에서 50분이 진행됩니다. 사진을 누르면 크게 보실 수 있습니다.</p>
+        </header>
+        <div class="studio__grid" id="gallery-grid"><!-- [gallery] 주입 지점 --></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════
          [SECTION 04] PROGRAMS — #programs
          · #programs-grid 안에 programs[] 카드가 주입됩니다 (app.js renderPrograms)
     ══════════════════════════════════════════════════════════ -->
-    <section class="programs section" id="programs" aria-label="프로그램">
+    <section class="programs section" id="programs" aria-label="프로그램" data-dot="프로그램">
       <div class="container">
         <header class="section__head" data-reveal>
           <p class="eyebrow">Programs</p>
@@ -297,7 +344,7 @@
          · #review-score / #review-count / #review-source ← reviews.summary
          · #reviews-grid ← reviews.items  (경쟁 강점 ①: 실제 후기 섹션)
     ══════════════════════════════════════════════════════════ -->
-    <section class="reviews section" id="reviews" aria-label="수강생 후기">
+    <section class="reviews section" id="reviews" aria-label="수강생 후기" data-dot="후기">
       <div class="container">
         <header class="section__head" data-reveal>
           <p class="eyebrow">Reviews</p>
@@ -317,13 +364,12 @@
       </div>
     </section>
 
-
     <!-- ══════════════════════════════════════════════════════════
          [SECTION 05] PROCESS & CURRICULUM — #process
          · #curriculum-accordion 안에 curriculumAccordion[] 이 주입됩니다 (app.js renderCurriculum)
          · 첫 단계가 기본으로 펼쳐지고, 클릭 시 부드럽게 펼쳐집니다 (initAccordions)
     ══════════════════════════════════════════════════════════ -->
-    <section class="process section" id="process" aria-label="수업 과정">
+    <section class="process section" id="process" aria-label="수업 과정" data-dot="과정">
       <div class="container">
         <header class="section__head" data-reveal>
           <p class="eyebrow">Process &amp; Curriculum</p>
@@ -392,12 +438,12 @@
            (백엔드 연동은 app.js initContactForm 의 주석 참고)
          · 인포: #contact-info-* ← profile.studio / links
     ══════════════════════════════════════════════════════════ -->
-    <section class="contact section" id="contact" aria-label="상담 예약 및 문의">
+    <section class="contact section" id="contact" aria-label="상담 예약 및 문의" data-dot="상담">
       <div class="container">
         <header class="section__head" data-reveal>
           <p class="eyebrow">Contact &amp; Reservation</p>
           <h2 class="section-title">첫 상담에서,<br>몸의 이야기를 듣습니다</h2>
-          <p class="section-lede">간단한 정보를 남겨 주시면 예약 가능한 시간과 함께 회신드립니다.</p>
+          <p class="section-lede">간단한 정보를 남겨 주시면 예약 가능한 시간과 함께 회신드립니다. 첫 상담은 무료입니다.</p>
         </header>
 
         <div class="contact__layout">
@@ -407,11 +453,11 @@
             <div class="form-row">
               <div class="field">
                 <label for="f-name">이름 <em>*</em></label>
-                <input type="text" id="f-name" name="name" placeholder="홍길동" required autocomplete="name">
+                <input type="text" id="f-name" name="name" placeholder="홍길동" required>
               </div>
               <div class="field">
                 <label for="f-phone">연락처 <em>*</em></label>
-                <input type="tel" id="f-phone" name="phone" placeholder="010-0000-0000" required autocomplete="tel" inputmode="tel">
+                <input type="tel" id="f-phone" name="phone" placeholder="010-0000-0000" required>
               </div>
             </div>
             <div class="field">
@@ -427,7 +473,7 @@
                 예약 상담 요청 보내기
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>
               </button>
-              <p class="form-note">상담 요청은 확인 후 카카오톡 채널로 회신드립니다. 급한 문의는 카카오톡 상담을 이용해 주세요.</p>
+              <p class="form-note">보내기를 누르면 메일 앱이 열립니다. 카카오톡 상담도 언제든 환영합니다.</p>
             </div>
             <p class="form-status" id="form-status" role="status"></p>
           </form>
@@ -449,9 +495,16 @@
             <a class="contact-mail" id="contact-email" href="#"></a>
 
             <ul class="contact-meta">
+              <li><dt>스튜디오</dt><dd id="contact-studio-name"></dd></li>
               <li><dt>주소</dt><dd id="contact-studio-address"></dd></li>
               <li><dt>운영 시간</dt><dd id="contact-studio-hours"></dd></li>
             </ul>
+
+            <!-- 오시는 길 — profile.studio.mapUrl 이 있을 때만 표시 (app.js) -->
+            <a class="contact-map" id="contact-map-link" href="#" target="_blank" rel="noopener">
+              카카오맵으로 오시는 길 보기
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>
+            </a>
           </aside>
 
         </div>
@@ -464,7 +517,7 @@
   ═════════════════════════════════════════════════════════════ -->
   <footer class="site-footer" id="site-footer">
     <div class="container footer-inner">
-      <p class="footer-brand"><strong id="footer-brand">SEOJIN PILATES</strong><span id="footer-instructor">윤서진 · 컨디션 케어 &amp; 움직임 회복 전문</span></p>
+      <p class="footer-brand"><strong id="footer-brand">SEYUN PILATES</strong><span id="footer-instructor">이서윤 · 재활 &amp; 통증 케어 전문</span></p>
       <nav class="footer-links" id="footer-links" aria-label="바로가기"><!-- 소셜 링크 주입 지점 --></nav>
       <button class="to-top" id="to-top" type="button" aria-label="맨 위로 이동">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
@@ -472,7 +525,32 @@
     </div>
   </footer>
 
-  <!-- ════════════════════════════════════════════════════════════
+  <!-- ═══════════════════════════════════════════════════════════
+       [DOT NAV] 데스크톱 우측 섹션 도트 내비 — app.js 가 data-dot 섹션으로 생성
+       (1024px 이상에서만 표시. 스크롤 위치에 따라 활성 도트가 이동)
+  ═════════════════════════════════════════════════════════════ -->
+  <nav class="dot-nav" id="dot-nav" aria-label="섹션 바로가기"><!-- app.js 주입 --></nav>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       [LIGHTBOX] 갤러리 확대 보기 — 방향키 ←/→ 이동 · Esc 닫기
+  ═════════════════════════════════════════════════════════════ -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="갤러리 확대 보기" aria-hidden="true">
+    <button class="lightbox__close" id="lb-close" type="button" aria-label="닫기">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <button class="lightbox__nav lightbox__nav--prev" id="lb-prev" type="button" aria-label="이전 사진">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    </button>
+    <figure class="lightbox__stage">
+      <img id="lb-img" src="" alt="">
+      <figcaption class="lightbox__cap"><span id="lb-caption"></span><b id="lb-count"></b></figcaption>
+    </figure>
+    <button class="lightbox__nav lightbox__nav--next" id="lb-next" type="button" aria-label="다음 사진">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
        [MOBILE CTA] 모바일 하단 고정 상담 버튼
        · 900px 이하에서만 표시, 히어로 이탈 시 app.js 가 .is-visible 부착
   ═════════════════════════════════════════════════════════════ -->
@@ -488,7 +566,7 @@
     <div style="max-width:640px;margin:30vh auto 0;padding:2rem;text-align:center;font-family:sans-serif">
       <p><strong>윤서진 필라테스</strong></p>
       <p style="color:#666">이 페이지는 JavaScript가 필요합니다. 브라우저 설정에서 JavaScript를 켜 주세요.</p>
-      <p style="color:#666">상담 신청: seojin.yoon@email.com</p>
+      <p style="color:#666">상담 신청: 카카오톡 채널</p>
     </div>
   </noscript>
 
@@ -496,6 +574,6 @@
        애플리케이션 로직 — app.js (동적 렌더링 + 마이크로 인터랙션)
        ※ file:// 로는 동작하지 않으므로 반드시 http(s) 로 서빙할 것
        ═══════════════════════════════════════════════════════════════ -->
-  <script type="module" src="app.js?v=20260913"></script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>
