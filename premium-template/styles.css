@@ -720,7 +720,7 @@ strong { font-weight: 600; }
    [11] 컨택트 — 예약 폼 + 스튜디오 인포
    ───────────────────────────────────────────────────────────────────── */
 .contact { background: var(--color-bg-soft); border-top: 1px solid var(--color-border); }
-.contact__layout { display: grid; grid-template-columns: 1fr; gap: clamp(1.8rem, 5vw, 5rem); align-items: start; }
+.contact__layout { display: grid; grid-template-columns: 1fr; gap: clamp(1.8rem, 5vw, 5rem); align-items: stretch; }
 
 .contact-form {
   border: 1px solid var(--color-border); border-radius: var(--radius-lg);
@@ -759,6 +759,7 @@ strong { font-weight: 600; }
 /* 스튜디오 인포 — 세이지 딥 카드 (라이트 페이지의 시각적 앵커) */
 .contact-info {
   position: relative; overflow: hidden;
+  display: flex; flex-direction: column;
   border-radius: var(--radius-lg);
   background: linear-gradient(165deg, #55654D 0%, #3E4D39 100%);
   border: 1px solid rgba(255,255,255,.14);
@@ -797,7 +798,7 @@ strong { font-weight: 600; }
 .contact-links .is-primary { background: var(--color-accent-2); border-color: transparent; color: #2E2418; }
 .contact-links .is-primary:hover { background: #F4F3EC; color: #3E4D39; }
 
-.contact-meta { margin-top: 1.8rem; border-top: 1px solid rgba(244,243,236,.18); }
+.contact-meta { margin-top: auto; padding-top: 1.4rem; border-top: 1px solid rgba(244,243,236,.18); }
 .contact-meta li {
   display: flex; justify-content: space-between; gap: 1.2rem;
   padding: .75rem 0; border-bottom: 1px solid rgba(244,243,236,.18); font-size: .875rem;
@@ -1094,18 +1095,20 @@ strong { font-weight: 600; }
    [17] 스튜디오 갤러리 (masonry) + 라이트박스
    ═══════════════════════════════════════════════════════════════════ */
 .studio { background: var(--color-bg); }
-/* 정렬 그리드 — 모든 타일이 같은 비율(4:3)로 행 상단·하단이 맞는 균등 리듬.
-   (masonry 는 열 시작점이 어긋나 '중구난방' 인상을 주어 폐기) */
-.studio__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(.8rem, 1.8vw, 1.4rem); }
+/* masonry — 자연 비율 무크롭: 세로·가로 어느 사진도 피사체가 잘리지 않고
+   온전히 드러난다. 열 배치는 브라우저가 균등 분배(widows 방지) */
+.studio__grid { columns: 2; column-gap: clamp(.8rem, 1.8vw, 1.4rem); }
 .g-card {
   position: relative; display: block; width: 100%;
+  margin-bottom: clamp(.8rem, 1.8vw, 1.4rem);
   border-radius: var(--radius-md); overflow: hidden;
   background: var(--color-bg-soft);
   box-shadow: var(--shadow-lift);
+  break-inside: avoid;
   cursor: zoom-in;
 }
 .g-card img {
-  width: 100%; aspect-ratio: 4 / 3; height: auto; display: block; object-fit: cover;
+  width: 100%; height: auto; display: block;
   transform: scale(1.01);
   transition: transform 1.1s var(--ease-out);
 }
@@ -1133,7 +1136,7 @@ strong { font-weight: 600; }
   transition: opacity var(--dur-base) ease, transform var(--dur-base) var(--ease-out);
 }
 .g-card:hover .g-card__zoom, .g-card:focus-visible .g-card__zoom { opacity: 1; transform: none; }
-@media (min-width: 900px) { .studio__grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 900px) { .studio__grid { columns: 3; } }
 
 /* 라이트박스 */
 .lightbox {
