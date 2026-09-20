@@ -468,10 +468,19 @@ del { color: var(--soft); }
 .plan li { font-size: 13.5px; padding: 6px 0 6px 18px; position: relative; }
 .plan li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }
 
+/* 갭 정당화 문구 — 영상 단독 시세 대비 차액 비교 */
+.plan-compare {
+  font-size: 12.5px; line-height: 1.6; letter-spacing: .01em;
+  color: var(--accent);
+  border-top: 1px dashed var(--line);
+  padding-top: 12px;
+}
+
 .plan-hi { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 .plan-hi h3, .plan-hi .plan-price ins { color: var(--paper); }
 .plan-hi .plan-desc, .plan-hi .plan-note, .plan-hi del { color: rgba(247,245,241,.68); }
 .plan-hi ul { border-color: rgba(247,245,241,.22); }
+.plan-hi .plan-compare { color: #CE9B87; border-color: rgba(247,245,241,.22); }
 
 @media (max-width: 960px) {
   .plans { grid-template-columns: 1fr; }
