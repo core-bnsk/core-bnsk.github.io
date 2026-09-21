@@ -1,0 +1,105 @@
+{
+  "name": "release-warm",
+  "concept": "따뜻한 원목 스튜디오를 천천히 훑는 단일 세계관 루프 (Pexels 4672×7008, 인물 미등장)",
+  "version": "2.1",
+  "motion": {
+    "fps": 25,
+    "shot_seconds": 4.8,
+    "fade": 1.5,
+    "zoom_rate": 0.0006,
+    "transition": "fadewhite"
+  },
+  "grade": {
+    "saturation": 1.05,
+    "brightness": 0.02,
+    "contrast": 1.02,
+    "warmth_rs": 0.028,
+    "warmth_bs": -0.02,
+    "bloom": 0.11,
+    "bloom_sigma": 27,
+    "vignette_angle": "PI/4.8",
+    "grain": 3,
+    "sharpen": 0.24
+  },
+  "shots": [
+    {
+      "src": "01-studio.jpg",
+      "motion": "in",
+      "focus_x": 0.45,
+      "bright": 0.0,
+      "rect": [
+        0,
+        1200,
+        4672,
+        2628
+      ],
+      "note": "와이드 — 리포머 2대와 아치창"
+    },
+    {
+      "src": "01-studio.jpg",
+      "motion": "in",
+      "focus_x": 0.5,
+      "bright": 0.0,
+      "rect": [
+        100,
+        3800,
+        2400,
+        1350
+      ],
+      "note": "디테일 — 리포머 클로즈업"
+    },
+    {
+      "src": "01-studio.jpg",
+      "motion": "out",
+      "focus_x": 0.5,
+      "bright": 0.0,
+      "rect": [
+        2000,
+        1780,
+        2600,
+        1463
+      ],
+      "note": "라이트 — 아치창 빛"
+    },
+    {
+      "src": "01-studio.jpg",
+      "motion": "in",
+      "focus_x": 0.5,
+      "bright": 0.0,
+      "rect": [
+        1200,
+        5400,
+        2300,
+        1294
+      ],
+      "note": "코너 — 매트와 원목 바닥"
+    },
+    {
+      "src": "01-studio.jpg",
+      "motion": "out",
+      "focus_x": 0.45,
+      "bright": 0.0,
+      "rect": [
+        0,
+        1200,
+        4672,
+        2628
+      ],
+      "note": "리턴 — 루프 봉합"
+    }
+  ],
+  "outputs": {
+    "desktop": {
+      "width": 1920,
+      "height": 1080,
+      "crf": 25,
+      "prescale": 3840
+    },
+    "mobile": {
+      "width": 1080,
+      "height": 1920,
+      "crf": 26,
+      "prescale": 2160
+    }
+  }
+}
