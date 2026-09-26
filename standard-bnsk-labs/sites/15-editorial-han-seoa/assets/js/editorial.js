@@ -40,9 +40,13 @@
     if (resetBtn) resetBtn.hidden = true;
     if (form) form.hidden = false;
     var lesson = btn && btn.getAttribute('data-lesson');
-    if (lesson) qsa('input[name="lesson"]', dialog).forEach(function (input) {
-      input.checked = input.value === lesson;
-    });
+    if (lesson) {
+      qsa('input[name="lesson"]', dialog).forEach(function (input) {
+        input.checked = input.value === lesson;
+      });
+      var sel = qs('select[name="lesson"]', dialog);
+      if (sel) sel.value = lesson;
+    }
     if (typeof dialog.showModal === 'function') dialog.showModal();
     else dialog.setAttribute('open', '');
   }
@@ -112,5 +116,55 @@
         done();
       }
     });
+  }
+  /* [6] FLOATING CONSULT BAR — 280px 스크롤 후 표시, 푸터 진입 시 숨김 (데스크톱 전용 CSS) */
+  var floatCta = qs('[data-float-cta]');
+  var footerEl = qs('.site-footer');
+  if (floatCta) {
+    var footerNear = false;
+    var applyFloat = function () {
+      floatCta.hidden = false;
+      var past = (window.scrollY || 0) > 280;
+      floatCta.classList.toggle('is-visible', past && !footerNear);
+    };
+    window.addEventListener('scroll', applyFloat, { passive: true });
+    if (footerEl && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        footerNear = entries[0].isIntersecting;
+        floatCta.classList.toggle('is-visible', (window.scrollY || 0) > 280 && !footerNear);
+      }, { threshold: 0.04 }).observe(footerEl);
+    }
+    applyFloat();
+  }
+
+  /* [7] TRUST COUNTUP — 숫자+단위 값만 카운트업 (reduced-motion·비숫자 값은 즉시 표시) */
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var runCount = function (el) {
+    var raw = el.textContent;
+    var m = raw.match(/^([\d,]+)([^0-9:]*)$/);
+    if (!m || /[0-9]/.test(m[2]) || reducedMotion) return;
+    var target = parseInt(m[1].replace(/,/g, ''), 10);
+    if (!target) return;
+    var suffix = m[2];
+    var DUR = 1100, t0 = null;
+    var step = function (now) {
+      if (t0 === null) t0 = now;
+      var k = Math.min((now - t0) / DUR, 1);
+      k = 1 - Math.pow(1 - k, 4);
+      el.textContent = Math.round(target * k).toLocaleString('ko-KR') + suffix;
+      if (k < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  var facts = qsa('.hero-facts .fact-val');
+  if (facts.length && 'IntersectionObserver' in window) {
+    var factObs = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        obs.unobserve(en.target);
+        runCount(en.target);
+      });
+    }, { threshold: 0.4 });
+    facts.forEach(function (el) { factObs.observe(el); });
   }
 })();

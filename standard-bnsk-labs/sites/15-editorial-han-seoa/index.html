@@ -160,7 +160,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="assets/img/hero.webp" fetchpriority="high">
-  <link rel="stylesheet" href="assets/css/editorial.css?v=282c24b1">
+  <link rel="stylesheet" href="assets/css/editorial.css?v=dfef1ca3">
 </head>
 <body id="top">
   <a class="skip-link" href="#about">본문 바로가기</a>
@@ -207,7 +207,7 @@
         <figcaption><span>조용한 움직임의 시간</span><span>AI CONCEPT IMAGE</span></figcaption>
       </figure>
       <div class="hero-facts">
-        <p><span>나에게 맞춘 개인 레슨</span>1:1</p><p><span>호흡부터 마무리까지</span>50분</p><p><span>호흡·감각·기초 중심</span>기초</p>
+        <p><span>나에게 맞춘 개인 레슨</span><b class="fact-val">1:1</b></p><p><span>호흡부터 마무리까지</span><b class="fact-val">50분</b></p><p><span>호흡·감각·기초 중심</span><b class="fact-val">기초</b></p>
       </div>
     </section>
 
@@ -257,6 +257,9 @@
         </div>
       </div>
     </section>
+
+    <!-- ===== 02.5 CREDENTIALS ACCORDION (옵션 — design.credentialAccordion) ===== -->
+    
 
     <!-- ===== 03 HOW I TEACH ===== -->
     <section class="lessons wrap section-space" id="lessons" aria-labelledby="lessons-title">
@@ -534,6 +537,10 @@
         <h2>시작은 가볍게, 이야기부터 나눠요.</h2>
         <p>어떤 수업이 나에게 맞을지, 간단한 선택으로 상담 흐름을 체험해 보세요.</p>
         <button class="contact-button" type="button" data-consult>나에게 맞는 수업 찾기 <span aria-hidden="true">↗</span></button>
+        <p class="contact-direct">
+          
+          
+        </p>
         <p class="contact-note">실제 예약이 아닌 데모입니다. 개인정보 수집·저장·전송 없음.</p>
       </div>
     </section>
@@ -584,6 +591,19 @@
     
   </dialog>
 
-  <script src="assets/js/editorial.js?v=8bb074a3" defer></script>
+  <!-- ===== FLOATING CONSULT BAR — 데스크톱 전용 (카톡 우선, 없으면 상담 다이얼로그 / 푸터 진입 시 숨김) ===== -->
+  <div class="float-cta" data-float-cta hidden>
+    <div class="float-cta__card">
+      <div class="min-0">
+        <p class="float-cta__title">한서아 강사 수업 상담</p>
+        <p class="float-cta__sub">호흡·기본 감각 전문 · 서울 성동구</p>
+      </div>
+      
+      <button type="button" class="float-cta__btn" data-consult>상담 신청</button>
+      
+    </div>
+  </div>
+
+  <script src="assets/js/editorial.js?v=4812c97a" defer></script>
 </body>
 </html>
