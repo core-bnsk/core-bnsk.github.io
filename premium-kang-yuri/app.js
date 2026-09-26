@@ -882,6 +882,8 @@ const initContactForm = (data) => {
   const formspreeId = data.profile.links?.formspreeId;
   if (formspreeId && note) {
     note.textContent = '보내기를 누르면 상담 요청이 강사에게 전달됩니다. 카카오톡 상담도 언제든 환영합니다.';
+  } else if (note && !isEmail(data.profile.links?.email)) {
+    note.textContent = '상담·예약은 카카오톡 채널로 가장 빠르게 연결됩니다.';   // 이메일 미설정 시 mailto 안내가 없도록
   }
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
