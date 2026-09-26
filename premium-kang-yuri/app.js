@@ -114,6 +114,8 @@ const renderProfile = (data) => {
     ['#header-logo .logo__sub', p.specialtyEn],          // 퍼스널 헤더: 영문 전문분야
     ['#footer-brand', p.brandName],
     ['#footer-instructor', p.name && p.title ? `${p.name} · ${p.title}` : ''],
+    ['#preloader .preloader__mark', p.brandName ? p.brandName.charAt(0) : ''],   // 프리미엄 오프닝 모노그램
+    ['#preloader .preloader__brand', p.brandName],
   ]);
 };
 

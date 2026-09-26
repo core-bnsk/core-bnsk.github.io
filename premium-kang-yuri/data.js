@@ -252,7 +252,7 @@ export const reviews = {
   summary: {
     score: 5.0,              // 샘플 평균 평점
     count: 12,               // 샘플 누적 리뷰 수
-    source: "샘플 데이터 — 운영 전 실제 후기로 교체하세요",
+    source: "포트폴리오 시연용 가상 데이터입니다(실존하지 않음)",
   },
   items: [
     {
