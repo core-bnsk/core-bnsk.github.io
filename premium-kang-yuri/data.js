@@ -42,6 +42,10 @@ export const profile = {
   specialtyEn: "Rehab & Myofascial Care",       // 헤더 영문 전문분야 (퍼스널 헤더 하단)
   region: "경기 고양시 일산",                       // 활동 지역
   years: 8,                                       // 2018년 시작 — 도수치료 센터 3년 포함 (숫자만)
+  /* 맞춤 컬러 — 여기 한 줄만 바꾸면 전체 페이지 액센트가 바뀝니다 (자가수정 슬롯).
+     accent는 버튼·링크·배지에, deep은 hover에 사용됩니다. 빈 객체 {}면 styles.css 기본값 유지 */
+  themeColor: { accent: "#3D6B94", deep: "#2C4E70" },
+
   specialty: "재활 · 근막 케어",                    // 전문 분야 (팩트 칩에 표시)
 
   /* 직함 — 히어로 아이브로우 자리 */

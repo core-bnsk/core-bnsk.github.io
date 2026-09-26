@@ -66,6 +66,16 @@ const safeRun = (label, fn) => {
   }
 };
 
+/** themeColor — data.js의 맞춤 액센트 컬러를 CSS 변수로 반영 (맞춤 컬러 자가수정 슬롯) */
+const applyThemeColor = (data) => {
+  const tc = data.profile && data.profile.themeColor;
+  if (!tc || !tc.accent) return;
+  const r = document.documentElement.style;
+  r.setProperty('--color-accent', tc.accent);
+  if (tc.deep) r.setProperty('--color-accent-deep', tc.deep);
+  if (tc.tint) r.setProperty('--color-accent-tint', tc.tint);
+};
+
 /** 이메일 문자열 간단 검증 (문의 폼·링크 주입에 사용) */
 const isEmail = (value) => typeof value === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
@@ -976,6 +986,7 @@ const initApp = async () => {
     const data = normalizeData(mod);
 
     // ── 렌더링 (각 단계 격리) ──
+    safeRun('테마 컬러',    () => applyThemeColor(data));
     safeRun('SEO 바인딩',   () => updateSeo(data));
     safeRun('프로필 렌더',   () => renderProfile(data));
     safeRun('스탯 렌더',     () => renderStats(data));
