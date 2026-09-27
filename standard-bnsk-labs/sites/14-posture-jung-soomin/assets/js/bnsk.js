@@ -212,7 +212,9 @@
   /* ----------------------------------------------------------
    * [9] 상담 폼 — data-form
    *   - 빈 값/연락처 형식 검증 후 성공 상태 표시
-   *   - data-webhook이 있으면 실제 전송 (no-cors POST)
+   *   - data-webhook이 있으면 실제 전송 (no-cors POST) 후 완료 화면
+   *   - data-webhook이 없으면 문의가 수신되지 않으므로 완료 화면 대신
+   *     [data-form-kakao] 카톡 채널 안내 폴백을 표시 (리드 유실 방지)
    * -------------------------------------------------------- */
   qsa('[data-form]').forEach(function (form) {
     form.setAttribute('novalidate', '');
@@ -234,6 +236,7 @@
       if (!ok) { if (firstBad) firstBad.focus(); return; }
 
       var done = qs('[data-form-done]', form.parentElement);
+      var kakaoFallback = qs('[data-form-kakao]', form.parentElement);
       var webhook = form.getAttribute('data-webhook');
       if (webhook) {
         var payload = {};
@@ -241,8 +244,19 @@
           if (el.name) payload[el.name] = el.value;
         });
         try { fetch(webhook, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }); } catch (err) { /* 전송 실패는 무음 처리 */ }
-      }
-      if (done) {
+        if (done) {
+          form.hidden = true;
+          done.hidden = false;
+          done.focus();
+        } else {
+          form.reset();
+        }
+      } else if (kakaoFallback) {
+        form.reset();
+        form.hidden = true;
+        kakaoFallback.hidden = false;
+        kakaoFallback.focus();
+      } else if (done) {
         form.hidden = true;
         done.hidden = false;
         done.focus();

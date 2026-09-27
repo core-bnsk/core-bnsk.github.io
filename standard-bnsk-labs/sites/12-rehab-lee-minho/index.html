@@ -181,10 +181,19 @@
   <!-- ===== 웹폰트: Pretendard Variable (다이내믹 서브셋, 전 기기 타이포 일관) ===== -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <link rel="stylesheet" href="assets/css/bnsk.css?v=431f5321">
+  <link rel="stylesheet" href="assets/css/bnsk.css?v=cb5b2bdd">
 </head>
 <body id="top" class="antialiased">
   <a href="#profile" class="skip-link">본문 바로가기</a>
+
+  
+  <!-- 샘플 데모 리본 — design.demo=true 인 사이트만 노출 (에디토리얼 템플릿 demo-ribbon과 동일 역할) -->
+  <div class="demo-ribbon-v1">
+    <span class="demo-ribbon-v1__tag">SAMPLE</span>
+    <span>가상 인물로 만든 제작 샘플입니다</span>
+    <span class="demo-ribbon-v1__note">실제 예약·문의를 받지 않는 데모 페이지</span>
+  </div>
+  
 
   <!-- ============================================================
   BNSK [01] HEADER — 퍼스널 헤더 (강사 사진·한글명·영문명)
@@ -1017,7 +1026,7 @@
       </div>
     </form>
 
-    <!-- 제출 성공 화면 -->
+    <!-- 제출 성공 화면 (data-webhook 연동 시에만 표시 — bnsk.js) -->
     <div class="py-8 text-center" data-form-done hidden tabindex="-1">
       <span class="mx-auto grid h-14 w-14 place-items-center rounded-full brand-soft brand-text">
         <svg class="h-7 w-7" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m4.5 10.5 3.5 3.5 7.5-8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1026,10 +1035,27 @@
       <p class="mt-2 text-sm leading-relaxed text-gray-500">이민호 강사가 영업일 하루 안에<br>연락드리겠습니다. 감사합니다.</p>
       <button type="button" class="btn btn-md btn-outline mt-5" data-modal-close>닫기</button>
     </div>
+
+    <!-- 수집 엔드포인트(data-webhook) 미연동 시 폴백: 카카오톡 채널 안내 (bnsk.js)
+         문의가 어디에도 수신되지 않는 상태로 완료 화면만 보이는 리드 유실을 막는다 -->
+    <div class="py-8 text-center" data-form-kakao hidden tabindex="-1">
+      <span class="mx-auto grid h-14 w-14 place-items-center rounded-full brand-soft brand-text">
+        <svg class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.98 3 3 6.28 3 10.32c0 2.6 1.72 4.88 4.3 6.18-.14.5-.9 3.26-.93 3.47 0 0-.02.16.09.22.11.06.24.01.24.01.32-.04 3.66-2.4 4.23-2.8.35.05.71.08 1.07.08 5.02 0 9-3.28 9-7.32S17.02 3 12 3Z"/></svg>
+      </span>
+      <h3 class="mt-4 text-lg font-black text-gray-900">카카오톡 채널로 문의해 주세요</h3>
+      <p class="mt-2 text-sm leading-relaxed text-gray-500">상담은 카카오톡 채널로 가장 빠르게 연결됩니다.<br>궁금한 점을 편하게 남겨주세요.</p>
+      
+      <a href="https://pf.kakao.com/_GVxlaX/chat" target="_blank" rel="noopener" class="btn btn-md btn-kakao mt-5">
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.98 3 3 6.28 3 10.32c0 2.6 1.72 4.88 4.3 6.18-.14.5-.9 3.26-.93 3.47 0 0-.02.16.09.22.11.06.24.01.24.01.32-.04 3.66-2.4 4.23-2.8.35.05.71.08 1.07.08 5.02 0 9-3.28 9-7.32S17.02 3 12 3Z"/></svg>
+        카카오톡 상담 시작
+      </a>
+      
+      <button type="button" class="btn btn-md btn-outline mt-5" data-modal-close>닫기</button>
+    </div>
   </div>
 </div>
 
 
-  <script src="assets/js/bnsk.js?v=56f18f0f" defer></script>
+  <script src="assets/js/bnsk.js?v=d5d676c0" defer></script>
 </body>
 </html>

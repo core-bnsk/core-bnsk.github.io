@@ -33,3 +33,17 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+
+  /* ---------- 샘플 데모 리본 (design.demo=true 인 클래식 사이트 상단) ---------- */
+  .demo-ribbon-v1 {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+    gap: .4rem .75rem; padding: .45rem 1rem;
+    background: #111827; color: #f9fafb;
+    font-size: 12px; font-weight: 700; text-align: center;
+  }
+  .demo-ribbon-v1__tag {
+    letter-spacing: .18em; font-size: 10.5px; padding: .1rem .5rem;
+    border: 1px solid rgba(255,255,255,.4); border-radius: 9999px;
+  }
+  .demo-ribbon-v1__note { color: #9ca3af; font-weight: 600; }
