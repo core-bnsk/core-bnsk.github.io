@@ -256,4 +256,33 @@
    * [10] 푸터 연도 자동 갱신 — <span data-year></span>
    * -------------------------------------------------------- */
   qsa('[data-year]').forEach(function (el) { el.textContent = String(new Date().getFullYear()); });
+
+  /* ----------------------------------------------------------
+   * [11] 모바일 내비 토글 — [data-menu-toggle] ↔ #site-nav
+   * 에디토리얼 엔진과 동일 패턴(data-open 속성 토글).
+   * 링크 클릭·바깥 클릭 시 자동으로 닫힌다.
+   * -------------------------------------------------------- */
+  var menuToggle = qs('[data-menu-toggle]');
+  var menuNav = qs('#site-nav');
+  if (menuToggle && menuNav) {
+    function setMenuOpen(open) {
+      if (open) { menuNav.setAttribute('data-open', ''); } else { menuNav.removeAttribute('data-open'); }
+      menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      menuToggle.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+    }
+    menuToggle.addEventListener('click', function () {
+      setMenuOpen(!menuNav.hasAttribute('data-open'));
+    });
+    menuNav.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setMenuOpen(false);
+    });
+    document.addEventListener('click', function (e) {
+      if (menuNav.hasAttribute('data-open') && !e.target.closest('#site-nav') && !e.target.closest('[data-menu-toggle]')) {
+        setMenuOpen(false);
+      }
+    });
+    window.addEventListener('resize', function () {
+      if (window.innerWidth >= 768 && menuNav.hasAttribute('data-open')) setMenuOpen(false);
+    });
+  }
 })();

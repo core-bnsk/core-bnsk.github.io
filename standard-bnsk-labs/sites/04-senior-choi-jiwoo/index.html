@@ -172,7 +172,7 @@
   <!-- ===== 웹폰트: Pretendard Variable (다이내믹 서브셋, 전 기기 타이포 일관) ===== -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <link rel="stylesheet" href="assets/css/bnsk.css?v=07577463">
+  <link rel="stylesheet" href="assets/css/bnsk.css?v=431f5321">
 </head>
 <body id="top" class="antialiased">
   <a href="#profile" class="skip-link">본문 바로가기</a>
@@ -183,7 +183,7 @@
   주입 필드: profile.photo, name, nameEn, persona.label
 ============================================================ -->
 <header data-header class="sticky top-0 z-[60] border-b border-gray-100 bg-white/85 backdrop-blur-md transition-shadow">
-  <div class="mx-auto flex h-16 max-w-5xl items-center justify-between gap-3 px-4 sm:px-6">
+  <div class="relative mx-auto flex h-16 max-w-5xl items-center justify-between gap-3 px-4 sm:px-6">
     <a href="#top" class="flex min-w-0 items-center gap-3" aria-label="최지우 강사 프로필 처음으로">
       <img src="assets/img/face.jpg?v=403b29cd" alt="" class="h-10 w-10 shrink-0 rounded-full object-cover ring-1 ring-gray-200" width="40" height="40">
       <span class="min-w-0 leading-tight">
@@ -191,13 +191,17 @@
         <span class="block truncate text-[11px] font-semibold brand-text">시니어 기초체력 전문</span>
       </span>
     </a>
-    <nav class="hidden items-center gap-6 text-[13px] font-bold text-gray-500 md:flex" aria-label="주요 메뉴">
+    <nav id="site-nav" class="hidden items-center gap-6 text-[13px] font-bold text-gray-500 md:flex" aria-label="주요 메뉴">
       <a href="#profile" class="transition-colors hover:text-gray-900">강사 소개</a>
       <a href="#credentials" class="transition-colors hover:text-gray-900">자격·이력</a>
       <a href="#programs" class="transition-colors hover:text-gray-900">프로그램</a>
       
       <a href="#faq" class="transition-colors hover:text-gray-900">FAQ</a>
     </nav>
+    <button type="button" class="menu-toggle-v1 btn btn-sm btn-outline shrink-0" data-menu-toggle aria-expanded="false" aria-controls="site-nav" aria-label="메뉴 열기">
+      <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      메뉴
+    </button>
   </div>
 </header>
 
@@ -837,11 +841,11 @@
 ============================================================ -->
 <div class="kakao-bar px-4 pb-3 md:pb-0" data-float>
   <div class="card mx-auto flex items-center justify-between gap-3 p-3 pl-4 shadow-[0_10px_28px_rgba(17,24,39,.14)]">
+    
     <div class="min-w-0">
       <p class="truncate text-[13px] font-extrabold text-gray-900">카카오톡 1:1 상담</p>
       <p class="truncate text-[11px] font-semibold text-gray-400">오픈카카오톡으로 편하게 문의하세요</p>
     </div>
-    
     <a href="https://pf.kakao.com/_GVxlaX/chat" target="_blank" rel="noopener" class="btn btn-md btn-kakao shrink-0">
       <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.98 3 3 6.28 3 10.32c0 2.6 1.72 4.88 4.3 6.18-.14.5-.9 3.26-.93 3.47 0 0-.02.16.09.22.11.06.24.01.24.01.32-.04 3.66-2.4 4.23-2.8.35.05.71.08 1.07.08 5.02 0 9-3.28 9-7.32S17.02 3 12 3Z"/></svg>
       카톡 상담
@@ -943,6 +947,6 @@
 </div>
 
 
-  <script src="assets/js/bnsk.js?v=e3fd9a4f" defer></script>
+  <script src="assets/js/bnsk.js?v=56f18f0f" defer></script>
 </body>
 </html>

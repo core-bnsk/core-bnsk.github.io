@@ -98,6 +98,7 @@ const normalizeData = (mod) => {
     philosophy: asArray(mod.philosophy, 'philosophy'),
     programs:   asArray(mod.programs, 'programs'),
     gallery:    asArray(mod.gallery, 'gallery'),
+    sectionTitles: (mod.sectionTitles && typeof mod.sectionTitles === 'object') ? mod.sectionTitles : null,
     curriculum: asArray(mod.curriculumAccordion ?? mod.curriculum, 'curriculumAccordion'),
     reviews:    (mod.reviews && typeof mod.reviews === 'object')
                   ? { summary: mod.reviews.summary ?? {}, items: Array.isArray(mod.reviews.items) ? mod.reviews.items : [] }
@@ -446,8 +447,8 @@ const renderLinks = (data) => {
     if (mapUrl) mapEl.href = mapUrl;
     else mapEl.remove();
   }
-  // 값이 채워지지 않은 스튜디오 메타 행(주소·운영시간 등)은 줄째로 숨김
-  ['#contact-studio-address', '#contact-studio-hours'].forEach((sel) => {
+  // 값이 채워지지 않은 스튜디오 메타 행(스튜디오명·주소·운영시간)은 줄째로 숨김
+  ['#contact-studio-name', '#contact-studio-address', '#contact-studio-hours'].forEach((sel) => {
     const node = $(sel);
     if (node && !node.textContent.trim()) node.closest('li')?.remove();
   });
@@ -975,6 +976,18 @@ const showFatalError = (err) => {
   host.prepend(box);
 };
 
+/** 섹션 제목 — data.sectionTitles({섹션id: 문구})로 정적 기본값을 덮어쓴다.
+ *  인스턴스별 경력·톤에 맞는 제목을 data.js에서 강제하기 위한 장치
+ *  (index.html 하드코딩 제목 잔존 결함의 근원 차단). 개행 문자는 줄바꿈 처리. */
+const renderSectionTitles = (data) => {
+  const titles = data.sectionTitles ?? {};
+  Object.entries(titles).forEach(([id, title]) => {
+    if (!title) return;
+    const el = document.querySelector(`#${CSS.escape(id)} .section-title`);
+    if (el) el.innerHTML = escapeHtml(String(title)).replace(/\r?\n/g, '<br>');
+  });
+};
+
 const initApp = async () => {
   // DOM 준비 대기 (모듈 스크립트는 기본 지연 로드라 대부분 즉시 통과)
   if (document.readyState === 'loading') {
@@ -988,6 +1001,7 @@ const initApp = async () => {
     // ── 렌더링 (각 단계 격리) ──
     safeRun('테마 컬러',    () => applyThemeColor(data));
     safeRun('SEO 바인딩',   () => updateSeo(data));
+    safeRun('섹션 제목',     () => renderSectionTitles(data));
     safeRun('프로필 렌더',   () => renderProfile(data));
     safeRun('스탯 렌더',     () => renderStats(data));
     safeRun('강사 소개 렌더', () => renderAbout(data));
