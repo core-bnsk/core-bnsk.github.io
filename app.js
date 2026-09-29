@@ -90,22 +90,6 @@
     });
   }
 
-  /* ── restrained film: autoplay fallback + reduced motion ─ */
-  const film = document.querySelector(".film video");
-  if (film) {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      film.pause();
-      film.removeAttribute("autoplay");
-      film.removeAttribute("loop");
-    } else {
-      const tryPlay = () => film.play().catch(() => {});
-      tryPlay();
-      document.addEventListener("visibilitychange", () => {
-        if (!document.hidden) tryPlay();
-      });
-    }
-  }
-
   /* ── header hairline on scroll ─────────────────────────── */
   const bar = document.querySelector(".site-head");
   const onBarScroll = () => {

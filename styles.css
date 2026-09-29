@@ -53,6 +53,8 @@ body {
 
 /* 날짜·금액·기간 등 짧은 정보 단위는 중간에서 끊기지 않게 */
 .nw { white-space: nowrap; }
+/* 숫자 범위 하이픈은 모바일에서도 또렷하게 */
+.dash { font-weight: 900; }
 
 ::selection { background: var(--accent); color: var(--paper); }
 img, video { max-width: 100%; display: block; }
@@ -175,9 +177,12 @@ del { color: var(--soft); }
 }
 .cover-meta .meta-sub { display: block; font-size: 11.5px; margin-top: 2px; }
 
-/* ═══ FILM — 절제된 영상 밴드 ═══════════════════════════ */
+/* ═══ STUDIO STILL — 절제된 이미지 밴드 ══════════════════ */
 .film { position: relative; border-top: 1px solid var(--line-dark); border-bottom: 1px solid var(--line-dark); }
-.film video { width: 100%; height: clamp(320px, 62vh, 640px); object-fit: cover; }
+.film img {
+  width: 100%; height: clamp(300px, 55vh, 620px);
+  object-fit: cover; object-position: center 62%;
+}
 .film::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: 0;
   height: 110px;
