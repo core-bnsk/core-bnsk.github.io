@@ -49,27 +49,46 @@
     if (remaining <= 0) clearInterval(sweep);
   }, 350);
 
-  /* ── roster filter ─────────────────────────────────────── */
-  const chips = document.querySelectorAll(".chip");
-  const works = document.querySelectorAll(".work");
+  /* ── roster: 분야 필터 + 대표 4종/모두 보기 ──────────────
+     기본은 대표 4종만 노출(.is-extra 숨김). 분야 필터를 고르면
+     해당 분야는 경험 연차와 관계없이 전부 보여 준다. */
+  const chips = document.querySelectorAll(".chip[data-filter]");
+  const works = document.querySelectorAll(".roster .work");
+  const roster = document.getElementById("roster");
+  const moreBtn = document.getElementById("moreToggle");
+
+  const applyVisibility = () => {
+    const active = document.querySelector(".chip[data-filter].is-on");
+    const f = active ? active.dataset.filter : "all";
+    if (roster) roster.classList.toggle("is-filtered", f !== "all");
+    works.forEach((w) => {
+      const tags = w.dataset.tags.split(/\s+/);
+      const show = f === "all" || tags.includes(f);
+      w.classList.toggle("is-hidden", !show);
+      if (show) {
+        w.classList.remove("is-in");
+        requestAnimationFrame(() =>
+          requestAnimationFrame(() => w.classList.add("is-in"))
+        );
+      }
+    });
+  };
+
   chips.forEach((chip) => {
     chip.addEventListener("click", () => {
       chips.forEach((c) => c.classList.toggle("is-on", c === chip));
-      const f = chip.dataset.filter;
-      works.forEach((w) => {
-        const tags = w.dataset.tags.split(/\s+/);
-        const show = f === "all" || tags.includes(f);
-        w.classList.toggle("is-hidden", !show);
-        if (show) {
-          const link = w.querySelector(".reveal") || w;
-          link.classList.remove("is-in");
-          requestAnimationFrame(() =>
-            requestAnimationFrame(() => link.classList.add("is-in"))
-          );
-        }
-      });
+      applyVisibility();
     });
   });
+
+  if (moreBtn && roster) {
+    moreBtn.addEventListener("click", () => {
+      const open = roster.classList.toggle("is-open");
+      moreBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      moreBtn.textContent = open ? "대표 샘플만 보기" : "샘플 16개 모두 보기";
+      applyVisibility();
+    });
+  }
 
   /* ── restrained film: autoplay fallback + reduced motion ─ */
   const film = document.querySelector(".film video");
