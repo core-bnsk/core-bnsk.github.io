@@ -53,6 +53,9 @@ body {
 
 /* 날짜·금액·기간 등 짧은 정보 단위는 중간에서 끊기지 않게 */
 .nw { white-space: nowrap; }
+/* 의미 단위 줄바꿈 — 넓은 화면에선 자연 흐름, 좁은 화면(≤760px)에서만 개행 */
+.br-m { display: inline; }
+@media (min-width: 761px) { .br-m { display: none; } }
 /* 숫자 범위 하이픈은 모바일에서도 또렷하게 — 디도체 대시는 가늘어 산세리프로 대체 */
 .dash { font-family: var(--sans); font-weight: 900; }
 
@@ -102,7 +105,7 @@ del { color: var(--soft); }
   transition: width .35s cubic-bezier(.22,1,.36,1);
 }
 .head-nav a:hover::after { width: 100%; }
-.head-offer { justify-self: end; color: var(--accent); }
+.head-offer { justify-self: end; color: var(--accent); white-space: nowrap; }
 
 /* ═══ COVER — 고객의 필요가 먼저 보이는 첫 화면 ═════════ */
 .cover {
@@ -131,8 +134,9 @@ del { color: var(--soft); }
   margin-top: clamp(18px, 3vh, 30px);
   line-height: 1.85;
 }
+/* 신뢰 문구는 제목·가격에 강조를 내주고 조용히 뒤로 (09-30 검수 — 첫 화면 강조 집중) */
 .cover-trust {
-  font-size: 14.5px; font-weight: 600; color: var(--ink);
+  font-size: 14px; font-weight: 400; color: var(--soft);
   margin-top: 14px;
 }
 
@@ -142,7 +146,7 @@ del { color: var(--soft); }
 }
 .btn-line {
   display: inline-flex; align-items: center; justify-content: center;
-  font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: .14em;
+  font-family: var(--mono); font-size: 14px; font-weight: 600; letter-spacing: .08em;
   border: 1px solid var(--ink); color: var(--ink);
   padding: 16px 36px;
   transition: background .35s, color .35s;
@@ -260,35 +264,12 @@ del { color: var(--soft); }
   word-break: keep-all;
 }
 
-/* ═══ 01 MANIFESTO — 수업 현장을 아는 사람이 만듭니다 ═════ */
-.manifesto-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
-  gap: clamp(40px, 6vw, 100px);
-  align-items: start;
-}
+/* ═══ 01 MANIFESTO → 03 THE FOUNDER — 수업 현장을 아는 사람이 만듭니다 ═══ */
 .ed-article { max-width: 62ch; }
 .ed-article p { font-size: clamp(16.5px, 1.35vw, 18px); line-height: 1.7; }
 .ed-article p + p { margin-top: 1.4em; }
 .ed-article .lead { font-size: clamp(18px, 1.6vw, 21px); color: var(--ink); line-height: 1.7; }
 .ed-article strong { font-weight: 700; color: var(--ink); }
-
-.facts div {
-  display: flex; align-items: baseline; gap: 18px;
-  border-top: 1px solid var(--line);
-  padding: 18px 2px;
-}
-.facts div:last-child { border-bottom: 1px solid var(--line); }
-.facts dt {
-  font-family: var(--didone);
-  font-weight: 700; font-size: 30px; color: var(--ink);
-  min-width: 84px;
-}
-.facts dd { font-size: 14.5px; color: var(--soft); }
-
-@media (max-width: 920px) {
-  .manifesto-grid { grid-template-columns: 1fr; }
-}
 
 /* ═══ 02 WORKS — 내 수업에 어울리는 사이트를 찾아보세요 ═══ */
 .works-intro {
@@ -472,9 +453,13 @@ del { color: var(--soft); }
 .plan li { font-size: 13.5px; padding: 6px 0 6px 18px; position: relative; }
 .plan li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }
 
-/* 케어 기대치 안내 문구 */
+/* 프리미엄 포함 범위 한 줄 — 스탠다드 구성이 모두 들어간다는 것을 목록 앞에서 명시 */
+.plan-inc { font-size: 13.5px; font-weight: 600; }
+.plan-hi .plan-inc { color: #CE9B87; }
+
+/* 케어 기대치 안내 문구 — 중요한 조건이라 본문 크기로 (09-30 검수: 12.5px → 14px) */
 .plan-compare {
-  font-size: 12.5px; line-height: 1.6; letter-spacing: .01em;
+  font-size: 14px; line-height: 1.7; letter-spacing: .01em;
   color: var(--accent);
   border-top: 1px dashed var(--line);
   padding-top: 12px;
@@ -535,7 +520,8 @@ del { color: var(--soft); }
 }
 .creed-row p { font-size: 15.5px; }
 
-.heritage { padding-top: 4px; }   /* sec-head 밑선 바로 아라 이중 헤어라인 방지 */
+/* 통합된 제작자 섹션 안에서 creed·heritage가 연달아 올 때의 호흡 */
+.heritage { margin-top: clamp(48px, 7vh, 80px); }   /* sec-head와의 이중 헤어라인 규칙은 유지 불필요 — 이제 sec-head 바로 아래가 아님 */
 .heritage-label { color: var(--accent); }
 .heritage-line {
   display: grid; grid-template-columns: repeat(3, 1fr);
@@ -634,6 +620,11 @@ del { color: var(--soft); }
   font-size: 15.5px; color: var(--text);
   padding: 0 0 clamp(18px, 3vh, 28px) 28px;
 }
+.faq-item p a {
+  color: var(--accent); font-weight: 600;
+  text-decoration: underline; text-underline-offset: 3px;
+}
+.faq-item p a:hover { color: var(--ink); }
 
 /* ═══ 07 CONTACT — 문의 ═══════════════════════════════════ */
 .contact-inner { text-align: center; padding-top: clamp(10px, 3vh, 30px); }
@@ -649,7 +640,7 @@ del { color: var(--soft); }
 }
 .btn-solid {
   display: inline-flex; align-items: center; justify-content: center;
-  font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: .14em;
+  font-family: var(--mono); font-size: 14px; font-weight: 600; letter-spacing: .08em;
   background: var(--ink); color: var(--paper);
   border: 1px solid var(--ink);
   padding: 16px 36px;
@@ -658,6 +649,22 @@ del { color: var(--soft); }
 .btn-solid:hover { background: var(--accent); border-color: var(--accent); }
 
 .contact-cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: clamp(24px, 4vh, 36px); }
+
+/* 결정이 흩어지지 않게 — 주요 버튼(카톡) 1개만 크게, 나머지는 작은 보조 링크로 (09-30 검수) */
+.contact-else {
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+  gap: 4px 30px;
+  margin-top: 10px;
+}
+.contact-else a, .contact-else button {
+  font-family: var(--sans); font-size: 14px; font-weight: 600; color: var(--soft);
+  background: none; border: 0; cursor: pointer;
+  padding: 10px 4px; min-height: 44px;
+  text-decoration: underline; text-underline-offset: 4px;
+  text-decoration-color: var(--line);
+  transition: color .3s;
+}
+.contact-else a:hover, .contact-else button:hover { color: var(--accent); text-decoration-color: var(--accent); }
 
 .prep-wrap {
   max-width: 780px;

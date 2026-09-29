@@ -57,6 +57,14 @@
   const roster = document.getElementById("roster");
   const moreBtn = document.getElementById("moreToggle");
 
+  /* 보조기술에도 선택 상태 전달 (09-30 검수) */
+  const syncPressed = () => {
+    chips.forEach((c) =>
+      c.setAttribute("aria-pressed", c.classList.contains("is-on") ? "true" : "false")
+    );
+  };
+  syncPressed();
+
   const applyVisibility = () => {
     const active = document.querySelector(".chip[data-filter].is-on");
     const f = active ? active.dataset.filter : "all";
@@ -74,9 +82,16 @@
     });
   };
 
+  const resetToAll = () => {
+    const allChip = document.querySelector('.chip[data-filter="all"]');
+    chips.forEach((c) => c.classList.toggle("is-on", c === allChip));
+    syncPressed();
+  };
+
   chips.forEach((chip) => {
     chip.addEventListener("click", () => {
       chips.forEach((c) => c.classList.toggle("is-on", c === chip));
+      syncPressed();
       applyVisibility();
     });
   });
@@ -84,11 +99,22 @@
   if (moreBtn && roster) {
     moreBtn.addEventListener("click", () => {
       const open = roster.classList.toggle("is-open");
+      /* '모두 보기'는 분야 필터도 '전체'로 되돌려야 문구와 결과가 일치한다 (09-30 검수) */
+      if (open) resetToAll();
       moreBtn.setAttribute("aria-expanded", open ? "true" : "false");
-      moreBtn.textContent = open ? "대표 샘플만 보기" : "샘플 16개 모두 보기";
+      moreBtn.textContent = open ? "대표 샘플만 보기" : "샘플 15개 모두 보기";
       applyVisibility();
     });
   }
+
+  /* ── 맨 위로: sticky 헤더에 id="top"이 있으면 현재 위치로 해석돼 스크롤이 멈춘다
+     (09-30 검수 재현) — #top 링크는 항상 문서 최상단으로 보낸다 ── */
+  document.querySelectorAll('a[href="#top"]').forEach((a) => {
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  });
 
   /* ── header hairline on scroll ─────────────────────────── */
   const bar = document.querySelector(".site-head");
