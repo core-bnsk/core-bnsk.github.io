@@ -635,7 +635,7 @@ del { color: var(--soft); }
 }
 .contact-sub {
   max-width: 540px; margin: 20px auto 0;
-  text-align: left;                    /* 제목만 중앙, 본문은 왼쪽 정렬 */
+  text-align: center;                  /* 제목·버튼과 같은 중심축 — 두 줄 문구도 중앙 정렬 */
   color: var(--soft); font-size: 15px; line-height: 1.8;
 }
 .btn-solid {
