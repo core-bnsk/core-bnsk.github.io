@@ -177,8 +177,15 @@ del { color: var(--soft); }
 }
 .cover-meta .meta-sub { display: block; font-size: 11.5px; margin-top: 2px; }
 
-/* ═══ STUDIO STILL — 절제된 이미지 밴드 ══════════════════ */
-.film { position: relative; border-top: 1px solid var(--line-dark); border-bottom: 1px solid var(--line-dark); }
+/* ═══ STUDIO STILL — 에디토리얼 이미지 밴드 ══════════════════
+   모바일(≤640px): 전폭 이미지 + 오버레이 캡션(세로형 원본이라 대부분 표시됨)
+   데스크톱(≥641px): 타이포 패널 + 원본 비율(2:3) 이미지 컬럼 — 잘림 0 */
+.film {
+  position: relative;
+  border-top: 1px solid var(--line-dark);
+  border-bottom: 1px solid var(--line-dark);
+}
+.film-media { position: relative; }
 .film img {
   width: 100%; height: clamp(300px, 55vh, 620px);
   object-fit: cover; object-position: center 62%;
@@ -192,6 +199,35 @@ del { color: var(--soft); }
 .film-cap {
   position: absolute; left: var(--pad); bottom: 18px;
   color: var(--paper); z-index: 1;
+}
+.film-text { display: none; }
+
+@media (min-width: 641px) {
+  .film {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: stretch;
+  }
+  .film-media { border-left: 1px solid var(--line-dark); }
+  .film img {
+    width: auto;
+    height: clamp(480px, 62vh, 680px);
+    aspect-ratio: 2200 / 3300;   /* 원본 비율 — 크롭 없이 스틸라이프 전체 노출 */
+  }
+  .film::after { display: none; }
+  .film-cap { display: none; }
+  .film-text {
+    display: flex; flex-direction: column; justify-content: flex-end;
+    gap: 20px;
+    padding: clamp(36px, 6vw, 96px);
+    min-height: 0;
+  }
+  .film-label { color: var(--accent); }
+  .film-line {
+    font-family: var(--kr-serif); font-weight: 700;
+    font-size: clamp(24px, 2.6vw, 40px);
+    line-height: 1.42; color: var(--ink); word-break: keep-all;
+  }
 }
 
 /* ═══ SECTION SCAFFOLD ═══════════════════════════════════ */
