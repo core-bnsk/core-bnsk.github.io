@@ -403,6 +403,56 @@ del { color: var(--soft); }
 .prem-spec li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }
 .prem-copy .btn-line { padding: 13px 28px; }
 
+/* 사례 노트 — 자료가 적은 케이스의 받은 자료→정리→완성 흐름.
+   프리미엄 박스(prem-show)와 달리 border-top 헤어라인 문법으로 구획 — 브라우징에서 이야기로 읽는 모드 전환 */
+.case {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: clamp(28px, 4vw, 64px);
+  align-items: start;
+  border-top: 1px solid var(--line-dark);
+  margin-top: clamp(36px, 6vh, 56px);
+  padding-top: clamp(32px, 5vh, 48px);
+}
+.case-label { color: var(--accent); display: block; margin-bottom: 12px; }
+.case-copy h3 {
+  font-family: var(--kr-serif); font-weight: 700;
+  font-size: clamp(21px, 2.1vw, 28px);
+  color: var(--ink); word-break: keep-all;
+  margin-bottom: 12px;
+}
+.case-lede { font-size: 15px; color: var(--soft); max-width: 52ch; }
+.case-steps { margin-top: 18px; }
+.case-steps li {
+  border-top: 1px solid var(--line);
+  padding: 14px 0 18px;
+}
+.case-steps .mono { color: var(--accent); display: block; margin-bottom: 7px; letter-spacing: .12em; }
+.case-steps p { font-size: 14.5px; color: var(--text); line-height: 1.75; max-width: 54ch; }
+.case-link {
+  display: inline-flex; align-items: center;
+  margin-top: 6px;
+  font-size: 14px; font-weight: 600; color: var(--accent);
+  text-decoration: underline; text-underline-offset: 4px;
+  min-height: 44px;
+  transition: color .3s;
+}
+.case-link:hover { color: var(--ink); }
+.case-shot { margin: 0; }
+.case-shot a { display: block; border: 1px solid var(--line); }
+/* 공유 카드 원본 비율(1200×630) 무크롭 — height:auto로 HTML height 속성 힌트를 이겨야
+   aspect-ratio가 살아나 좁은 화면에서도 원본 비율이 유지된다(시각 게이트 10-01) */
+.case-shot img {
+  width: 100%; height: auto;
+  aspect-ratio: 1200 / 630;
+  object-fit: cover; object-position: center;
+}
+.case-shot figcaption { margin-top: 10px; }
+
+@media (max-width: 880px) {
+  .case { grid-template-columns: 1fr; }
+}
+
 .roster-note { margin-top: 30px; font-size: 13.5px; color: var(--soft); }
 
 @media (max-width: 1080px) { .roster { grid-template-columns: repeat(2, 1fr); } }
@@ -470,6 +520,18 @@ del { color: var(--soft); }
 .plan-hi .plan-desc, .plan-hi .plan-note, .plan-hi del { color: rgba(247,245,241,.68); }
 .plan-hi ul { border-color: rgba(247,245,241,.22); }
 .plan-hi .plan-compare { color: #CE9B87; border-color: rgba(247,245,241,.22); }
+
+/* 프리미엄 — 어떤 분께 맞는 상품인지 한 줄 + 결과물(P.16) 링크 */
+.plan-who { font-size: 13.5px; line-height: 1.7; color: var(--soft); }
+.plan-who a {
+  color: var(--accent); font-weight: 600;
+  text-decoration: underline; text-underline-offset: 3px;
+  white-space: nowrap;
+}
+.plan-who a:hover { color: var(--ink); }
+.plan-hi .plan-who { color: rgba(247,245,241,.68); }
+.plan-hi .plan-who a { color: #CE9B87; }
+.plan-hi .plan-who a:hover { color: var(--paper); }
 
 /* 가격 카드 CTA — 재작성 시 유실됐던 규칙 복원(09-30 감사) */
 .plan-cta {
