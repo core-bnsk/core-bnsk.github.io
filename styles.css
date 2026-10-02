@@ -744,9 +744,6 @@ del { color: var(--soft); }
 .prep strong { font-family: var(--kr-serif); font-weight: 700; font-size: 17px; color: var(--ink); }
 .prep em { font-style: normal; font-size: 12.5px; color: var(--soft); line-height: 1.6; }
 
-.open-note { margin-top: 26px; font-size: 14.5px; color: var(--soft); }
-.open-note strong { color: var(--ink); font-weight: 700; }
-
 .copy-toast {
   margin-top: 18px; font-size: 12px; letter-spacing: .08em;
   color: var(--accent);
