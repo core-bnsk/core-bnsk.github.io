@@ -223,7 +223,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .visit-grid p { margin-top: 6px; font-size: 13.5px; color: #4a4e45; }
 
 /* ===== 공간 ===== */
-.studio-section > figure img { aspect-ratio: 3 / 2; object-fit: cover; }
+.studio-section > figure img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
 .studio-section figcaption { padding-top: 10px; font-size: 10.5px; letter-spacing: .18em; color: var(--muted); }
 .space-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(16px, 2.4vw, 32px); margin-top: clamp(16px, 2.4vw, 32px); }
 .space-grid img { aspect-ratio: 5 / 4; object-fit: cover; }
