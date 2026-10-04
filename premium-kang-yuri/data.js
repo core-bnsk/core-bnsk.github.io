@@ -133,7 +133,7 @@ export const gallery = [
   { src: "assets/img/gallery/g1-window.jpg",    alt: "아치창으로 들어오는 오후의 빛",           cap: "Arched Light" },
   { src: "assets/img/gallery/g2-studio.jpg",    alt: "리포머 2대가 놓인 원목 스튜디오 전경",      cap: "The Studio" },
   { src: "assets/img/gallery/g3-reformer.jpg",  alt: "리포머 기구 디테일",                     cap: "Reformer" },
-  { src: "assets/img/activity-release.jpg",     alt: "폼롤러로 근막 이완 훈련을 진행하는 강유리 강사", cap: "Myofascial Release" },
+  { src: "assets/img/activity-release.jpg",     alt: "스튜디오에서 앉아 휴식 중인 강유리 강사", cap: "Studio Moment" },
   { src: "assets/img/gallery/g5-corner.jpg",    alt: "매트가 놓인 원목 바닥 코너",              cap: "Quiet Corner" },
   { src: "assets/img/activity-studio.jpg",      alt: "리포머 기구가 갖춰진 반석 필라테스 일산 스튜디오", cap: "Studio in Ilsan" },
 ];
@@ -168,7 +168,7 @@ export const philosophy = [
   {
     num: "03",
     title: "그날 컨디션에 맞춥니다",
-    body: "피곤하고 몸이 무거운 날, 무리한 운동은 오히려 부담입니다. 도수치료 센터에서 얻은 임상 경험으로 그날 컨디션에 맞춰 강도와 범위를 조절해 드립니다.",
+    body: "피곤하고 몸이 무거운 날, 무리한 운동은 오히려 부담입니다. 도수치료 센터에서 쌓은 경험으로 그날 컨디션에 맞춰 강도와 범위를 조절해 드립니다.",
   },
 ];
 
@@ -254,7 +254,7 @@ export const curriculumAccordion = [
 export const reviews = {
   /* 리뷰 요약 — 섹션 상단 큰 점수로 표시 (샘플 값) */
   summary: {
-    score: 5.0,              // 샘플 평균 평점
+    score: 4.9,              // 샘플 평균 평점
     count: 12,               // 샘플 누적 리뷰 수
     source: "포트폴리오 시연용 가상 데이터입니다(실존하지 않음)",
   },

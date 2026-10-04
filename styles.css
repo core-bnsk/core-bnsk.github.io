@@ -727,6 +727,11 @@ del { color: var(--soft); }
   transition: color .3s;
 }
 .contact-else a:hover, .contact-else button:hover { color: var(--accent); text-decoration-color: var(--accent); }
+.contact-note {
+  margin-top: 14px; font-size: 13.5px; color: var(--soft); line-height: 1.7;
+}
+.contact-note a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.contact-note a:hover { color: var(--accent); }
 
 .prep-wrap {
   max-width: 780px;
@@ -743,6 +748,7 @@ del { color: var(--soft); }
 .prep .mono { color: var(--accent); letter-spacing: .12em; }
 .prep strong { font-family: var(--kr-serif); font-weight: 700; font-size: 17px; color: var(--ink); }
 .prep em { font-style: normal; font-size: 12.5px; color: var(--soft); line-height: 1.6; }
+.prep-privacy { margin-top: 12px; font-size: 12.5px; color: var(--soft); line-height: 1.7; }
 
 .copy-toast {
   margin-top: 18px; font-size: 12px; letter-spacing: .08em;
@@ -770,6 +776,15 @@ del { color: var(--soft); }
   border-top: 1px solid var(--line); padding-top: 20px;
 }
 .foot-row a:hover { color: var(--accent); }
+.foot-legal {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 10px;
+  margin-top: 14px; text-align: center;
+  font-size: 12px; color: var(--ink); opacity: .66;
+}
+.foot-legal span { white-space: nowrap; }
+.foot-legal span + span::before { content: "·"; margin-right: 10px; color: var(--line-dark); }
+.foot-legal a { text-decoration: underline; text-underline-offset: 3px; }
+.foot-legal a:hover { color: var(--accent); opacity: 1; }
 
 /* ═══ REVEAL ══════════════════════════════════════════════ */
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity .9s cubic-bezier(.22,1,.36,1), transform .9s cubic-bezier(.22,1,.36,1); }

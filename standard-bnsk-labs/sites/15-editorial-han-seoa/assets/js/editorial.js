@@ -71,12 +71,27 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var choice = new FormData(form);
+      var lesson = choice.get('lesson');
+      var time = choice.get('time');
       var title = document.createElement('h3');
-      title.textContent = '선택한 수업을 확인해 보세요.';
       var line = document.createElement('p');
-      line.textContent = (choice.get('lesson') || '') + ' · ' + (choice.get('time') || '');
       var note = document.createElement('p');
       note.className = 'result-note';
+      /* 미선택 제출 가드 — 빈 결과 화면으로 넘어가지 않게 폼을 유지한 채 안내 */
+      var missing = [];
+      if (!lesson) missing.push('관심 있는 수업');
+      if (!time) missing.push('편안한 시간대');
+      if (missing.length) {
+        title.textContent = '아직 선택하지 않은 항목이 있어요.';
+        line.textContent = missing.join(' · ') + '을 선택해 주세요.';
+        note.textContent = '두 항목을 모두 선택한 뒤 다시 눌러 주세요.';
+        result.replaceChildren(title, line, note);
+        result.hidden = false;
+        result.focus();
+        return;
+      }
+      title.textContent = '선택한 수업을 확인해 보세요.';
+      line.textContent = lesson + ' · ' + time;
       note.textContent = '여기까지가 상담 흐름 체험입니다. 실제 예약은 접수되지 않았으며, 선택 내용은 저장·전송되지 않습니다. 운영 사이트에서는 이 단계에 실제 강사의 상담 채널을 연결합니다.';
       result.replaceChildren(title, line, note);
       form.hidden = true;
