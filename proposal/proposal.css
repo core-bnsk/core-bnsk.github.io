@@ -1,0 +1,120 @@
+/* BNSK LABS · 기관/센터 제안 페이지. 브랜드의 색·서체 토큰 상속. */
+.skip-link { position: fixed; top: -100px; left: 20px; z-index: 300; padding: 12px 20px; background: var(--ink); color: var(--paper); }
+.skip-link:focus { top: 12px; }
+.proposal-page .head-offer { font-size: 14px; font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; }
+.proposal-cover { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); align-items: center; gap: clamp(32px, 4vw, 64px); text-align: left; }
+.proposal-cover .cover-kicker { font-size: 14px; }
+.proposal-cover .cover-title { font-size: clamp(30px, 3.4vw, 48px); line-height: 1.45; letter-spacing: 0; }
+.proposal-cover .cover-title strong { display: inline; }
+.proposal-cover .cover-lede { max-width: 34em; color: var(--text); font-size: 16px; }
+.proposal-cover .cover-brand { margin-bottom: 24px; }
+.proposal-cover .cover-cta { justify-content: flex-start; }
+.proposal-page .btn-solid, .proposal-page .btn-line { font-family: var(--sans); letter-spacing: 0; padding: 14px 22px; min-height: 52px; }
+.cover-preview { min-width: 0; }
+.cover-preview a { display: block; border: 1px solid var(--line); }
+.cover-preview img { width: 100%; height: auto; }
+.cover-preview figcaption { display: flex; justify-content: space-between; gap: 12px; padding-top: 12px; font-size: 12px; color: var(--soft); }
+.preview-caption { margin-top: 24px; font-family: var(--kr-serif); font-size: clamp(18px, 1.6vw, 22px); color: var(--ink); line-height: 1.65; }
+.proposal-page .section { padding-block: clamp(56px, 7vw, 100px); }
+.proposal-page .sec-head { align-items: flex-start; }
+.proposal-page .sec-no { font-family: var(--sans); font-size: 13px; letter-spacing: 0; }
+.proposal-page .sec-title { font-size: clamp(27px, 3vw, 40px); line-height: 1.45; }
+.section-intro { max-width: 34em; margin-bottom: 32px; font-size: 16px; }
+.partner-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+.partner-card { padding: clamp(24px, 3vw, 40px); background: var(--paper-deep); border-top: 2px solid var(--ink); }
+.partner-label { font-size: 13px; color: var(--accent); font-weight: 600; }
+.partner-card h3 { font-family: var(--kr-serif); font-size: clamp(22px, 2.2vw, 28px); line-height: 1.5; margin: 12px 0 18px; color: var(--ink); }
+.partner-card p { font-size: 16px; max-width: 34em; }
+.use-details { margin-top: 24px; }
+.use-details > div { padding: 14px 0; border-top: 1px solid var(--line); }
+.use-details dt { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.use-details dd { font-size: 15px; }
+.partner-card .partner-footnote { padding-top: 16px; border-top: 1px solid var(--line); font-size: 14px; color: var(--soft); }
+.agreement-note, .deliverable-note { margin-top: 32px; padding: 24px 0; border-block: 1px solid var(--line); display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 24px; }
+.agreement-note h3, .deliverable-note h3 { font-size: 16px; font-weight: 600; color: var(--ink); }
+.agreement-note p, .deliverable-note p { font-size: 15px; max-width: 34em; }
+.proposal-page .works-intro { max-width: 48em; font-size: 16px; }
+.proposal-page .roster { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.proposal-page .cov-desc { font-size: 15px; line-height: 1.6; }
+.proposal-page .cov-foot { font-size: 12px; letter-spacing: 0; flex-wrap: wrap; gap: 8px; }
+.process-list li { display: grid; grid-template-columns: 72px minmax(0, 1fr); border-top: 1px solid var(--line); padding: 24px 0; gap: 24px; }
+.process-no { font-size: 16px; color: var(--accent); padding-top: 4px; }
+.process-list h3 { font-size: 19px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+.process-list p { font-size: 16px; max-width: 34em; }
+.process-note { border-top: 1px solid var(--line); padding-top: 20px; font-size: 14px; color: var(--soft); }
+.proposal-page .plan:hover { transform: none; box-shadow: none; }
+.proposal-page .plan li { font-size: 15px; }
+.proposal-page .plan-cta { font-family: var(--sans); font-size: 14px; letter-spacing: 0; min-height: 48px; }
+.proposal-page .plan-price { font-family: var(--sans); }
+.proposal-page .plan-price ins { font-size: clamp(27px, 2.5vw, 36px); letter-spacing: 0; }
+.proposal-page .plan-price.care ins { font-size: 26px; }
+.proposal-page .offer-strip { margin: 32px 0 0; }
+.proposal-page .offer-tag { font-family: var(--sans); font-size: 13px; letter-spacing: 0; }
+.proposal-page .plans-common dd { font-size: 15px; color: var(--text); max-width: 48em; }
+.proposal-page .plans-common dt { font-family: var(--sans); font-size: 13px; letter-spacing: 0; }
+.proposal-page .ed-article { max-width: 34em; }
+.proposal-page .contact-inner { text-align: left; max-width: 48em; padding-top: 0; }
+.proposal-page .contact-sub { text-align: left; margin: 0; max-width: 34em; font-size: 16px; }
+.proposal-page .contact-cta, .proposal-page .contact-else { justify-content: flex-start; }
+.inquiry-list { margin-top: 24px; border-top: 1px solid var(--line); }
+.inquiry-list li { padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 16px; }
+@media (max-width: 1080px) { .proposal-cover { grid-template-columns: 1.15fr .85fr; gap: 28px; } }
+@media (max-width: 880px) {
+  .proposal-cover { grid-template-columns: 1fr; }
+  .proposal-cover .cover-title { font-size: clamp(30px, 5.4vw, 46px); }
+  .cover-preview { max-width: 640px; }
+  .partner-grid { grid-template-columns: 1fr; }
+  .proposal-page .roster { grid-template-columns: 1fr; }
+  .agreement-note, .deliverable-note { grid-template-columns: 1fr; gap: 10px; }
+}
+@media (max-width: 640px) {
+  .proposal-page .head-nav { gap: 8px; }
+  .proposal-page .head-nav a { font-size: 12px; white-space: nowrap; }
+  .proposal-cover .cover-kicker { font-size: 13px; max-width: 25em; }
+  .proposal-cover .cover-title { font-size: clamp(25px, 6.6vw, 34px); }
+  .proposal-cover .cover-cta { flex-direction: column; align-items: stretch; gap: 10px; }
+  .proposal-page .sec-head { flex-direction: column; gap: 14px; }
+  .process-list li { grid-template-columns: 34px minmax(0, 1fr); gap: 14px; }
+  .cover-preview figcaption { font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .proposal-page *, .proposal-page *::before, .proposal-page *::after { scroll-behavior: auto; transition: none; } }
+@media print {
+  .site-head, .grain, .skip-link, .cover-cta, .plan-cta, .contact-else { display: none; }
+  .proposal-page .section { padding-block: 28px; }
+  .proposal-page .reveal { opacity: 1; transform: none; }
+  .partner-card, .plan, .work, .process-list li { break-inside: avoid; }
+}
+
+.proposal-page .btn-solid, .proposal-page .btn-line { gap: 12px; }
+@media (max-width: 980px) { .proposal-page section[id] { scroll-margin-top: 140px; } }
+
+.proposal-page .reveal { opacity: 1; transform: none; transition: none; }
+.comparison-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 15px; }
+.comparison-table caption { text-align: left; font-size: 13px; color: var(--soft); padding-bottom: 16px; }
+.comparison-table th, .comparison-table td { text-align: left; vertical-align: top; padding: 20px 24px; border-bottom: 1px solid var(--line); font-weight: 400; }
+.comparison-table thead th { background: var(--paper-deep); font-family: var(--kr-serif); font-weight: 700; font-size: 24px; border-top: 2px solid var(--ink); border-bottom-color: var(--ink); }
+.comparison-table th:first-child { width: 16%; }
+.comparison-table thead th:first-child, .comparison-table tbody th { font-family: var(--sans); font-size: 14px; font-weight: 600; }
+.comparison-table td + td { border-left: 1px solid var(--line); }
+.comparison-price { font-family: var(--sans); font-size: clamp(24px, 2.5vw, 32px); font-weight: 700; color: var(--ink); }
+.comparison-table li { padding: 4px 0; }
+.comparison-table .plan-cta { margin-top: 0; }
+.comparison-inc { font-weight: 600; margin-bottom: 8px; }
+.comparison-note { font-size: 14px; color: var(--soft); max-width: 48em; margin-top: 20px; }
+.care-service { display: grid; grid-template-columns: 1fr 1.7fr; gap: 40px; padding: 32px; margin-top: 36px; background: var(--paper-deep); }
+.care-service h3 { font-family: var(--kr-serif); font-size: 26px; margin: 6px 0 12px; }
+.care-service p, .care-service li { font-size: 15px; }
+.care-service p.comparison-price { font-size: 26px; }
+.care-service li { padding: 4px 0; }
+.care-service ul + p { margin-top: 16px; }
+.care-service .plan-cta { max-width: 260px; }
+@media (max-width: 640px) {
+  .comparison-table { font-size: 14px; }
+  .comparison-table th, .comparison-table td { padding: 16px 10px; }
+  .comparison-table thead th { font-size: 19px; }
+  .comparison-table th:first-child { width: 19%; }
+  .comparison-table thead th:first-child, .comparison-table tbody th { font-size: 12px; }
+  .comparison-table .comparison-price { font-size: 20px; white-space: nowrap; }
+  .comparison-table .plan-cta { font-size: 13px; padding-inline: 4px; }
+  .care-service { grid-template-columns: 1fr; gap: 20px; padding: 24px; }
+}
