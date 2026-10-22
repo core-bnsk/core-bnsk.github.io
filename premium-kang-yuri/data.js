@@ -91,7 +91,7 @@ export const profile = {
        · 값이 있으면 문의 폼이 메일 앱 없이 서버로 직접 전송됩니다 (권장)
        · 빈 값("")이면 강사 이메일로 메일 앱이 열리는 방식으로 동작합니다 */
   links: {
-    kakaoOpenChat: "https://pf.kakao.com/_GVxlaX/chat",
+    kakaoOpenChat: "",
     instagram:     "",
     youtube:       "",
     naverBlog:     "",
@@ -256,7 +256,7 @@ export const reviews = {
   summary: {
     score: 4.9,              // 샘플 평균 평점
     count: 12,               // 샘플 누적 리뷰 수
-    source: "포트폴리오 시연용 가상 데이터입니다(실존하지 않음)",
+    source: "예시 후기 · 실제 수강 후기가 아닙니다.",
   },
   items: [
     {

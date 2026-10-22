@@ -878,67 +878,16 @@ const initMobileMenu = () => {
 };
 
 /** 문의 폼 — Formspree 설정 시 서버 전송, 미설정 시 mailto 전송 (모두 클라이언트 검증 우선) */
-const initContactForm = (data) => {
+// 강유리 공개 샘플 전용 체험. 고객용 원본의 전송 기능에는 영향을 주지 않는다.
+const initContactForm = () => {
   const form = $('#contact-form');
-  if (!form) return;
   const status = $('#form-status');
-  const note = form.querySelector('.form-note');
-  const showStatus = (message) => {
-    if (!status) return;
-    status.textContent = message;
+  if (!form || !status) return;
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    status.textContent = `${$('#f-program').value} · ${$('#f-time').value}을 선택하셨어요. 실제 운영 사이트에서는 이 단계에서 상담 요청을 전달해요. 이번 체험 내용은 전송되지 않았어요.`;
     status.classList.add('is-visible');
-  };
-  // links.formspreeId 에 Formspree 폼 ID(https://formspree.io/f/ ← 의 마지막 조각)를
-  // 넣으면 메일 앱 없이 서버로 직접 전송됩니다. 빈 값("")이면 기존 mailto 방식으로 동작.
-  const formspreeId = data.profile.links?.formspreeId;
-  if (formspreeId && note) {
-    note.textContent = '보내기를 누르면 상담 요청이 강사에게 전달됩니다. 카카오톡 상담도 언제든 환영합니다.';
-  } else if (note && !isEmail(data.profile.links?.email)) {
-    note.textContent = '상담·예약은 카카오톡 채널로 가장 빠르게 연결됩니다.';   // 이메일 미설정 시 mailto 안내가 없도록
-  }
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const name = $('#f-name')?.value.trim() ?? '';
-    const phone = $('#f-phone')?.value.trim() ?? '';
-    const program = $('#f-program')?.value || '미선택';
-    const message = $('#f-message')?.value.trim() ?? '';
-
-    if (!name || !phone) {                                     // 1차 클라이언트 검증
-      showStatus('이름과 연락처는 필수입니다.');
-      (!name ? $('#f-name') : $('#f-phone'))?.focus();
-      return;
-    }
-    const payload = { name, phone, program, message: message || '(없음)' };
-    const submitBtn = form.querySelector('[type="submit"]');
-    if (formspreeId) {
-      submitBtn?.setAttribute('disabled', '');
-      try {
-        const res = await fetch(`https://formspree.io/f/${formspreeId}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify(payload),
-        });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        form.reset();
-        showStatus('상담 요청이 접수되었습니다. 1일 이내에 회신드립니다.');
-      } catch {
-        showStatus('전송에 실패했습니다. 잠시 후 다시 시도하거나 카카오톡 채널로 문의해 주세요.');
-      } finally {
-        submitBtn?.removeAttribute('disabled');
-      }
-      return;
-    }
-    const email = data.profile.links?.email;
-    if (!isEmail(email)) {                                     // 이메일 누락 시 대체 경로 안내
-      showStatus('카카오톡 채널로 문의해 주세요.');
-      return;
-    }
-    const subject = encodeURIComponent(`[상담 예약] ${name}님 — ${program}`);
-    const body = encodeURIComponent(
-      `이름: ${name}\n연락처: ${phone}\n관심 프로그램: ${program}\n문의 내용: ${message || '(없음)'}\n`
-    );
-    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
-    showStatus(`메일 앱을 열었습니다. 열리지 않으면 ${email} 로 직접 보내주세요.`);
+    status.focus();
   });
 };
 

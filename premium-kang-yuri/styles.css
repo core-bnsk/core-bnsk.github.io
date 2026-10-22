@@ -1223,3 +1223,7 @@ strong { font-weight: 600; }
 
 /* 마그네틱 버튼 — JS 가 transform 을 덮어쓰므로 이탈 시 원복 트랜지션만 제공 */
 .hero__actions .btn, .header-cta { will-change: transform; }
+
+/* 제작 샘플 안내: 기존 본문 색·테두리 토큰을 공유한다. */
+.sample-note { font-size: .8125rem; line-height: 1.7; color: var(--color-text); margin: 0 0 1.25rem; }
+.sample-note a, .footer-note a { text-decoration: underline; text-underline-offset: 3px; }
