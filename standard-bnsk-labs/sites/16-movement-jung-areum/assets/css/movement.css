@@ -551,6 +551,9 @@ dialog#consult-dialog::backdrop { background: rgba(0, 0, 0, .62); }
 @media (max-width: 760px) {
   .wrap { width: calc(100% - 36px); }
   body { font-size: 15px; }
+  /* 히어로 서브 카피: 폴백 폰트(3줄)와 Pretendard(2줄)의 줄 수 차이로 인한
+     하단 고정 스택의 CLS 방지 — 3줄 높이를 예약해 두 상태 높이를 동일화(2026-10-24) */
+  .hero-sub { min-height: 5lh; }
   .header-inner { gap: 14px; padding-block: 10px; }
   .site-nav {
     display: none; position: absolute; left: 0; right: 0; top: 100%;

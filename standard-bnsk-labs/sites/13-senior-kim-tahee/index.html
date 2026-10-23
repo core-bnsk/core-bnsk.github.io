@@ -167,11 +167,11 @@
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/icon-32.png?v=35de7799">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/img/icon-16.png?v=35de7799">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png?v=35de7799">
+  <!-- ===== 웹폰트: Pretendard Variable (다이내믹 서브셋, 전 기기 타이포 일관) — 비동기 로드(렌더 블로킹 제거·2026-10-24 성능 개선) ===== -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <!-- ===== 웹폰트: Pretendard Variable (다이내믹 서브셋, 전 기기 타이포 일관) ===== -->
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"></noscript>
   <link rel="stylesheet" href="assets/css/bnsk.css?v=1442c5c8">
 </head>
 <body id="top" class="antialiased">
