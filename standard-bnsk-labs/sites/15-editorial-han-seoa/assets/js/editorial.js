@@ -108,28 +108,50 @@
     return;
   }
 
-  /* [4] 실서비스 폼 — webhook(data-webhook) 있을 때만 전송 */
+  /* [4] 실서비스 폼 — 미연결·전송 실패를 접수 성공으로 표시하지 않는다 */
   if (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var url = form.getAttribute('data-webhook');
-      var done = function () {
+      var kakao = form.getAttribute('data-kakao');
+      var tel = form.getAttribute('data-tel');
+      var altLink = kakao || (tel ? 'tel:' + tel : null);
+      var altLabel = kakao ? '카카오톡으로 문의하기' : '전화 문의하기';
+      var render = function (titleText, noteText, link, linkLabel, hideForm) {
         var title = document.createElement('h3');
-        title.textContent = '상담 신청이 접수되었습니다.';
+        title.textContent = titleText;
         var note = document.createElement('p');
         note.className = 'result-note';
-        note.textContent = '영업일 기준 하루 안에 연락드립니다. 입력 정보는 상담 목적으로만 사용됩니다.';
+        note.textContent = noteText;
         result.replaceChildren(title, note);
-        form.hidden = true;
+        if (link) {
+          var a = document.createElement('a');
+          a.className = 'demo-submit';
+          a.href = link;
+          if (/^tel:/.test(link)) { /* 전화는 같은 창 */ }
+          else { a.target = '_blank'; a.rel = 'noopener'; }
+          a.textContent = linkLabel;
+          result.appendChild(a);
+        }
+        form.hidden = !!hideForm;
         result.hidden = false;
         result.focus();
       };
-      if (url) {
-        fetch(url, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(Object.fromEntries(new FormData(form))) }).then(done, done);
-      } else {
-        done();
+      if (!url) {
+        render('상담 접수가 아직 연결되지 않았습니다.',
+          '이 사이트는 접수창구가 준비 중입니다. 아래 채널로 바로 문의해 주세요.',
+          altLink, altLabel, !!altLink);
+        return;
       }
+      var payload = JSON.stringify(Object.fromEntries(new FormData(form)));
+      fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: payload })
+        .then(function (res) {
+          if (res.ok) render('상담 신청이 접수되었습니다.', '영업일 기준 하루 안에 연락드립니다. 입력 정보는 상담 목적으로만 사용됩니다.', null, null, true);
+          else render('전송되지 않았습니다.', '잠시 후 다시 시도해 주세요. 계속 어려우면 아래 채널로 문의해 주세요.', altLink, altLabel, false);
+        })
+        .catch(function () {
+          render('전송되지 않았습니다.', '네트워크 문제로 전송에 실패했습니다. 다시 시도해 주세요. 계속 어려우면 아래 채널로 문의해 주세요.', altLink, altLabel, false);
+        });
     });
   }
   /* [6] FLOATING CONSULT BAR — 280px 스크롤 후 표시, 푸터 진입 시 숨김 (데스크톱 전용 CSS) */
