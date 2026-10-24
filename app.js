@@ -102,7 +102,7 @@
       /* '모두 보기'는 분야 필터도 '전체'로 되돌려야 문구와 결과가 일치한다 (09-30 검수) */
       if (open) resetToAll();
       moreBtn.setAttribute("aria-expanded", open ? "true" : "false");
-      moreBtn.textContent = open ? "대표 샘플만 보기" : "샘플 15개 모두 보기";
+      moreBtn.textContent = open ? "대표 샘플만 보기" : "샘플 17개 모두 보기";
       applyVisibility();
     });
   }
