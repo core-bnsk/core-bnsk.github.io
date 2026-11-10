@@ -791,7 +791,7 @@ del { color: var(--soft); }
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  padding: 14px 20px;
+  padding: 15px 21px;
   background: var(--ink);
   color: var(--paper);
   font-size: 12px;
@@ -815,7 +815,7 @@ del { color: var(--soft); }
 }
 @media (max-width: 760px) {
   .float-cta {
-    padding: 13px 16px;
+    padding: 15px 17px;
     font-size: 11.5px;
     bottom: calc(16px + env(safe-area-inset-bottom, 0px));
     right: 14px;
@@ -823,9 +823,9 @@ del { color: var(--soft); }
 }
 
 /* ═══ FOOTER ══════════════════════════════════════════════ */
-.site-foot { border-top: 1px solid var(--line-dark); padding: clamp(44px, 7vh, 84px) var(--pad) 32px; }
-/* 하단 고정 문의 버튼이 법정 표기를 덮지 않도록 모바일 푸터에 여유 */
-@media (max-width: 760px) { .site-foot { padding-bottom: 80px; } }
+.site-foot { border-top: 1px solid var(--line-dark); padding: clamp(44px, 7vh, 84px) var(--pad) 96px; }
+/* 하단 고정 문의 버튼이 법정 표기·Back to Top을 덮지 않도록 푸터 하단 여유 */
+@media (max-width: 760px) { .site-foot { padding-bottom: 84px; } }
 .foot-sig {
   font-family: var(--kr-serif); font-weight: 700;
   font-size: clamp(18px, 2vw, 24px); color: var(--ink);
