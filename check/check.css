@@ -66,9 +66,9 @@
   white-space: nowrap;
 }
 .tally-count b {
-  font-family: var(--didone);
+  font-family: var(--kr-serif);
   font-weight: 400;
-  font-size: 25px;
+  font-size: 24px;
   letter-spacing: 0;
   color: var(--ink);
   margin-right: 3px;
@@ -270,7 +270,7 @@
 }
 .result-label { display: block; }
 .result-num {
-  font-family: var(--didone);
+  font-family: var(--kr-serif);
   font-weight: 400;
   font-size: clamp(58px, 8.4vw, 92px);
   line-height: .92;
