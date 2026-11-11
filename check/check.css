@@ -271,7 +271,7 @@
 .result-label { display: block; }
 .result-num {
   font-family: var(--kr-serif);
-  font-weight: 700;
+  font-weight: 400;
   font-size: clamp(58px, 8.4vw, 92px);
   line-height: .92;
   color: var(--ink);
@@ -280,7 +280,7 @@
   margin-top: 12px;
 }
 .result-num b {
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: 0;
 }
 .result-num span {
