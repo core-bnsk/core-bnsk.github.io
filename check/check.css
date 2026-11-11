@@ -66,9 +66,9 @@
   white-space: nowrap;
 }
 .tally-count b {
-  font-family: var(--didone);
+  font-family: var(--kr-serif);
   font-weight: 700;
-  font-size: 22px;
+  font-size: 21px;
   letter-spacing: 0;
   color: var(--ink);
   margin-right: 2px;
@@ -270,18 +270,18 @@
 }
 .result-label { display: block; }
 .result-num {
-  font-family: var(--didone);
+  font-family: var(--kr-serif);
   font-weight: 700;
-  font-size: clamp(62px, 9vw, 100px);
-  line-height: .86;
+  font-size: clamp(58px, 8.4vw, 92px);
+  line-height: .92;
   color: var(--ink);
-  letter-spacing: -.02em;
+  letter-spacing: 0;
   font-variant-numeric: tabular-nums;
-  margin-top: 10px;
+  margin-top: 12px;
 }
 .result-num b {
   font-weight: 700;
-  letter-spacing: -.01em;
+  letter-spacing: 0;
 }
 .result-num span {
   font-family: var(--mono);
