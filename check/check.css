@@ -12,11 +12,24 @@
   z-index: 300;
   padding: 12px 20px;
   background: var(--ink);
-  color: var(--paper);
+  color: #FFFFFF;
   font-family: var(--sans);
   font-size: 14px;
 }
 .skip-link:focus { top: 12px; }
+
+/* ═══ BRIGHT & AIRY REFINEMENT (화사하고 산뜻한 톤) ═══ */
+body.check-page {
+  --paper: #FFFFFF;
+  --paper-deep: #FAF8F5;
+  --line: #EAE6DF;
+  --line-dark: #D4CEBF;
+  background-color: #FFFFFF;
+}
+
+body.check-page .grain {
+  opacity: .015;
+}
 
 /* 모바일 헤더는 두 줄이라 앵커 여유를 더 준다 */
 @media (max-width: 980px) {
@@ -127,7 +140,7 @@
   grid-template-columns: auto 1fr;
   gap: 4px 16px;
   align-items: baseline;
-  border-top: 1px solid var(--line-dark);
+  border-top: 1px solid var(--line);
   padding-top: 16px;
   margin-bottom: 4px;
 }
@@ -179,26 +192,27 @@
   position: relative;
   width: 22px; height: 22px;
   margin-top: 2px;
-  border: 1px solid var(--ink);
-  background: transparent;
-  transition: background .3s, border-color .3s;
+  border: 1.5px solid #C8C2B4;
+  border-radius: 4px;
+  background: #FFFFFF;
+  transition: background .25s, border-color .25s;
 }
 .item-input:focus-visible + .item-box {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 4px;
 }
 .item-input:checked + .item-box {
-  background: var(--ink);
-  border-color: var(--ink);
+  background: var(--accent);
+  border-color: var(--accent);
 }
 .item-input:checked + .item-box::after {
   content: "";
   position: absolute;
   left: 7px; top: 3px;
-  width: 6px; height: 12px;
-  border-right: 2px solid var(--paper);
-  border-bottom: 2px solid var(--paper);
+  width: 6px; height: 11px;
+  border-right: 2px solid #FFFFFF;
+  border-bottom: 2px solid #FFFFFF;
   transform: rotate(40deg);
 }
 
@@ -259,12 +273,16 @@
 .result {
   display: grid;
   grid-template-columns: minmax(0, 3fr) minmax(0, 7fr);
-  border: 1px solid var(--line-dark);
-  background: color-mix(in srgb, var(--paper-deep) 70%, var(--paper));
+  border: 1px solid #EAE6DF;
+  border-radius: 6px;
+  background: #FFFFFF;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.035);
+  overflow: hidden;
 }
 .result-score {
   padding: clamp(24px, 3vw, 40px);
-  border-right: 1px solid var(--line);
+  border-right: 1px solid #EAE6DF;
+  background: #FAF8F5;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -393,7 +411,7 @@
 }
 
 /* ═══ DIAGNOSE — 1:1 진단 ════════════════════════════════ */
-.diagnose { border-top: 1px solid var(--line-dark); }
+.diagnose { border-top: 1px solid var(--line); }
 .diag-grid {
   display: grid;
   grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
@@ -433,9 +451,11 @@
 }
 
 .diag-card {
-  border: 1px solid var(--line-dark);
+  border: 1px solid #EAE6DF;
+  border-radius: 6px;
   padding: clamp(24px, 3vw, 38px);
-  background: var(--paper);
+  background: #FAF8F5;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.025);
 }
 .diag-card .mono { display: block; color: var(--accent); }
 .diag-card h3 {
