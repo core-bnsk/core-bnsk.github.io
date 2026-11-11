@@ -47,14 +47,15 @@
 }
 
 /* ═══ TALLY — 체크 개수 실시간 카운터 ════════════════════ */
+#test .sec-head { margin-bottom: clamp(16px, 2.5vh, 26px); }
+
 .tally {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   flex-wrap: wrap;
-  border-top: 1px solid var(--line-dark);
   border-bottom: 1px solid var(--line);
-  padding: 14px 0;
+  padding: 0 0 14px;
   margin-bottom: clamp(8px, 2vh, 16px);
 }
 .tally-count {
@@ -74,8 +75,8 @@
   font-variant-numeric: tabular-nums;
 }
 .tally-bar {
-  flex: 1 1 90px;
-  min-width: 60px;
+  flex: 0 0 auto;
+  width: clamp(72px, 18vw, 150px);
   height: 2px;
   background: var(--line);
   overflow: hidden;
@@ -88,6 +89,7 @@
   transition: width .5s cubic-bezier(.22, 1, .36, 1);
 }
 .tally-jump {
+  margin-left: auto;
   font-family: var(--mono);
   font-size: 12px;
   font-weight: 500;
@@ -99,14 +101,15 @@
   display: inline-flex;
   align-items: center;
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity .4s;
+  transition: opacity .4s, visibility .4s;
 }
-.tally.is-started .tally-jump { opacity: 1; pointer-events: auto; }
+.tally.is-started .tally-jump { opacity: 1; visibility: visible; pointer-events: auto; }
 .tally-jump:hover { color: var(--accent); border-color: var(--accent); }
 
 .tally-note {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--soft);
   margin-bottom: clamp(28px, 4vh, 40px);
 }
@@ -275,6 +278,10 @@
   letter-spacing: -.02em;
   font-variant-numeric: tabular-nums;
   margin-top: 10px;
+}
+.result-num b {
+  font-weight: 700;
+  letter-spacing: -.01em;
 }
 .result-num span {
   font-family: var(--mono);
