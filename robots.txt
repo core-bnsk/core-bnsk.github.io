@@ -1,4 +1,5 @@
 User-agent: *
+Disallow: /mission-control
 Allow: /
 
 Sitemap: https://bnsklabs.com/sitemap.xml
