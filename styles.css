@@ -874,3 +874,99 @@ del { color: var(--soft); }
   .mark-kr { display: none; }        /* 좁은 화면에서 로고 압축 */
   .head-nav a { font-size: 13.5px; }
 }
+
+/* ═══ 게이트웨이 — 프로필 문장 정리 (2026-11-16 시안) ═══════════
+   무료 진단(0원)과 스탠다드(21.9만 원) 사이의 22만 원 점프를 메우는 첫 유료 칸.
+   톤: Quiet Luxury Editorial — 헤어라인, 버건디 태그, 디도체 금액, 이탤릭 금지 */
+.gateway {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(24px, 4vw, 56px);
+  border: 1px solid var(--line-dark);
+  background: var(--paper);
+  padding: clamp(26px, 4vw, 46px);
+  margin-bottom: clamp(32px, 5vh, 52px);
+}
+.gateway::before {
+  content: "";
+  position: absolute; left: 0; top: 0;
+  width: 100%; height: 3px;
+  background: var(--accent);
+}
+.gateway-tag {
+  display: block;
+  color: var(--accent);
+  font-size: 11.5px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.gateway h3 {
+  font-family: var(--kr-serif);
+  font-weight: 700;
+  font-size: clamp(23px, 2.3vw, 31px);
+  line-height: 1.38;
+  color: var(--ink);
+  margin-top: 12px;
+  word-break: keep-all;
+}
+.gateway-lede {
+  margin-top: 16px;
+  font-size: 15.5px;
+  line-height: 1.9;
+  color: var(--text);
+  word-break: keep-all;
+}
+.gateway-lede strong { color: var(--ink); font-weight: 600; }
+.gateway-list { list-style: none; margin-top: 22px; border-top: 1px solid var(--line); }
+.gateway-list li {
+  display: flex; gap: 14px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--line);
+}
+.gateway-list .mono { color: var(--accent); font-size: 11.5px; padding-top: 4px; }
+.gateway-list strong { display: block; font-size: 14.5px; font-weight: 600; color: var(--ink); }
+.gateway-list em {
+  display: block;
+  font-style: normal;
+  font-size: 13.5px;
+  color: var(--soft);
+  line-height: 1.75;
+}
+.gateway-side {
+  border-left: 1px solid var(--line);
+  padding-left: clamp(20px, 3vw, 40px);
+  display: flex; flex-direction: column; justify-content: center; gap: 18px;
+}
+.gateway-price ins {
+  display: block;
+  font-family: var(--kr-serif);
+  font-size: clamp(34px, 3.4vw, 46px);
+  font-weight: 400;
+  letter-spacing: -.01em;
+  line-height: 1.05;
+  color: var(--ink);
+  text-decoration: none;
+}
+.gateway-price span {
+  display: block;
+  margin-top: 9px;
+  font-size: 13px;
+  color: var(--soft);
+  line-height: 1.7;
+}
+.gateway-cta { display: flex; flex-wrap: wrap; gap: 10px; }
+.gateway-cta .btn-solid,
+.gateway-cta .btn-line { padding: 14px 22px; font-size: 14px; }
+
+@media (max-width: 860px) {
+  .gateway { grid-template-columns: 1fr; }
+  .gateway-side {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    padding-left: 0;
+    padding-top: 24px;
+  }
+  .gateway-cta .btn-solid,
+  .gateway-cta .btn-line { width: 100%; }
+}
