@@ -417,6 +417,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, .chip:has(input:focu
   font-family: var(--kr-serif); font-weight: 700; font-size: clamp(19px, 2vw, 22px);
   color: var(--ink); letter-spacing: -.01em; line-height: 1.4;
 }
+/* 이름 아래 한 줄 — 구성물이 바로 보이게 (2026-11-17) */
+.next-card .next-sub {
+  margin-top: -3px; flex: 0 0 auto;
+  font-size: 12.5px; font-weight: 600; letter-spacing: .01em; line-height: 1.6;
+  color: var(--accent); word-break: keep-all;
+}
+.next-card.is-hi .next-sub { color: #E7DFD2; }
 .next-card p { font-size: 14px; line-height: 1.8; color: var(--soft); flex: 1 1 auto; }
 .next-link {
   margin-top: 4px; display: inline-flex; align-items: center; gap: 6px;
@@ -751,7 +758,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, .chip:has(input:focu
       <article class="next-card is-hi">
         <span class="next-tag">49,000원 · 이 도구의 다음 단계</span>
         <h3>강사 포지셔닝 키트</h3>
-        <p>여기서 나온 3줄을 시작으로, 강점과 겨냥할 자리를 정리하고 인스타 바이오·지원용 소개·수업 안내 카피까지 한 세트로 받습니다. 지금 쓰는 소개와 수업 메모만 보내주세요.</p>
+        <p class="next-sub">인스타 바이오 · 센터 지원서 · 수업 안내 3종 세팅</p>
+        <p>여기서 나온 3줄을 시작으로, 강점과 겨냥할 자리를 정리하고 세 벌의 카피로 잇습니다. 지금 쓰는 소개와 수업 메모만 보내주세요.</p>
         <a class="next-link" href="https://pf.kakao.com/_GVxlaX" target="_blank" rel="noopener">카톡으로 문의 <span aria-hidden="true">↗</span></a>
       </article>
 

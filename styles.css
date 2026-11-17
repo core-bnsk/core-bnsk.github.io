@@ -910,6 +910,17 @@ del { color: var(--soft); }
   margin-top: 12px;
   word-break: keep-all;
 }
+/* 이름 아래 한 줄 — 무엇을 받는지 1초에 보이게 (2026-11-17) */
+.gateway-sub {
+  margin-top: 9px;
+  font-size: clamp(14.5px, 1.25vw, 16px);
+  font-weight: 500;
+  letter-spacing: .005em;
+  line-height: 1.6;
+  color: var(--text);
+  word-break: keep-all;
+}
+.gateway-sub strong { color: var(--accent); font-weight: 700; }
 .gateway-lede {
   margin-top: 16px;
   font-size: 15.5px;
@@ -959,6 +970,48 @@ del { color: var(--soft); }
 .gateway-cta .btn-solid,
 .gateway-cta .btn-line { padding: 14px 22px; font-size: 14px; }
 
+/* Before / After 샘플 미리보기 — 게이트웨이 카드 하단 전폭 (2026-11-17) */
+.gateway-sample {
+  grid-column: 1 / -1;
+  border: 1px solid var(--line);
+  background: var(--paper-deep);
+  padding: clamp(16px, 2.2vw, 22px) clamp(16px, 2.4vw, 26px) clamp(18px, 2.4vw, 26px);
+}
+.gw-sample-cap {
+  display: block;
+  font-size: 10.5px;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.gw-sample-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 13px;
+}
+.gw-sample { min-width: 0; }
+.gw-sample.is-after {
+  border-left: 1px solid var(--line);
+  padding-left: clamp(16px, 3vw, 34px);
+  margin-left: clamp(16px, 3vw, 34px);
+}
+.gw-sample-tag {
+  display: block;
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--soft);
+}
+.gw-sample.is-after .gw-sample-tag { color: var(--accent); }
+.gw-sample-copy {
+  margin-top: 8px;
+  font-size: clamp(13px, 1.05vw, 14px);
+  line-height: 1.8;
+  color: var(--soft);
+  word-break: keep-all;
+}
+.gw-sample.is-after .gw-sample-copy { color: var(--ink); font-weight: 500; }
+
 @media (max-width: 860px) {
   .gateway { grid-template-columns: 1fr; }
   .gateway-side {
@@ -969,4 +1022,22 @@ del { color: var(--soft); }
   }
   .gateway-cta .btn-solid,
   .gateway-cta .btn-line { width: 100%; }
+  .gw-sample-grid { grid-template-columns: 1fr; }
+  .gw-sample.is-after {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    padding-left: 0;
+    margin-left: 0;
+    margin-top: 15px;
+    padding-top: 15px;
+  }
+}
+
+/* 모바일 — 카드가 과도하게 길어지지 않도록 샘플 박스만 한 단계 압축 */
+@media (max-width: 640px) {
+  .gateway-sample { padding: 15px 16px 17px; }
+  .gw-sample-cap { font-size: 9.5px; letter-spacing: .1em; }
+  .gw-sample-grid { margin-top: 10px; }
+  .gw-sample-copy { margin-top: 6px; font-size: 12.5px; line-height: 1.72; }
+  .gw-sample.is-after { margin-top: 12px; padding-top: 12px; }
 }
