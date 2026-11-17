@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3줄 커리어 요약 &amp; 실수령 시급 계산기 · BNSK LABS</title>
+<meta name="description" content="경력 연차와 주력 수업, 자신 있는 회원 변화만 고르면 원장이 먼저 읽는 3줄 소개가 만들어집니다. 3.3% 공제 후 실수령 시급도 같은 화면에서 계산합니다. BNSK LABS 무료 도구.">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#F7F5F1">
+<meta property="og:type" content="website">
+<meta property="og:title" content="3줄 커리어 요약 &amp; 실수령 시급 계산기 · BNSK LABS">
+<meta property="og:description" content="자격증 나열 대신, 원장이 먼저 읽는 3줄 소개. 3.3% 떼고 남는 실수령 시급까지 1분에.">
+<meta property="og:site_name" content="반석랩스 BNSK LABS">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://bnsklabs.com/assets/og-brand.png">
+<meta property="og:url" content="https://bnsklabs.com/tools/3lines/">
+<link rel="canonical" href="https://bnsklabs.com/tools/3lines/">
+<link rel="icon" type="image/png" sizes="64x64" href="https://bnsklabs.com/assets/favicon-64.png">
+<link rel="apple-touch-icon" href="https://bnsklabs.com/assets/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=IBM+Plex+Mono:wght@400;500&family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   BNSK LABS — MICRO TOOL 01
+   3줄 커리어 요약 & 실수령 시급 계산기 (단일 정적 파일)
+   톤: Quiet Luxury Editorial — 아이보리 종이, 딥 블랙, 헤어라인, 한글 이탤릭 금지
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  --paper: #F7F5F1;
+  --paper-deep: #EFEBE3;
+  --card: #FFFDFB;
+  --ink: #171614;
+  --text: #2E2B27;
+  --soft: #6B655C;
+  --line: #D9D3C7;
+  --line-dark: #171614;
+  --accent: #8C3B2E;
+  --accent-on-dark: #CE8B72;
+
+  --didone: "Bodoni Moda", serif;
+  --kr-serif: "Nanum Myeongjo", serif;
+  --sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Malgun Gothic", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", "Pretendard Variable", Pretendard, monospace;
+  --pad: clamp(20px, 6vw, 96px);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.8;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--accent); color: #FFFFFF; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+h1, h2, h3 { font-weight: 400; }
+section[id] { scroll-margin-top: 84px; }
+
+a:focus-visible, button:focus-visible, input:focus-visible, .chip:has(input:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.mono { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; color: var(--soft); }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.skip-link {
+  position: fixed; top: -100px; left: 20px; z-index: 300;
+  padding: 12px 20px; background: var(--ink); color: #FFFFFF;
+  font-family: var(--sans); font-size: 14px;
+}
+.skip-link:focus { top: 12px; }
+
+.grain {
+  position: fixed; inset: 0; z-index: 200; pointer-events: none;
+  opacity: .04; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}
+
+/* ═══ HEADER ══════════════════════════════════════════════ */
+.site-head {
+  position: sticky; top: 0; z-index: 100;
+  display: grid; grid-template-columns: 1fr auto 1fr;
+  align-items: center; gap: 20px;
+  padding: 12px var(--pad);
+  background: rgba(247, 245, 241, .92);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.head-mark {
+  font-family: var(--mono); font-size: 12.5px; font-weight: 500;
+  letter-spacing: .14em; color: var(--ink); white-space: nowrap;
+  display: inline-flex; align-items: center; min-height: 40px;
+}
+.mark-kr {
+  font-family: var(--kr-serif); font-size: 13px; font-weight: 400;
+  letter-spacing: .02em; color: var(--soft); margin-left: 7px;
+}
+.head-nav { display: flex; gap: clamp(14px, 2.2vw, 28px); }
+.head-nav a {
+  font-size: 14px; font-weight: 600; color: var(--text);
+  display: inline-flex; align-items: center; min-height: 44px;
+  padding: 0 2px; position: relative;
+}
+.head-nav a::after {
+  content: ""; position: absolute; left: 0; bottom: 8px;
+  width: 0; height: 1px; background: var(--accent);
+  transition: width .35s cubic-bezier(.22, 1, .36, 1);
+}
+.head-nav a:hover::after { width: 100%; }
+.head-offer {
+  justify-self: end; font-family: var(--mono); font-size: 11.5px;
+  font-weight: 500; letter-spacing: .06em; color: var(--accent);
+  white-space: nowrap; border-bottom: 1px solid var(--accent);
+  padding: 4px 0; min-height: 30px; display: inline-flex; align-items: center;
+}
+
+/* ═══ COVER ═══════════════════════════════════════════════ */
+.cover {
+  padding: clamp(40px, 6.5vh, 76px) var(--pad) clamp(40px, 6vh, 72px);
+  text-align: center;
+  border-bottom: 1px solid var(--line);
+}
+.cover-kicker { font-size: 15px; font-weight: 600; color: var(--ink); letter-spacing: .01em; }
+.cover-brand { margin: 8px 0 clamp(20px, 3.4vh, 34px); letter-spacing: .16em; }
+.cover-title {
+  font-family: var(--kr-serif); font-weight: 400;
+  font-size: clamp(30px, 6.4vw, 58px); line-height: 1.34;
+  color: var(--ink); word-break: keep-all;
+}
+.cover-title strong { font-weight: 700; }
+.cover-lede {
+  font-size: clamp(15.5px, 1.5vw, 18px); color: var(--soft);
+  margin: clamp(18px, 3vh, 28px) auto 0; max-width: 62ch; line-height: 1.85;
+}
+.cover-cta {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 12px; margin-top: clamp(22px, 3.4vh, 34px);
+}
+.btn-solid {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: var(--mono); font-size: 13px; font-weight: 600; letter-spacing: .08em;
+  background: var(--ink); color: var(--paper); border: 1px solid var(--ink);
+  padding: 16px 30px; min-height: 52px;
+  transition: background .35s, border-color .35s;
+}
+.btn-solid:hover { background: var(--accent); border-color: var(--accent); }
+.btn-line {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: var(--mono); font-size: 13px; font-weight: 600; letter-spacing: .08em;
+  border: 1px solid var(--ink); color: var(--ink);
+  padding: 16px 30px; min-height: 52px;
+  transition: background .35s, color .35s;
+}
+.btn-line:hover { background: var(--ink); color: var(--paper); }
+
+.cover-meta {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 16px clamp(22px, 4vw, 52px);
+  margin-top: clamp(26px, 4.4vh, 44px);
+  border-top: 1px solid var(--line); padding-top: clamp(20px, 3.2vh, 30px);
+  list-style: none;
+}
+.cover-meta li {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  font-size: 12.5px; color: var(--soft); text-align: center;
+}
+.cover-meta .meta-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; color: var(--soft); }
+.cover-meta strong { font-family: var(--kr-serif); font-size: 19px; font-weight: 700; color: var(--ink); letter-spacing: -.01em; }
+
+/* ═══ SECTION SCAFFOLD ════════════════════════════════════ */
+.section { padding: clamp(56px, 9vh, 112px) var(--pad); }
+.sec-inner { max-width: 1160px; margin: 0 auto; }
+.sec-head {
+  border-bottom: 1px solid var(--line-dark);
+  padding-bottom: 24px; margin-bottom: clamp(28px, 4.5vh, 52px);
+  display: flex; flex-direction: column; gap: 12px;
+}
+.sec-no { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--accent); }
+.sec-title {
+  font-family: var(--kr-serif); font-weight: 700;
+  font-size: clamp(25px, 4vw, 44px); line-height: 1.28;
+  color: var(--ink); word-break: keep-all;
+}
+.sec-intro {
+  max-width: 60ch; font-size: clamp(15px, 1.35vw, 16.5px);
+  color: var(--soft); line-height: 1.85; margin-top: 4px;
+}
+
+/* ═══ TOOL GRID ═══════════════════════════════════════════ */
+.tool {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(24px, 3.6vw, 48px); align-items: start;
+}
+.panel { border: 1px solid var(--line); background: var(--card); padding: clamp(20px, 3vw, 34px); border-radius: 2px; }
+
+.field + .field { margin-top: clamp(22px, 3vw, 30px); }
+.field-label {
+  display: flex; align-items: baseline; gap: 7px;
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .11em;
+  color: var(--soft); margin-bottom: 9px;
+}
+.field-label b { font-family: var(--kr-serif); font-size: 14.5px; font-weight: 700; letter-spacing: 0; color: var(--ink); }
+.field-label .opt { font-size: 10px; letter-spacing: .06em; color: #A29B90; }
+.field-hint { font-size: 12.5px; color: var(--soft); margin-top: 8px; line-height: 1.6; }
+
+.input-wrap {
+  display: flex; align-items: center; gap: 8px;
+  border-bottom: 1px solid var(--line-dark); padding-bottom: 2px;
+  transition: border-color .25s;
+}
+.input-wrap:focus-within { border-color: var(--accent); }
+.input {
+  width: 100%; font-family: var(--sans); font-size: clamp(17px, 2vw, 21px);
+  font-weight: 600; color: var(--ink); letter-spacing: -.01em;
+  padding: 8px 0; border: 0; background: none; outline: none;
+  font-variant-numeric: tabular-nums;
+}
+.input::placeholder { font-weight: 400; color: #ADA69B; font-size: 14.5px; letter-spacing: 0; }
+.suffix { flex: 0 0 auto; font-family: var(--mono); font-size: 11.5px; letter-spacing: .06em; color: var(--soft); padding-bottom: 2px; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  position: relative; display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; padding: 9px 15px;
+  border: 1px solid var(--line); background: var(--card);
+  font-size: 14.5px; font-weight: 500; color: var(--text);
+  border-radius: 2px; text-align: center;
+  transition: background .22s, border-color .22s, color .22s;
+}
+.chip input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.chip:hover { border-color: var(--ink); }
+.chip.is-on { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.chip:has(input:checked) { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+
+/* ═══ RESULT — 3줄 프로필 (딥 블랙 카드) ══════════════════ */
+.result {
+  background: var(--ink); color: #F4F1EC;
+  padding: clamp(22px, 3vw, 38px); border-radius: 2px;
+  position: relative; isolation: isolate;
+}
+.res-eye { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.res-eye .mono { color: #A9A296; font-size: 10.5px; }
+.res-eye .res-tool { color: var(--accent-on-dark); }
+.res-name {
+  font-family: var(--kr-serif); font-weight: 700; color: #FFFFFF;
+  font-size: clamp(18px, 2.2vw, 22px); letter-spacing: -.01em; margin-top: 10px;
+}
+.lines { list-style: none; margin-top: clamp(18px, 2.6vw, 26px); border-top: 1px solid rgba(247, 245, 241, .2); }
+.lines li {
+  display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 4px;
+  padding: 16px 0; border-bottom: 1px solid rgba(247, 245, 241, .14);
+}
+.lines li:last-child { border-bottom: 0; }
+.ln-no { font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; color: var(--accent-on-dark); padding-top: 6px; }
+.ln-text {
+  font-size: clamp(15px, 1.5vw, 16.5px); line-height: 1.85;
+  color: #F4F1EC; word-break: keep-all;
+}
+.ln-text:empty::before { content: "—"; color: #7E786E; }
+
+.bio {
+  margin-top: clamp(16px, 2.4vw, 22px);
+  border: 1px dashed rgba(247, 245, 241, .28);
+  padding: 12px 14px; display: flex; align-items: flex-start; gap: 12px;
+}
+.bio-main { flex: 1 1 auto; min-width: 0; }
+.bio-label { font-family: var(--mono); font-size: 9.5px; letter-spacing: .12em; color: #A9A296; display: block; margin-bottom: 5px; }
+.bio-text {
+  font-family: var(--mono); font-size: 11.5px; line-height: 1.75;
+  color: #E9E4DA; letter-spacing: .01em;
+  word-break: keep-all; overflow-wrap: anywhere;
+}
+.bio-copy {
+  flex: 0 0 auto; width: 44px; height: 44px; display: inline-flex;
+  align-items: center; justify-content: center;
+  border: 1px solid rgba(247, 245, 241, .3); color: #E9E4DA;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .04em;
+  transition: background .25s, color .25s, border-color .25s;
+}
+.bio-copy:hover { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.bio-copy.is-done { background: var(--accent-on-dark); border-color: var(--accent-on-dark); color: #1B1916; }
+
+.res-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: clamp(18px, 2.6vw, 24px); }
+.btn-copy {
+  flex: 1 1 auto; min-height: 50px; padding: 14px 20px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  background: var(--paper); color: var(--ink);
+  font-family: var(--mono); font-size: 12.5px; font-weight: 600; letter-spacing: .07em;
+  border: 1px solid var(--paper);
+  transition: background .28s, color .28s, border-color .28s;
+}
+.btn-copy:hover { background: var(--accent-on-dark); border-color: var(--accent-on-dark); color: #17140F; }
+.btn-copy.is-done { background: var(--accent-on-dark); border-color: var(--accent-on-dark); color: #17140F; }
+.btn-again {
+  flex: 0 0 auto; min-height: 50px; padding: 14px 20px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  border: 1px solid rgba(247, 245, 241, .42); color: #F4F1EC;
+  font-family: var(--mono); font-size: 12.5px; font-weight: 600; letter-spacing: .07em;
+  transition: background .28s, border-color .28s, color .28s;
+}
+.btn-again:hover { background: rgba(247, 245, 241, .12); border-color: var(--paper); }
+.btn-again span { display: inline-block; transition: transform .5s cubic-bezier(.22, 1, .36, 1); }
+.btn-again:hover span { transform: rotate(180deg); }
+
+.res-note {
+  margin-top: 16px; font-size: 12px; line-height: 1.75; color: #A9A296; letter-spacing: .01em;
+}
+
+/* 결과 카드 아래 쓰는 법 */
+.result-col { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.use { border-top: 1px solid var(--line); padding-top: 14px; }
+.use-head { font-size: 10.5px; letter-spacing: .12em; color: var(--soft); }
+.use-list { list-style: none; margin-top: 6px; }
+.use-list li {
+  display: grid; grid-template-columns: 58px minmax(0, 1fr); gap: 8px;
+  padding: 8px 0; border-bottom: 1px solid var(--line);
+  font-size: 13px; line-height: 1.65; color: var(--soft);
+}
+.use-list li:last-child { border-bottom: 0; padding-bottom: 0; }
+.use-list .u-label { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; color: var(--accent); padding-top: 4px; }
+.use-list b { color: var(--text); font-weight: 600; }
+.res-note b { color: #D8D2C7; font-weight: 600; }
+
+/* ═══ EDITORIAL NOTE BAND ═════════════════════════════════ */
+.band {
+  margin-top: clamp(28px, 4vw, 44px);
+  border-top: 1px solid var(--line);
+  padding-top: clamp(18px, 2.6vw, 26px);
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px 28px; align-items: center;
+}
+.band p { font-size: clamp(15px, 1.4vw, 17px); color: var(--text); line-height: 1.8; max-width: 64ch; }
+.band p strong { font-weight: 700; color: var(--ink); }
+.band a {
+  font-family: var(--mono); font-size: 11.5px; font-weight: 500; letter-spacing: .06em;
+  color: var(--accent); white-space: nowrap;
+  display: inline-flex; align-items: center; min-height: 44px;
+  border-bottom: 1px solid var(--accent);
+}
+.band a:hover { color: var(--ink); border-color: var(--ink); }
+
+/* ═══ CALCULATOR ══════════════════════════════════════════ */
+.calc {
+  border: 1px solid var(--line); background: var(--card);
+  padding: clamp(22px, 3vw, 36px); border-radius: 2px;
+}
+.calc-eye { font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; color: var(--soft); }
+.calc-big {
+  font-family: var(--kr-serif); font-weight: 700; color: var(--ink);
+  font-size: clamp(34px, 5.4vw, 52px); line-height: 1.15; letter-spacing: -.02em;
+  margin-top: 6px; font-variant-numeric: tabular-nums;
+}
+.calc-big .unit { font-size: .38em; font-weight: 400; letter-spacing: 0; color: var(--soft); margin-left: 5px; }
+.calc-sub { font-size: 13px; color: var(--soft); margin-top: 10px; font-variant-numeric: tabular-nums; }
+.calc-sub b { font-weight: 600; color: var(--text); }
+
+.calc-stats {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2px; margin-top: clamp(20px, 3vw, 28px);
+  border-top: 1px solid var(--line); padding-top: 16px;
+}
+.calc-stats div { padding-right: 8px; }
+.calc-stats dt { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; color: var(--soft); }
+.calc-stats dd {
+  font-family: var(--kr-serif); font-size: 17px; font-weight: 700; color: var(--ink);
+  margin-top: 4px; letter-spacing: -.01em; font-variant-numeric: tabular-nums;
+}
+.calc-stats dd .u { font-family: var(--sans); font-size: 12px; font-weight: 500; color: var(--soft); letter-spacing: 0; }
+.calc-stats dd .num { font-variant-numeric: tabular-nums; }
+
+.bars { margin-top: clamp(20px, 3vw, 26px); border-top: 1px solid var(--line); padding-top: 18px; }
+.bar-row { display: grid; grid-template-columns: 62px minmax(0, 1fr) auto; align-items: center; gap: 12px; }
+.bar-row + .bar-row { margin-top: 12px; }
+.bar-label { font-size: 12.5px; color: var(--soft); white-space: nowrap; }
+.bar-track { height: 7px; background: var(--paper-deep); overflow: hidden; }
+.bar-track i {
+  display: block; height: 100%; width: 0;
+  background: #8E8779;
+  transition: width .6s cubic-bezier(.22, 1, .36, 1);
+}
+.bar-row.is-real .bar-track i { background: var(--accent); }
+.bar-val { font-family: var(--mono); font-size: 12px; letter-spacing: .02em; color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.bar-row.is-real .bar-val { color: var(--accent); font-weight: 500; }
+
+.calc-insight {
+  margin-top: 18px; font-size: 13.5px; line-height: 1.8; color: var(--text);
+  border-left: 2px solid var(--accent); padding-left: 13px;
+}
+.calc-insight b { font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+.calc-goal { margin-top: 10px; font-size: 12.5px; color: var(--soft); line-height: 1.75; }
+.calc-goal b { color: var(--accent); font-weight: 700; }
+.calc-foot { margin-top: 16px; font-size: 11.5px; line-height: 1.7; color: #776F63; }
+
+/* ═══ NEXT STEP CARDS ═════════════════════════════════════ */
+.next-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 2vw, 22px); }
+.next-card {
+  display: flex; flex-direction: column; gap: 10px;
+  border: 1px solid var(--line); background: var(--card);
+  padding: clamp(20px, 2.6vw, 30px); border-radius: 2px;
+  transition: border-color .3s, transform .5s cubic-bezier(.22, 1, .36, 1);
+}
+.next-card:hover { border-color: var(--line-dark); transform: translateY(-3px); }
+.next-tag { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--accent); }
+.next-card h3 {
+  font-family: var(--kr-serif); font-weight: 700; font-size: clamp(19px, 2vw, 22px);
+  color: var(--ink); letter-spacing: -.01em; line-height: 1.4;
+}
+.next-card p { font-size: 14px; line-height: 1.8; color: var(--soft); flex: 1 1 auto; }
+.next-link {
+  margin-top: 4px; display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 11.5px; font-weight: 600; letter-spacing: .06em;
+  color: var(--ink); border-bottom: 1px solid var(--ink);
+  padding: 10px 0 9px; align-self: flex-start; min-height: 44px;
+}
+.next-link:hover { color: var(--accent); border-color: var(--accent); }
+.next-link span { font-size: 12px; }
+
+.next-card.is-hi { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.next-card.is-hi:hover { border-color: var(--ink); }
+.next-card.is-hi .next-tag { color: var(--accent-on-dark); }
+.next-card.is-hi h3 { color: #FFFFFF; }
+.next-card.is-hi p { color: #BDB6AA; }
+.next-card.is-hi .next-link { color: var(--paper); border-color: rgba(247, 245, 241, .5); }
+.next-card.is-hi .next-link:hover { color: var(--accent-on-dark); border-color: var(--accent-on-dark); }
+
+.next-tail {
+  margin-top: clamp(24px, 3.6vw, 36px); text-align: center;
+  font-size: 13px; color: var(--soft); line-height: 1.8;
+}
+.next-tail a { color: var(--ink); border-bottom: 1px solid var(--line); }
+.next-tail a:hover { border-color: var(--ink); }
+
+/* ═══ FOOTER ══════════════════════════════════════════════ */
+.site-foot {
+  padding: clamp(36px, 5vh, 56px) var(--pad) clamp(30px, 4vh, 44px);
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+.foot-sig { font-family: var(--kr-serif); font-size: clamp(16px, 1.8vw, 19px); font-weight: 700; color: var(--ink); }
+.foot-row {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 26px;
+  margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--line);
+}
+.foot-row span, .foot-row a { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; color: var(--soft); }
+.foot-row a { padding: 4px 0; display: inline-flex; align-items: center; min-height: 40px; }
+.foot-row a:hover { color: var(--ink); }
+.foot-legal {
+  margin-top: 14px; display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 4px 18px; font-family: var(--mono); font-size: 10px; letter-spacing: .06em; color: #9A9388;
+}
+.foot-legal a { border-bottom: 1px solid var(--line); }
+.foot-privacy {
+  margin-top: 12px; max-width: 58ch; margin-left: auto; margin-right: auto;
+  font-size: 11.5px; line-height: 1.75; color: #9A9388;
+}
+
+/* ═══ RESPONSIVE ══════════════════════════════════════════ */
+@media (max-width: 980px) {
+  .tool { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .next-grid { grid-template-columns: minmax(0, 1fr); }
+  .band { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 760px) {
+  body { font-size: 16px; }
+  .site-head { grid-template-columns: 1fr auto; padding: 10px 20px; }
+  .head-nav { display: none; }
+  .mark-kr { display: none; }
+  .cover-cta { flex-direction: column; align-items: stretch; }
+  .cover-cta a { width: 100%; }
+  .cover-meta { gap: 14px 18px; }
+  .cover-meta li { flex: 1 1 40%; }
+  .calc-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 8px; }
+  .calc-stats div:last-child { grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: 12px; display: flex; align-items: baseline; gap: 10px; }
+  .calc-stats div:last-child dd { margin-top: 0; }
+  .head-offer { min-height: 44px; }
+  .foot-row a { min-height: 44px; }
+  .bar-row { grid-template-columns: 58px minmax(0, 1fr); row-gap: 4px; }
+  .bar-val { grid-column: 2; text-align: right; }
+  .res-actions { flex-direction: column; }
+  .btn-copy, .btn-again { width: 100%; }
+  .sec-head { margin-bottom: 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
+</style>
+</head>
+<body id="top">
+
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ═══════════ HEADER ═══════════ -->
+<header class="site-head">
+  <a class="head-mark" href="https://bnsklabs.com/">BNSK&nbsp;LABS <span class="mark-kr">반석랩스</span></a>
+  <nav class="head-nav" aria-label="도구 메뉴">
+    <a href="#profile">3줄 프로필</a>
+    <a href="#pay">실수령 시급</a>
+    <a href="#next">다음 단계</a>
+  </nav>
+  <a class="head-offer" href="https://pf.kakao.com/_GVxlaX" target="_blank" rel="noopener">카톡 상담 ↗</a>
+</header>
+
+<main id="main">
+<p class="sr-only" aria-live="polite" id="status"></p>
+
+<!-- ═══════════ COVER ═══════════ -->
+<section class="cover" aria-labelledby="cover-title">
+  <p class="cover-kicker">필라테스·요가 강사를 위한 무료 도구</p>
+  <p class="cover-brand mono">BNSK LABS — MICRO TOOL 01</p>
+  <h1 class="cover-title" id="cover-title">이력서 한 장보다,<br><strong>세 줄이 먼저 읽힙니다</strong></h1>
+  <p class="cover-lede">경력 연차와 주력 수업, 자신 있는 회원 변화만 고르면 됩니다.<br>원장이 먼저 읽는 3줄 소개가 만들어지고, 이어서 3.3%를 떼고 남는 내 실수령 시급까지 같은 화면에서 계산합니다.</p>
+  <div class="cover-cta">
+    <a class="btn-solid" href="#profile">3줄 프로필 만들기 <span aria-hidden="true">↓</span></a>
+    <a class="btn-line" href="#pay">실수령 시급 계산</a>
+  </div>
+  <ul class="cover-meta" role="list">
+    <li><span class="meta-label">고르는 항목</span><strong>3가지</strong></li>
+    <li><span class="meta-label">걸리는 시간</span><strong>1분</strong></li>
+    <li><span class="meta-label">비용</span><strong>무료</strong></li>
+    <li><span class="meta-label">입력값</span><strong>서버 전송 없음</strong></li>
+  </ul>
+</section>
+
+<!-- ═══════════ 01 — 3줄 프로필 ═══════════ -->
+<section class="section" id="profile" aria-labelledby="profile-title">
+  <div class="sec-inner">
+    <header class="sec-head">
+      <span class="sec-no">01 — THREE LINES</span>
+      <h2 class="sec-title" id="profile-title">원장이 먼저 읽는 3줄 소개</h2>
+      <p class="sec-intro">자격증을 나열한 이력서는 오래 읽히지 않습니다. 원장이 궁금한 것은 하나입니다. <strong>우리 회원을 이 사람에게 맡겨도 되는가.</strong> 세 줄로 먼저 답해 보세요.</p>
+    </header>
+
+    <div class="tool">
+      <!-- 입력 -->
+      <form class="panel" id="profileForm" autocomplete="off">
+        <div class="field">
+          <label class="field-label" for="name"><b>이름 또는 호칭</b> <span class="opt">선택</span></label>
+          <div class="input-wrap">
+            <input class="input" type="text" id="name" name="name" maxlength="14" placeholder="예: 서연" aria-describedby="nameHint">
+          </div>
+          <p class="field-hint" id="nameHint">결과 카드 제목에만 쓰입니다.</p>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="years"><b>경력 연차</b></label>
+          <div class="input-wrap">
+            <input class="input" type="text" id="years" name="years" inputmode="numeric" maxlength="2" value="5">
+            <span class="suffix">년</span>
+          </div>
+        </div>
+
+        <fieldset class="field" style="border:0">
+          <legend class="field-label"><b>주력 수업</b></legend>
+          <div class="chips" id="catChips">
+            <label class="chip"><input type="radio" name="cat" value="posture" checked><span>체형교정</span></label>
+            <label class="chip"><input type="radio" name="cat" value="rehab"><span>재활</span></label>
+            <label class="chip"><input type="radio" name="cat" value="maternity"><span>산전·산후</span></label>
+            <label class="chip"><input type="radio" name="cat" value="apparatus"><span>기구</span></label>
+            <label class="chip"><input type="radio" name="cat" value="senior"><span>시니어</span></label>
+            <label class="chip"><input type="radio" name="cat" value="golf"><span>골프</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field" style="border:0">
+          <legend class="field-label"><b>가장 자신 있는 회원 변화</b></legend>
+          <div class="chips" id="effChips">
+            <label class="chip"><input type="radio" name="eff" value="back" checked><span>허리·골반 통증 완화</span></label>
+            <label class="chip"><input type="radio" name="eff" value="core"><span>출산 후 코어 회복</span></label>
+            <label class="chip"><input type="radio" name="eff" value="neck"><span>어깨·거북목 개선</span></label>
+            <label class="chip"><input type="radio" name="eff" value="knee"><span>무릎·관절 가동성</span></label>
+            <label class="chip"><input type="radio" name="eff" value="balance"><span>낙상 예방·균형</span></label>
+            <label class="chip"><input type="radio" name="eff" value="golfswing"><span>골프 스윙 안정</span></label>
+            <label class="chip"><input type="radio" name="eff" value="shape"><span>체중·체형 관리</span></label>
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label class="field-label" for="proof"><b>근거 한 줄</b> <span class="opt">선택</span></label>
+          <div class="input-wrap">
+            <input class="input" type="text" id="proof" name="proof" maxlength="40" placeholder="예: 누적 수업 1,200회">
+          </div>
+          <p class="field-hint">숫자나 자격, 출강 이력이 있으면 세 번째 줄이 훨씬 단단해집니다.</p>
+        </div>
+      </form>
+
+      <!-- 결과 -->
+      <div class="result-col">
+      <div class="result" id="result">
+        <div class="res-eye">
+          <span class="mono">THREE-LINE PROFILE</span>
+          <span class="mono res-tool">MICRO TOOL 01</span>
+        </div>
+        <h3 class="res-name" id="resName">3줄 프로필</h3>
+
+        <ol class="lines">
+          <li><span class="ln-no">01</span><p class="ln-text" id="ln1"></p></li>
+          <li><span class="ln-no">02</span><p class="ln-text" id="ln2"></p></li>
+          <li><span class="ln-no">03</span><p class="ln-text" id="ln3"></p></li>
+        </ol>
+
+        <div class="bio">
+          <div class="bio-main">
+            <span class="bio-label">인스타 바이오용 한 줄</span>
+            <p class="bio-text" id="bio"></p>
+          </div>
+          <button type="button" class="bio-copy" id="bioCopy" aria-label="인스타 바이오 복사">복사</button>
+        </div>
+
+        <div class="res-actions">
+          <button type="button" class="btn-copy" id="copy3">3줄 복사</button>
+          <button type="button" class="btn-again" id="again">다른 표현으로 <span aria-hidden="true">↻</span></button>
+        </div>
+
+        <p class="res-note"><b>문장은 출발점입니다.</b> 내 방식과 다른 부분은 고쳐 쓰세요. 숫자·자격·수업 방식은 본인 사실로만 바꿔 주세요.</p>
+      </div>
+
+      <div class="use">
+      <p class="use-head mono">이렇게 쓰세요</p>
+      <ul class="use-list">
+        <li><span class="u-label">A</span><span><b>카톡 프로필</b>에는 첫 줄만 남겨도 됩니다. 상태메시지는 짧을수록 읽힙니다.</span></li>
+        <li><span class="u-label">B</span><span><b>인스타 바이오</b>에는 복사한 한 줄을 그대로 붙여 넣으세요.</span></li>
+        <li><span class="u-label">C</span><span><b>원장에게 보내는 첫 메시지</b>에는 1·2줄을 인용하고, 가능한 요일만 덧붙이세요.</span></li>
+      </ul>
+      </div>
+      </div>
+    </div>
+
+    <div class="band">
+      <p>3줄을 쓰다 보면 빈칸이 보입니다. 무엇을 가르치는지, 어떤 변화를 만드는지, 그걸 뒷받침하는 근거가 있는지. 원장이 프로필에서 멈추는 자리가 대개 <strong>그 빈칸</strong>입니다.</p>
+      <a href="https://bnsklabs.com/check/" target="_blank" rel="noopener">5분 자가진단표 ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 02 — 실수령 시급 ═══════════ -->
+<section class="section" id="pay" aria-labelledby="pay-title" style="background:var(--paper-deep)">
+  <div class="sec-inner">
+    <header class="sec-head">
+      <span class="sec-no">02 — TAKE-HOME RATE</span>
+      <h2 class="sec-title" id="pay-title">3.3%를 떼고 나면,<br>내 시급은 얼마일까</h2>
+      <p class="sec-intro">타임당 수업료만 보면 넉넉해 보입니다. 이동하고 준비하는 시간까지 넣으면 숫자가 달라집니다. 프리랜서 강사의 실제 시급을 계산해 보세요.</p>
+    </header>
+
+    <div class="tool">
+      <form class="panel" id="payForm" autocomplete="off">
+        <div class="field">
+          <label class="field-label" for="fee"><b>타임당 수업료</b></label>
+          <div class="input-wrap">
+            <input class="input" type="text" id="fee" inputmode="numeric" value="50,000">
+            <span class="suffix">원</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="weekly"><b>주간 수업 횟수</b></label>
+          <div class="input-wrap">
+            <input class="input" type="text" id="weekly" inputmode="numeric" maxlength="3" value="12">
+            <span class="suffix">회 / 주</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="mins"><b>1타임 수업 시간</b></label>
+          <div class="input-wrap">
+            <input class="input" type="text" id="mins" inputmode="numeric" maxlength="3" value="50">
+            <span class="suffix">분</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="prep"><b>이동·준비 시간</b> <span class="opt">타임당</span></label>
+          <div class="input-wrap">
+            <input class="input" type="text" id="prep" inputmode="numeric" maxlength="3" value="30">
+            <span class="suffix">분</span>
+          </div>
+          <p class="field-hint">샤워·이동·세팅·정리까지 한 타임에 붙는 시간. 0으로 두면 수업 시간만 계산합니다.</p>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="goal"><b>목표 월 실수령</b> <span class="opt">선택</span></label>
+          <div class="input-wrap">
+            <input class="input" type="text" id="goal" inputmode="numeric" placeholder="예: 3,000,000">
+            <span class="suffix">원</span>
+          </div>
+        </div>
+      </form>
+
+      <div class="calc">
+        <span class="calc-eye">월 실수령액 · 3.3% 공제 후</span>
+        <p class="calc-big"><span id="netMonth">—</span><span class="unit">원</span></p>
+        <p class="calc-sub">세전 <b><span id="grossMonth">—</span>원</b>에서 원천징수 <b><span id="taxMonth">—</span>원</b>을 뺀 금액</p>
+
+        <dl class="calc-stats">
+          <div><dt>월 수업</dt><dd><span id="sessions">—</span><span class="u">회</span></dd></div>
+          <div><dt>타임당 실수령</dt><dd><span id="perSession">—</span><span class="u">원</span></dd></div>
+          <div><dt>수업 외 시간</dt><dd><span class="u">월</span> <span class="num" id="outside">—</span><span class="u">시간</span></dd></div>
+        </dl>
+
+        <div class="bars">
+          <div class="bar-row">
+            <span class="bar-label">명목 시급</span>
+            <span class="bar-track"><i id="barNominal"></i></span>
+            <span class="bar-val" id="hourlyNominal">—</span>
+          </div>
+          <div class="bar-row is-real">
+            <span class="bar-label">실질 시급</span>
+            <span class="bar-track"><i id="barReal"></i></span>
+            <span class="bar-val" id="hourlyReal">—</span>
+          </div>
+        </div>
+
+        <p class="calc-insight" id="insight">값을 입력하면 계산됩니다.</p>
+        <p class="calc-goal" id="goalNote" hidden></p>
+        <p class="calc-foot">3.3%는 사업소득 원천징수(소득세 3% + 지방소득세 0.3%) 기준입니다. 실제 부담은 소득 구간과 신고 방식에 따라 달라지니 정확한 금액은 세무 전문가에게 확인하세요. 월 환산은 1년 52주를 12개월로 나눈 4.33주 기준입니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 03 — 다음 단계 ═══════════ -->
+<section class="section" id="next" aria-labelledby="next-title">
+  <div class="sec-inner">
+    <header class="sec-head">
+      <span class="sec-no">03 — NEXT STEP</span>
+      <h2 class="sec-title" id="next-title">여기서 나온 문장을,<br>그대로 쓸 수 있게</h2>
+      <p class="sec-intro">3줄은 시작입니다. 원장에게 보내는 문장, 첫 화면에 놓이는 문장으로 다듬는 세 가지 방법입니다.</p>
+    </header>
+
+    <div class="next-grid">
+      <article class="next-card">
+        <span class="next-tag">무료 · 5분</span>
+        <h3>프로필 자가진단표</h3>
+        <p>내 이력서와 프로필이 원장에게 어디서 멈추는지 10문항으로 확인합니다. 결과는 그 자리에서 나옵니다.</p>
+        <a class="next-link" href="https://bnsklabs.com/check/" target="_blank" rel="noopener">진단표 열기 <span aria-hidden="true">↗</span></a>
+      </article>
+
+      <article class="next-card is-hi">
+        <span class="next-tag">49,000원 · 이 도구의 다음 단계</span>
+        <h3>커리어 문장 정리</h3>
+        <p>여기서 나온 3줄을 원장과 회원이 쓰는 언어로 다시 씁니다. 지금 쓰는 소개와 수업 메모만 보내주세요.</p>
+        <a class="next-link" href="https://pf.kakao.com/_GVxlaX" target="_blank" rel="noopener">카톡으로 문의 <span aria-hidden="true">↗</span></a>
+      </article>
+
+      <article class="next-card">
+        <span class="next-tag">219,000원~ · 스탠다드 (부가세 별도)</span>
+        <h3>퍼스널 사이트</h3>
+        <p>다듬은 문장이 첫 화면이 됩니다. 소개글 작성, 표현 점검, 검색 기본 설정까지 3~5일 안에.</p>
+        <a class="next-link" href="https://bnsklabs.com/#works" target="_blank" rel="noopener">샘플과 가격 보기 <span aria-hidden="true">↗</span></a>
+      </article>
+    </div>
+
+    <p class="next-tail">10년 차 센터 원장이 직접 문장을 봅니다. 먼저 물어보셔도 됩니다. <a href="https://pf.kakao.com/_GVxlaX" target="_blank" rel="noopener">카카오톡 1:1 상담</a> 또는 <a href="mailto:bnsklabs@gmail.com">bnsklabs@gmail.com</a></p>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="site-foot">
+  <p class="foot-sig">당신의 첫 페이지가, 반석이 됩니다.</p>
+  <div class="foot-row">
+    <span>© 2026 반석랩스 — BNSK LABS</span>
+    <a href="mailto:bnsklabs@gmail.com">bnsklabs@gmail.com</a>
+    <a href="https://pf.kakao.com/_GVxlaX" target="_blank" rel="noopener">카카오톡 채널 ↗</a>
+    <a href="https://bnsklabs.com/" target="_blank" rel="noopener">bnsklabs.com ↗</a>
+  </div>
+  <p class="foot-legal"><span>반석랩스(BNSK LABS)</span><span>BNSK LABS Micro Tool 01</span></p>
+  <p class="foot-privacy">계산과 문장 조합은 브라우저 안에서만 이루어집니다. 입력한 내용은 서버로 보내지 않고 저장하지 않습니다.</p>
+</footer>
+
+<noscript>
+  <p style="padding:16px 20px;background:#EFEBE3;font-size:14px;text-align:center">이 도구는 자바스크립트로 계산합니다. 브라우저에서 자바스크립트를 켜 주세요.</p>
+</noscript>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ── 문장 데이터 ──────────────────────────────────────── */
+  var CATS = {
+    posture: {
+      label: '체형교정',
+      l1: [
+        '{n}년째, 어깨가 말리고 골반이 틀어진 회원의 자세를 다시 세우는 수업을 해 왔습니다.',
+        '필라테스 {n}년, 통증은 없는데 자세가 무너져 고민인 회원을 주로 만나 왔습니다.',
+        '{n}년간 체형교정 수업을 해 왔습니다. 운동을 잘하는 것보다 서 있는 자세가 달라지는 게 목표입니다.'
+      ],
+      l3: [
+        '회원마다 몸 상태를 먼저 확인하고, 그날 컨디션에 맞춰 수업을 짭니다.',
+        '왜 이 동작을 하는지 설명하고, 집에서 이어갈 수 있는 것까지 같이 정리해 드립니다.',
+        '서 있는 자세가 달라지는지를 기준으로 수업을 봅니다.'
+      ]
+    },
+    rehab: {
+      label: '재활',
+      l1: [
+        '{n}년째, 수술과 치료를 마치고 몸을 다시 쓰기 시작한 회원을 가르쳐 왔습니다.',
+        '재활 운동 {n}년. 병원에서 끝난 뒤의 회복을 수업으로 이어 왔습니다.',
+        '{n}년간 재활 수업을 하며, 아픈 곳을 감추는 대신 쓰는 방법을 다시 가르쳐 왔습니다.'
+      ],
+      l3: [
+        '회원마다 몸 상태를 먼저 확인하고, 그날 컨디션에 맞춰 수업을 짭니다.',
+        '왜 이 동작을 하는지 설명하고, 집에서 이어갈 수 있는 것까지 같이 정리해 드립니다.',
+        '아픈 곳을 참고 버티는 대신, 쓰는 방법을 다시 배우는 데 시간을 씁니다.'
+      ]
+    },
+    maternity: {
+      label: '산전·산후',
+      l1: [
+        '{n}년째, 임신 중과 출산 후의 몸을 가르쳐 왔습니다.',
+        '산전·산후 필라테스 {n}년. 배가 커지는 동안과 그 뒤의 몸을 함께 봐 왔습니다.',
+        '{n}년간 산모 수업을 하며, 출산 전에 만들어 둔 힘이 출산 후를 버티게 한다는 걸 확인해 왔습니다.'
+      ],
+      l3: [
+        '회원마다 몸 상태를 먼저 확인하고, 그날 컨디션에 맞춰 수업을 짭니다.',
+        '왜 이 동작을 하는지 설명하고, 집에서 이어갈 수 있는 것까지 같이 정리해 드립니다.',
+        '임신 중과 출산 후는 같은 몸이 아니라는 전제로 단계를 나눕니다.'
+      ]
+    },
+    apparatus: {
+      label: '기구',
+      l1: [
+        '{n}년째, 기구 위에서 정확한 자세를 만드는 수업을 해 왔습니다.',
+        '기구 필라테스 {n}년. 동작을 많이 하는 것보다 한 동작을 정확히 하는 수업을 해 왔습니다.',
+        '{n}년간 기구 수업을 하며, 힘으로 버티는 동작을 몸이 기억하는 동작으로 바꿔 왔습니다.'
+      ],
+      l3: [
+        '회원마다 몸 상태를 먼저 확인하고, 그날 컨디션에 맞춰 수업을 짭니다.',
+        '왜 이 동작을 하는지 설명하고, 집에서 이어갈 수 있는 것까지 같이 정리해 드립니다.',
+        '동작의 개수보다 정확도가 먼저라는 기준을 지킵니다.'
+      ]
+    },
+    senior: {
+      label: '시니어',
+      l1: [
+        '{n}년째, 관절이 불편해도 운동을 이어가고 싶은 어르신을 가르쳐 왔습니다.',
+        '시니어 운동 {n}년. 무리하지 않고 오래 할 수 있는 수업을 해 왔습니다.',
+        '{n}년간 어르신 수업을 하며, 낙상 없이 걷는 일이 가장 큰 운동 목표라는 걸 배웠습니다.'
+      ],
+      l3: [
+        '회원마다 몸 상태를 먼저 확인하고, 그날 컨디션에 맞춰 수업을 짭니다.',
+        '왜 이 동작을 하는지 설명하고, 집에서 이어갈 수 있는 것까지 같이 정리해 드립니다.',
+        '무리하지 않고 오래 이어가는 것을 가장 중요하게 봅니다.'
+      ]
+    },
+    golf: {
+      label: '골프',
+      l1: [
+        '{n}년째, 스윙을 위해 몸을 만드는 골퍼를 가르쳐 왔습니다.',
+        '골프 컨디셔닝 {n}년. 스윙 교정보다 몸이 돌아가는 범위부터 봐 왔습니다.',
+        '{n}년간 골퍼 수업을 하며, 비거리는 힘이 아니라 몸통의 회전에서 나온다는 걸 확인해 왔습니다.'
+      ],
+      l3: [
+        '회원마다 몸 상태를 먼저 확인하고, 그날 컨디션에 맞춰 수업을 짭니다.',
+        '왜 이 동작을 하는지 설명하고, 집에서 이어갈 수 있는 것까지 같이 정리해 드립니다.',
+        '스윙을 바꾸기 전에 몸이 돌아가는 범위부터 확인합니다.'
+      ]
+    }
+  };
+
+  var EFFECTS = {
+    back: {
+      label: '허리·골반 통증 완화',
+      l2: [
+        '허리가 반복해서 아픈 회원에게는 근력을 올리기 전에 호흡과 골반 정렬부터 다시 맞춥니다.',
+        '허리 통증이 오래된 회원은 아픈 부위를 누르거나 펴는 대신, 아픈 곳이 일하지 않게 만드는 근육부터 깨웁니다.',
+        '통증이 있는 날과 없는 날의 차이를 같이 짚어 가며, 회원이 스스로 몸을 지키는 방법까지 익힙니다.'
+      ]
+    },
+    core: {
+      label: '출산 후 코어 회복',
+      l2: [
+        '출산 후 회원에게는 배를 조이는 운동보다 호흡으로 복압을 다시 잡는 것부터 시작합니다.',
+        '아이 안고 살림하는 하루를 버틸 수 있게, 짧고 자주 쓸 수 있는 코어 운동으로 짭니다.',
+        '골반저근과 복횡근이 다시 일하도록 단계를 나누고, 서두르지 않는 만큼 결과가 남게 합니다.'
+      ]
+    },
+    neck: {
+      label: '어깨·거북목 개선',
+      l2: [
+        '어깨가 굳고 목이 앞으로 나온 회원에게는 가슴을 여는 동작과 어깨를 내리는 감각부터 잡습니다.',
+        '폰과 노트북 때문에 굳은 어깨는 세게 주무르는 대신, 어깨를 내리는 힘을 다시 가르칩니다.',
+        '하루 종일 앉아 있는 회원에게는 책상에서 바로 쓸 수 있는 세 가지 동작을 같이 익힙니다.'
+      ]
+    },
+    knee: {
+      label: '무릎·관절 가동성',
+      l2: [
+        '무릎이 불편한 회원에게는 계단과 쪼그려 앉기를 기준으로, 아프지 않은 범위를 먼저 찾습니다.',
+        '관절이 굳은 회원은 가동 범위를 조금씩 늘리고, 늘어난 범위를 버틸 근력을 함께 만듭니다.',
+        '무리해서 펴는 대신, 매주 같은 동작으로 범위가 늘었는지 눈으로 확인합니다.'
+      ]
+    },
+    balance: {
+      label: '낙상 예방·균형',
+      l2: [
+        '균형이 흔들리는 회원에게는 발바닥 감각과 한 발 서기부터 다시 만듭니다.',
+        '넘어지지 않는 몸을 위해 다리 힘과 함께 물건을 줍고 일어나는 동작을 연습합니다.',
+        '집에서 혼자 해도 안전하도록, 의자와 벽을 쓰는 동작으로 짭니다.'
+      ]
+    },
+    golfswing: {
+      label: '골프 스윙 안정',
+      l2: [
+        '스윙이 흔들리는 회원에게는 어깨 회전보다 골반과 흉추의 회전을 먼저 만듭니다.',
+        '라운드 뒤 허리가 아픈 회원은 스윙을 바꾸기 전에 버티는 근육을 먼저 채웁니다.',
+        '비거리는 힘이 아니라 회전이라는 걸 몸으로 이해하도록 단계를 밟습니다.'
+      ]
+    },
+    shape: {
+      label: '체중·체형 관리',
+      l2: [
+        '체중보다 체형이 고민인 회원에게는 매주 같은 자리에서 같은 동작으로 변화를 확인합니다.',
+        '굶어서 빼는 대신 먹고 움직이는 리듬을 같이 조정하며, 근육이 남는 감량을 합니다.',
+        '숫자보다 사진과 동작으로 변화를 보여 주고, 회원이 스스로 납득하게 만듭니다.'
+      ]
+    }
+  };
+
+  /* ── 상태 ─────────────────────────────────────────────── */
+  var state = { cat: 'posture', eff: 'back', v: 0, years: 5, name: '', proof: '' };
+  var $ = function (id) { return document.getElementById(id); };
+  var digitsOnly = function (s) { return (s || '').replace(/[^\d]/g, ''); };
+  var num = function (v) { return Number(v) || 0; };
+  var comma = function (n) { return Math.round(n).toLocaleString('ko-KR'); };
+
+  /* 화면 낭독기 알림 (입력 중 과도한 안내를 막기 위해 지연) */
+  var statusTimer = null;
+  function announce(text) {
+    clearTimeout(statusTimer);
+    statusTimer = setTimeout(function () { $('status').textContent = text; }, 700);
+  }
+
+  /* 숫자 입력: 천 단위 콤마 + 커서 위치 유지 */
+  function bindNumber(input, onChange, opts) {
+    opts = opts || {};
+    input.addEventListener('input', function () {
+      var caret = input.selectionStart || 0;
+      var beforeDigits = input.value.slice(0, caret).replace(/[^\d]/g, '').length;
+      var raw = digitsOnly(input.value).slice(0, opts.maxLen || 9);
+      var value = raw ? Number(raw) : 0;
+      if (opts.maxValue) value = Math.min(value, opts.maxValue);
+      input.value = value ? value.toLocaleString('ko-KR') : '';
+      /* 커서 복원 */
+      var pos = 0, seen = 0;
+      if (beforeDigits > 0) {
+        for (var i = 0; i < input.value.length; i++) {
+          if (/[0-9]/.test(input.value[i])) seen++;
+          if (seen === beforeDigits) { pos = i + 1; break; }
+        }
+      }
+      input.setSelectionRange(pos, pos);
+      onChange(value);
+    });
+    input.addEventListener('blur', function () {
+      if (opts.min && digitsOnly(input.value) === '') {
+        input.value = opts.min.toLocaleString('ko-KR');
+        onChange(opts.min);
+      }
+    });
+  }
+
+  /* ── 3줄 프로필 ───────────────────────────────────────── */
+  function cleanProof(s) { return String(s || '').replace(/[\s.]+$/, '').trim(); }
+
+  function renderProfile() {
+    var c = CATS[state.cat];
+    var e = EFFECTS[state.eff];
+    var v = state.v % 3;
+    var y = state.years || 1;
+
+    var l1 = c.l1[v].replace(/\{n\}/g, String(y));
+    var l2 = e.l2[v];
+    var proof = cleanProof(state.proof);
+    var l3 = proof ? proof + '. ' + c.l3[v] : c.l3[v];
+
+    $('ln1').textContent = l1;
+    $('ln2').textContent = l2;
+    $('ln3').textContent = l3;
+
+    var bio = c.label + ' ' + y + '년 · ' + e.label + (proof ? ' · ' + proof : '');
+    $('bio').textContent = bio;
+
+    var nm = String(state.name || '').trim();
+    $('resName').textContent = nm ? nm + '님의 3줄 프로필' : '3줄 프로필';
+    $('result').setAttribute('data-bio', bio);
+    announce('3줄 프로필이 갱신되었습니다. ' + l1);
+  }
+
+  /* 칩 선택 상태 반영 */
+  function syncChips(groupId, name, value) {
+    var group = $(groupId);
+    var labels = group.querySelectorAll('.chip');
+    for (var i = 0; i < labels.length; i++) {
+      var input = labels[i].querySelector('input');
+      var on = input.value === value;
+      input.checked = on;
+      labels[i].classList.toggle('is-on', on);
+    }
+  }
+
+  document.getElementById('catChips').addEventListener('change', function (ev) {
+    if (ev.target.name !== 'cat') return;
+    state.cat = ev.target.value;
+    syncChips('catChips', 'cat', state.cat);
+    renderProfile();
+  });
+  document.getElementById('effChips').addEventListener('change', function (ev) {
+    if (ev.target.name !== 'eff') return;
+    state.eff = ev.target.value;
+    syncChips('effChips', 'eff', state.eff);
+    renderProfile();
+  });
+
+  $('name').addEventListener('input', function () {
+    state.name = this.value;
+    renderProfile();
+  });
+  $('proof').addEventListener('input', function () {
+    state.proof = this.value;
+    renderProfile();
+  });
+  bindNumber($('years'), function (v) {
+    if (v >= 1) state.years = Math.min(v, 40);
+    renderProfile();
+  }, { maxLen: 2, min: 5, maxValue: 40 });
+
+  $('again').addEventListener('click', function () {
+    state.v = (state.v + 1) % 3;
+    renderProfile();
+    this.blur();
+  });
+
+  /* ── 복사 ─────────────────────────────────────────────── */
+  function legacyCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.top = '-1000px';
+    ta.style.left = '0';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    ta.setSelectionRange(0, ta.value.length);
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+    document.body.removeChild(ta);
+    return ok;
+  }
+
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext) {
+      return navigator.clipboard.writeText(text).catch(function () {
+        if (!legacyCopy(text)) throw new Error('copy-failed');
+      });
+    }
+    return legacyCopy(text) ? Promise.resolve() : Promise.reject(new Error('copy-failed'));
+  }
+
+  function flash(btn, label, restore) {
+    btn.classList.add('is-done');
+    btn.textContent = label;
+    clearTimeout(btn._t);
+    btn._t = setTimeout(function () {
+      btn.classList.remove('is-done');
+      btn.textContent = restore;
+    }, 1800);
+  }
+
+  $('copy3').addEventListener('click', function () {
+    var btn = this;
+    var text = [$('ln1').textContent, $('ln2').textContent, $('ln3').textContent].join('\n');
+    copyText(text).then(function () {
+      flash(btn, '복사됨 ✓', '3줄 복사');
+      announce('3줄을 복사했습니다.');
+    }).catch(function () {
+      flash(btn, '길게 눌러 복사', '3줄 복사');
+      announce('복사하지 못했습니다. 문장을 길게 눌러 복사해 주세요.');
+    });
+    btn.blur();
+  });
+
+  $('bioCopy').addEventListener('click', function () {
+    var btn = this;
+    copyText($('bio').textContent).then(function () {
+      btn.classList.add('is-done');
+      btn.textContent = '✓';
+      announce('인스타 바이오 한 줄을 복사했습니다.');
+      clearTimeout(btn._t);
+      btn._t = setTimeout(function () {
+        btn.classList.remove('is-done');
+        btn.textContent = '복사';
+      }, 1800);
+    }).catch(function () { /* 조용히 넘어감 */ });
+    btn.blur();
+  });
+
+  /* ── 실수령 시급 계산 ─────────────────────────────────── */
+  var pay = { fee: 50000, weekly: 12, mins: 50, prep: 30, goal: 0 };
+
+  function dash(el, txt) { el.textContent = txt; }
+
+  function renderPay() {
+    var fee = pay.fee, weekly = pay.weekly, mins = pay.mins, prep = pay.prep;
+    var valid = fee > 0 && weekly > 0 && mins > 0;
+
+    if (!valid) {
+      dash($('netMonth'), '—');
+      dash($('grossMonth'), '—');
+      dash($('taxMonth'), '—');
+      dash($('sessions'), '—');
+      dash($('perSession'), '—');
+      dash($('outside'), '—');
+      dash($('hourlyNominal'), '—');
+      dash($('hourlyReal'), '—');
+      $('barNominal').style.width = '0%';
+      $('barReal').style.width = '0%';
+      $('insight').textContent = '타임당 수업료와 주간 수업 횟수를 입력하면 계산됩니다.';
+      $('goalNote').hidden = true;
+      return;
+    }
+
+    var perMonth = weekly * 52 / 12;
+    var gross = fee * perMonth;
+    var tax = gross * 0.033;
+    var net = gross - tax;
+
+    var nominalHourly = fee / (mins / 60);
+    var totalMin = mins + prep;
+    var realHourly = totalMin > 0 ? net / (perMonth * (totalMin / 60)) : 0;
+    var ratio = nominalHourly > 0 ? (realHourly / nominalHourly) * 100 : 0;
+    var perSessionNet = net / perMonth;
+    var outsideHours = perMonth * prep / 60;
+
+    dash($('netMonth'), comma(net));
+    dash($('grossMonth'), comma(gross));
+    dash($('taxMonth'), comma(tax));
+    dash($('sessions'), String(Math.round(perMonth)));
+    dash($('perSession'), comma(perSessionNet));
+    dash($('outside'), outsideHours >= 10 ? String(Math.round(outsideHours)) : outsideHours.toFixed(1));
+    dash($('hourlyNominal'), comma(nominalHourly) + '원');
+    dash($('hourlyReal'), comma(realHourly) + '원');
+
+    $('barNominal').style.width = '100%';
+    $('barReal').style.width = Math.max(2, Math.min(100, ratio)).toFixed(1) + '%';
+
+    var pct = ratio.toFixed(0);
+    var prepShare = Math.round((prep / totalMin) * 100);
+    var msg = '한 타임에 실제로 쓰는 시간은 <b>' + totalMin + '분</b>입니다. ';
+    if (prep > 0) {
+      msg += '이 중 <b>' + prepShare + '%</b>가 수업이 아닌 이동·준비 시간이고, ';
+    }
+    msg += '실질 시급은 명목의 <b>' + pct + '%</b>입니다.';
+    $('insight').innerHTML = msg;
+    announce('월 실수령 ' + comma(net) + '원, 실질 시급 ' + comma(realHourly) + '원입니다.');
+
+    if (pay.goal > 0) {
+      var needMonthly = pay.goal / (fee * 0.967);
+      var needWeekly = needMonthly * 12 / 52;
+      var note = $('goalNote');
+      note.hidden = false;
+      note.innerHTML = '목표 월 실수령 <b>' + comma(pay.goal) + '원</b>은 이 단가에서 주 <b>' +
+        (Math.round(needWeekly * 10) / 10) + '회</b>(' + comma(needMonthly) + '타임) 수업하면 도달합니다' +
+        (prep > 0 ? '. 이동·준비까지 넣으면 월 <b>' + comma(needMonthly * totalMin / 60) + '시간</b>을 씁니다.' : '.');
+    } else {
+      $('goalNote').hidden = true;
+    }
+  }
+
+  bindNumber($('fee'), function (v) { pay.fee = v; renderPay(); }, { maxLen: 9, maxValue: 10000000 });
+  bindNumber($('weekly'), function (v) { pay.weekly = v; renderPay(); }, { maxLen: 3, maxValue: 200 });
+  bindNumber($('mins'), function (v) { pay.mins = v; renderPay(); }, { maxLen: 3, min: 50, maxValue: 300 });
+  bindNumber($('prep'), function (v) { pay.prep = v; renderPay(); }, { maxLen: 3, maxValue: 300 });
+  bindNumber($('goal'), function (v) { pay.goal = v; renderPay(); }, { maxLen: 9, maxValue: 100000000 });
+
+  /* 엔터로 폼 전송되지 않게 */
+  ['profileForm', 'payForm'].forEach(function (id) {
+    $(id).addEventListener('submit', function (e) { e.preventDefault(); });
+  });
+
+  /* ── 시작 ─────────────────────────────────────────────── */
+  syncChips('catChips', 'cat', state.cat);
+  syncChips('effChips', 'eff', state.eff);
+  renderProfile();
+  renderPay();
+})();
+</script>
+</body>
+</html>
