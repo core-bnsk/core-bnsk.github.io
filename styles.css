@@ -483,6 +483,41 @@ del { color: var(--soft); }
   .cover-cta .btn-solid, .cover-cta .btn-line { text-align: center; }
 }
 
+/* ═══ FREE TOOL — 무료 도구 01 (2026-11-19) ══════════════
+   샘플과 가격 사이에 놓는 낮은 문턱의 진입점. 톤은 그대로 —
+   헤어라인, 버건디 태그, 명조 제목, 이탤릭 금지 */
+.tools-band {
+  background: var(--paper-deep);
+  padding-top: clamp(44px, 6.5vh, 72px);
+  padding-bottom: clamp(44px, 6.5vh, 72px);
+}
+.tools-inner {
+  display: grid;
+  grid-template-columns: 1.3fr auto;
+  align-items: end;
+  gap: clamp(22px, 4vw, 48px);
+  border-top: 1px solid var(--line-dark);
+  padding-top: clamp(24px, 3.2vw, 36px);
+}
+.tools-tag { color: var(--accent); }
+.tools-title {
+  font-family: var(--kr-serif); font-weight: 700;
+  font-size: clamp(23px, 2.7vw, 34px); line-height: 1.45;
+  color: var(--ink); margin: 12px 0 14px; word-break: keep-all;
+}
+.tools-lede { max-width: 56ch; font-size: 15.5px; line-height: 1.9; color: var(--text); }
+.tools-lede strong { font-weight: 600; color: var(--ink); }
+.tools-meta { margin-top: 12px; color: var(--soft); font-size: 11.5px; letter-spacing: .03em; line-height: 1.8; }
+.tools-cta { display: flex; flex-wrap: wrap; gap: 10px; padding-bottom: 4px; }
+@media (max-width: 960px) {
+  .tools-inner { grid-template-columns: 1fr; align-items: start; }
+  .tools-cta { padding-bottom: 0; }
+}
+@media (max-width: 520px) {
+  .tools-cta { flex-direction: column; align-items: stretch; }
+  .tools-cta .btn-solid, .tools-cta .btn-line { width: 100%; }
+}
+
 /* ═══ 03 PRICE — 상품과 가격 ══════════════════════════════ */
 .offer-strip {
   display: flex; align-items: baseline; gap: 22px;
@@ -832,6 +867,25 @@ del { color: var(--soft); }
   text-align: center; margin-bottom: clamp(20px, 3vh, 32px);
 }
 .foot-mark { width: min(440px, 66%); margin: 0 auto clamp(32px, 5vh, 56px); mix-blend-mode: multiply; }
+/* 무료 도구·자가진단 등 진입점을 푸터에서 한 번 더 — 본문 내비와 같은 순서 */
+.foot-links {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 4px clamp(16px, 3vw, 34px);
+  margin-bottom: clamp(28px, 4vh, 40px);
+}
+.foot-links a {
+  font-family: var(--mono); font-size: 11.5px; letter-spacing: .06em;
+  color: var(--ink); padding: 6px 2px; min-height: 40px;
+  display: inline-flex; align-items: center;
+  border-bottom: 1px solid var(--line);
+  transition: color .3s, border-color .3s;
+}
+.foot-links a:hover { color: var(--accent); border-color: var(--accent); }
+@media (max-width: 560px) {
+  /* 좀은 화면에서 3+1로 툴어진 줄을 2×2로 정돈 */
+  .foot-links { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; justify-items: center; }
+  .foot-links a { width: 100%; justify-content: center; text-align: center; }
+}
 .foot-row {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px;
   border-top: 1px solid var(--line); padding-top: 20px;
