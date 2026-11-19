@@ -483,7 +483,7 @@ del { color: var(--soft); }
   .cover-cta .btn-solid, .cover-cta .btn-line { text-align: center; }
 }
 
-/* ═══ FREE TOOL — 무료 도구 01 (2026-11-19) ══════════════
+/* ═══ FREE TOOLS — 무료 도구 01·02 (2026-11-19 · 도구 02 추가 2026-11-20) ══
    샘플과 가격 사이에 놓는 낮은 문턱의 진입점. 톤은 그대로 —
    헤어라인, 버건디 태그, 명조 제목, 이탤릭 금지 */
 .tools-band {
@@ -491,13 +491,10 @@ del { color: var(--soft); }
   padding-top: clamp(44px, 6.5vh, 72px);
   padding-bottom: clamp(44px, 6.5vh, 72px);
 }
-.tools-inner {
-  display: grid;
-  grid-template-columns: 1.3fr auto;
-  align-items: end;
-  gap: clamp(22px, 4vw, 48px);
+.tools-head {
   border-top: 1px solid var(--line-dark);
   padding-top: clamp(24px, 3.2vw, 36px);
+  max-width: 64ch;
 }
 .tools-tag { color: var(--accent); }
 .tools-title {
@@ -505,17 +502,69 @@ del { color: var(--soft); }
   font-size: clamp(23px, 2.7vw, 34px); line-height: 1.45;
   color: var(--ink); margin: 12px 0 14px; word-break: keep-all;
 }
-.tools-lede { max-width: 56ch; font-size: 15.5px; line-height: 1.9; color: var(--text); }
+.tools-lede { max-width: 56ch; font-size: 15.5px; line-height: 1.9; color: var(--text); word-break: keep-all; }
 .tools-lede strong { font-weight: 600; color: var(--ink); }
-.tools-meta { margin-top: 12px; color: var(--soft); font-size: 11.5px; letter-spacing: .03em; line-height: 1.8; }
-.tools-cta { display: flex; flex-wrap: wrap; gap: 10px; padding-bottom: 4px; }
-@media (max-width: 960px) {
-  .tools-inner { grid-template-columns: 1fr; align-items: start; }
-  .tools-cta { padding-bottom: 0; }
+
+/* 도구 카드 — 두 도구를 같은 무게로 나란히. 카드 전체가 링크 */
+.tools-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(12px, 1.8vw, 20px);
+  margin-top: clamp(26px, 3.6vw, 40px);
 }
-@media (max-width: 520px) {
-  .tools-cta { flex-direction: column; align-items: stretch; }
-  .tools-cta .btn-solid, .tools-cta .btn-line { width: 100%; }
+.tool-card {
+  display: flex; flex-direction: column;
+  gap: 9px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  padding: clamp(20px, 2.6vw, 30px);
+  color: inherit; text-decoration: none;
+  word-break: keep-all;
+  transition: background .35s, border-color .35s, transform .45s cubic-bezier(.22,1,.36,1);
+}
+.tool-card:hover, .tool-card:focus-visible {
+  background: #FFFFFF;
+  border-color: var(--line-dark);
+  transform: translateY(-2px);
+}
+.tool-no {
+  font-size: 10.5px; letter-spacing: .14em;
+  color: var(--accent);
+}
+.tool-name {
+  font-family: var(--kr-serif); font-weight: 700;
+  font-size: clamp(19px, 1.75vw, 23px); line-height: 1.4;
+  color: var(--ink);
+}
+.tool-desc { font-size: 14.5px; line-height: 1.85; color: var(--text); }
+.tool-desc strong { font-weight: 600; color: var(--ink); }
+.tool-meta { font-size: 11px; letter-spacing: .03em; line-height: 1.8; color: var(--soft); }
+.tool-go {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  margin-top: auto; padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 13.5px; font-weight: 600; color: var(--ink);
+  transition: color .3s;
+}
+.tool-card:hover .tool-go { color: var(--accent); }
+
+.tools-more {
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  gap: 6px 14px;
+  margin-top: clamp(16px, 2.2vw, 22px);
+  font-size: 13.5px;
+}
+.tools-more .mono { font-size: 11px; letter-spacing: .1em; color: var(--soft); }
+.tools-more a {
+  color: var(--ink); font-weight: 600;
+  text-decoration: underline; text-underline-offset: 4px;
+  transition: color .3s;
+}
+.tools-more a:hover { color: var(--accent); }
+
+@media (max-width: 760px) {
+  .tools-grid { grid-template-columns: 1fr; }
+  .tool-card { gap: 8px; }
 }
 
 /* ═══ 03 PRICE — 상품과 가격 ══════════════════════════════ */
