@@ -495,7 +495,17 @@ del { color: var(--soft); }
   border-top: 1px solid var(--line-dark);
   padding-top: clamp(24px, 3.2vw, 36px);
 }
-.tools-head { max-width: 64ch; }
+.tools-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: clamp(20px, 3.4vw, 44px);
+}
+.tools-head-copy { max-width: 64ch; }
+.tools-head-cta {
+  display: flex; flex-direction: column; flex-wrap: wrap; align-items: flex-start;
+  gap: 10px; padding-top: 2px;
+}
 .tools-tag { color: var(--accent); }
 .tools-title {
   font-family: var(--kr-serif); font-weight: 700;
@@ -548,20 +558,11 @@ del { color: var(--soft); }
 }
 .tool-card:hover .tool-go { color: var(--accent); }
 
-.tools-more {
-  display: flex; flex-wrap: wrap; align-items: baseline;
-  gap: 6px 14px;
-  margin-top: clamp(16px, 2.2vw, 22px);
-  font-size: 13.5px;
-}
-.tools-more .mono { font-size: 11px; letter-spacing: .1em; color: var(--soft); }
-.tools-more a {
-  color: var(--ink); font-weight: 600;
-  text-decoration: underline; text-underline-offset: 4px;
-  transition: color .3s;
-}
-.tools-more a:hover { color: var(--accent); }
+.tools-more-label { font-size: 11px; letter-spacing: .1em; color: var(--soft); }
 
+@media (max-width: 860px) {
+  .tools-head { grid-template-columns: 1fr; gap: 18px; }
+}
 @media (max-width: 760px) {
   .tools-grid { grid-template-columns: 1fr; }
   .tool-card { gap: 8px; }
