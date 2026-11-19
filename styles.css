@@ -491,18 +491,18 @@ del { color: var(--soft); }
   padding-top: clamp(44px, 6.5vh, 72px);
   padding-bottom: clamp(44px, 6.5vh, 72px);
 }
-.tools-head {
+.tools-rule {
   border-top: 1px solid var(--line-dark);
   padding-top: clamp(24px, 3.2vw, 36px);
-  max-width: 64ch;
 }
+.tools-head { max-width: 64ch; }
 .tools-tag { color: var(--accent); }
 .tools-title {
   font-family: var(--kr-serif); font-weight: 700;
   font-size: clamp(23px, 2.7vw, 34px); line-height: 1.45;
   color: var(--ink); margin: 12px 0 14px; word-break: keep-all;
 }
-.tools-lede { max-width: 56ch; font-size: 15.5px; line-height: 1.9; color: var(--text); word-break: keep-all; }
+.tools-lede { max-width: 64ch; font-size: 15.5px; line-height: 1.9; color: var(--text); word-break: keep-all; }
 .tools-lede strong { font-weight: 600; color: var(--ink); }
 
 /* 도구 카드 — 두 도구를 같은 무게로 나란히. 카드 전체가 링크 */
