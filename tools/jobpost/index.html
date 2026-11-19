@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>공고 조건 점검기 — 구인 공고에 빠진 조건 7가지 · BNSK LABS</title>
+<meta name="description" content="필라테스·요가 강사 구인 공고를 붙여넣으면, 공고에 빠진 조건 7가지와 숫자로 확정되지 않은 표현, 원장에게 보낼 질문 3개를 만들어 드립니다. 입력한 내용은 서버로 보내지 않고 브라우저 안에서만 셉니다.">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#F7F5F1">
+<meta property="og:type" content="website">
+<meta property="og:title" content="공고 조건 점검기 — 구인 공고에 빠진 조건 7가지 · BNSK LABS">
+<meta property="og:description" content="공고는 페이만 말합니다. 나머지 7개는 물어보세요. 붙여넣기 1분, 지원 전 질문 3개까지.">
+<meta property="og:url" content="https://bnsklabs.com/tools/jobpost/">
+<meta property="og:image" content="https://bnsklabs.com/assets/og-brand.png">
+<meta property="og:site_name" content="반석랩스 BNSK LABS">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://bnsklabs.com/tools/jobpost/">
+<link rel="icon" type="image/png" sizes="64x64" href="../../assets/favicon-64.png">
+<link rel="apple-touch-icon" href="../../assets/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=IBM+Plex+Mono:wght@400;500&family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   BNSK LABS — MICRO TOOL 02 · 공고 조건 점검기
+   ../styles.css 의 토큰·헤더·푸터·버튼을 그대로 쓰고,
+   이 페이지에만 필요한 입력·판독 카드 문법만 더한다.
+   톤: Quiet Luxury Editorial — 아이보리 종이, 딥 블랙, 헤어라인, 이탤릭 금지
+   ═══════════════════════════════════════════════════════════ */
+
+.skip-link {
+  position: fixed; top: -100px; left: 20px; z-index: 300;
+  padding: 12px 20px; background: var(--ink); color: #FFFFFF;
+  font-family: var(--sans); font-size: 14px;
+}
+.skip-link:focus { top: 12px; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.mark-kr {
+  font-family: var(--kr-serif); font-size: 13px; font-weight: 400;
+  letter-spacing: .02em; color: var(--soft); margin-left: 7px;
+}
+
+/* ═══ COVER ══════════════════════════════════════════════ */
+.jp-cover { padding-bottom: clamp(28px, 4.4vh, 52px); }
+.jp-cover .cover-title { max-width: 24ch; margin: 0 auto; }
+.jp-cover .cover-lede { max-width: 47ch; margin-left: auto; margin-right: auto; }
+.jp-cover .cover-trust { max-width: 44ch; margin-left: auto; margin-right: auto; }
+.cover-by {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .1em;
+  color: var(--soft); margin-top: 12px;
+}
+
+/* ═══ TOOL PANEL ═════════════════════════════════════════ */
+.sec-note { font-size: 14.5px; color: var(--soft); max-width: 60ch; margin-bottom: clamp(24px, 3.4vh, 34px); line-height: 1.8; }
+.tool-wrap { max-width: 840px; }
+
+.panel {
+  border: 1px solid var(--line); background: var(--card);
+  padding: clamp(18px, 3vw, 30px);
+}
+.panel + .panel { margin-top: 14px; }
+
+.tabs {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--line); margin-bottom: clamp(16px, 2.4vw, 22px);
+}
+.tab {
+  font-family: var(--mono); font-size: 11.5px; font-weight: 500;
+  letter-spacing: .1em; color: var(--soft);
+  background: var(--paper); border: 0; cursor: pointer;
+  padding: 14px 8px; min-height: 46px;
+  transition: background .3s, color .3s;
+}
+.tab + .tab { border-left: 1px solid var(--line); }
+.tab:hover { color: var(--ink); }
+.tab[aria-selected="true"] { background: var(--ink); color: var(--paper); }
+
+#pane-paste[hidden], #pane-check[hidden], #result[hidden] { display: none; }
+
+.jp-input {
+  width: 100%; min-height: 168px; padding: 14px 15px;
+  border: 1px solid var(--line); background: #FFFFFF; color: var(--ink);
+  font-family: var(--sans); font-size: 15px; line-height: 1.75;
+  resize: vertical; word-break: keep-all;
+}
+.jp-input::placeholder { color: #A8A29A; }
+.jp-input:focus { outline: none; border-color: var(--ink); }
+
+.jp-hint {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 8px 14px; margin-top: 10px;
+  font-size: 12.5px; color: var(--soft); line-height: 1.7;
+}
+.link-btn {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .06em;
+  color: var(--ink); background: none; border: 0; cursor: pointer;
+  border-bottom: 1px solid var(--line-dark); padding: 3px 0; min-height: 40px;
+}
+.link-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+.pay-field { margin-top: clamp(18px, 2.6vw, 24px); border-top: 1px dashed var(--line); padding-top: clamp(16px, 2.2vw, 20px); }
+.field-label {
+  display: block; font-family: var(--mono); font-size: 10.5px;
+  letter-spacing: .11em; color: var(--soft); margin-bottom: 8px;
+}
+.field-label .opt { font-size: 9.5px; letter-spacing: .06em; color: #A29B90; margin-left: 6px; }
+.pay-wrap {
+  display: flex; align-items: baseline; gap: 8px; max-width: 240px;
+  border-bottom: 1px solid var(--line-dark); transition: border-color .25s;
+}
+.pay-wrap:focus-within { border-color: var(--accent); }
+#pay {
+  width: 100%; border: 0; background: none; outline: none;
+  font-family: var(--mono); font-size: 17px; color: var(--ink);
+  padding: 6px 0; font-variant-numeric: tabular-nums;
+}
+#pay::placeholder { font-size: 13px; color: #ADA69B; }
+.suffix { font-family: var(--mono); font-size: 12px; color: var(--soft); }
+.field-hint { font-size: 12.5px; color: var(--soft); margin-top: 8px; line-height: 1.7; }
+
+/* 직접 체크 */
+.chks { border-top: 1px solid var(--line); }
+.chk {
+  display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 14px;
+  padding: 15px 2px; border-bottom: 1px solid var(--line); align-items: start;
+}
+.chk input {
+  appearance: none; -webkit-appearance: none;
+  width: 22px; height: 22px; margin: 2px 0 0; cursor: pointer; position: relative;
+  border: 1.5px solid #C8C2B4; background: #FFFFFF;
+  transition: background .2s, border-color .2s;
+}
+.chk input:checked { background: var(--accent); border-color: var(--accent); }
+.chk input:checked::after {
+  content: ""; position: absolute; left: 7px; top: 3px;
+  width: 5px; height: 10px; border-right: 2px solid #FFFFFF; border-bottom: 2px solid #FFFFFF;
+  transform: rotate(40deg);
+}
+.chk input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.chk label { font-size: 15.5px; font-weight: 600; line-height: 1.6; color: var(--ink); cursor: pointer; }
+.chk small { display: block; margin-top: 4px; font-size: 13px; font-weight: 400; color: var(--soft); line-height: 1.7; }
+
+.btn-run { width: 100%; margin-top: clamp(18px, 2.6vw, 24px); }
+.form-msg {
+  display: none; margin-top: 12px; font-size: 13.5px; line-height: 1.7; color: var(--accent);
+}
+.form-msg.is-on { display: block; }
+
+/* ═══ RESULT ═════════════════════════════════════════════ */
+.result-sec { padding-top: clamp(20px, 3vh, 36px); }
+.result {
+  display: grid; grid-template-columns: minmax(0, 3.2fr) minmax(0, 6.8fr);
+  border: 1px solid var(--line); background: var(--card);
+}
+.result-score {
+  padding: clamp(20px, 3vw, 32px);
+  border-right: 1px solid var(--line);
+  background: var(--paper-deep);
+  display: flex; flex-direction: column; gap: 14px;
+}
+.res-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; color: var(--soft); }
+.res-num {
+  font-family: var(--kr-serif); font-weight: 400;
+  font-size: clamp(50px, 8.6vw, 78px); line-height: .95;
+  color: var(--ink); letter-spacing: -.01em; font-variant-numeric: tabular-nums;
+}
+.res-num span {
+  font-family: var(--mono); font-size: 13px; letter-spacing: .04em;
+  color: var(--soft); margin-left: 6px;
+}
+.res-bar { height: 2px; background: var(--line); overflow: hidden; }
+.res-bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .55s cubic-bezier(.22,1,.36,1); }
+.res-note { font-size: 12.5px; color: var(--soft); line-height: 1.75; }
+.result-main { padding: clamp(20px, 3vw, 32px); }
+
+.blk + .blk { margin-top: clamp(24px, 3.4vh, 34px); }
+.blk-title {
+  font-family: var(--kr-serif); font-weight: 700;
+  font-size: clamp(16px, 1.7vw, 19px); color: var(--ink);
+  padding-bottom: 10px; border-bottom: 1px solid var(--line-dark);
+  margin-bottom: 4px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+}
+.blk-title .mono { font-weight: 400; font-size: 10.5px; color: var(--soft); }
+
+.miss { display: grid; grid-template-columns: 10px minmax(0, 1fr) auto; gap: 12px; align-items: start; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.miss:last-child { border-bottom: 0; }
+.dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 9px; background: #C9C2B3; }
+.miss.off .dot { background: var(--accent); }
+.miss b { display: block; font-size: 15px; font-weight: 600; line-height: 1.6; color: var(--ink); }
+.miss small { display: block; margin-top: 3px; font-size: 13px; color: var(--soft); line-height: 1.7; }
+.miss .state {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em;
+  color: var(--soft); white-space: nowrap; padding-top: 5px;
+}
+.miss.off .state { color: var(--accent); }
+
+.flag { border-left: 2px solid var(--accent); background: color-mix(in srgb, var(--paper-deep) 80%, #FFFFFF); padding: 12px 14px; }
+.flag + .flag { margin-top: 8px; }
+.flag b { display: block; font-size: 14.5px; font-weight: 600; color: var(--ink); }
+.flag .ev { display: block; margin: 3px 0 5px; font-family: var(--mono); font-size: 11px; letter-spacing: .02em; color: var(--accent); word-break: break-all; }
+.flag p { font-size: 13px; color: var(--soft); line-height: 1.72; }
+
+.qbox { border: 1px dashed var(--line-dark); padding: clamp(14px, 2vw, 18px); margin-top: 10px; }
+.qlist { list-style: none; }
+.qlist li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 8px; padding: 8px 0; font-size: 15px; line-height: 1.75; color: var(--ink); }
+.qlist li + li { border-top: 1px solid var(--line); }
+.qlist .q-no { font-family: var(--mono); font-size: 11px; color: var(--accent); padding-top: 4px; }
+.q-hint { font-size: 12.5px; color: var(--soft); margin-top: 10px; line-height: 1.7; }
+#copy {
+  width: 100%; margin-top: 12px; padding: 14px 16px; min-height: 46px;
+  font-family: var(--mono); font-size: 11.5px; font-weight: 600; letter-spacing: .08em;
+  color: var(--ink); background: #FFFFFF; border: 1px solid var(--ink);
+  cursor: pointer; transition: background .3s, color .3s;
+}
+#copy:hover { background: var(--ink); color: var(--paper); }
+
+.payline { display: none; border-top: 1px solid var(--line); margin-top: clamp(20px, 3vh, 28px); padding-top: 14px; font-size: 13.5px; line-height: 1.8; color: var(--text); }
+.payline.is-on { display: block; }
+.payline b { font-weight: 700; color: var(--ink); }
+.payline a { border-bottom: 1px solid var(--ink); }
+.payline a:hover { color: var(--accent); border-color: var(--accent); }
+
+.res-tail { margin-top: clamp(18px, 2.6vh, 26px); font-size: 13.5px; color: var(--soft); line-height: 1.8; }
+.res-tail a { color: var(--ink); border-bottom: 1px solid var(--line-dark); }
+
+/* ═══ 7가지 항목 (정적) ══════════════════════════════════ */
+.crit { max-width: 860px; }
+.crit-note { font-size: 14px; color: var(--soft); line-height: 1.85; max-width: 62ch; margin-bottom: clamp(24px, 3.4vh, 34px); }
+.crit-note strong { color: var(--ink); font-weight: 600; }
+.crit-list { border-top: 1px solid var(--line-dark); }
+.crit-list li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 4px 16px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.crit-no { font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; color: var(--accent); padding-top: 6px; }
+.crit-label { font-family: var(--kr-serif); font-weight: 700; font-size: clamp(16px, 1.7vw, 18.5px); color: var(--ink); line-height: 1.5; }
+.crit-why { grid-column: 2; font-size: 14px; color: var(--soft); line-height: 1.8; margin-top: 2px; }
+
+.do-not { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: clamp(28px, 4vh, 40px); }
+.do-not div { background: var(--card); padding: clamp(16px, 2.4vw, 22px); }
+.do-not h3 { font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; color: var(--soft); font-weight: 500; margin-bottom: 8px; }
+.do-not p { font-size: 13.5px; color: var(--text); line-height: 1.8; }
+
+/* ═══ NEXT ═══════════════════════════════════════════════ */
+.next-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.next-card {
+  display: flex; flex-direction: column; gap: 7px;
+  background: var(--card); padding: clamp(18px, 2.6vw, 26px);
+  transition: background .3s;
+}
+.next-card:hover { background: #FFFFFF; }
+.next-card .mono { font-size: 10px; letter-spacing: .12em; color: var(--accent); }
+.next-card b { font-family: var(--kr-serif); font-size: clamp(16px, 1.7vw, 18px); font-weight: 700; line-height: 1.5; color: var(--ink); }
+.next-card p { font-size: 13.5px; color: var(--soft); line-height: 1.75; }
+.next-card .go { margin-top: auto; padding-top: 10px; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--ink); }
+.next-card:hover .go { color: var(--accent); }
+
+/* ═══ RESPONSIVE ═════════════════════════════════════════ */
+@media (max-width: 860px) {
+  .result { grid-template-columns: minmax(0, 1fr); }
+  .result-score { border-right: 0; border-bottom: 1px solid var(--line); }
+  .next-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 760px) {
+  .site-head { grid-template-columns: 1fr auto; }
+  .head-nav { display: none; }
+  .mark-kr { display: none; }
+  .jp-cover .cover-title { font-size: clamp(27px, 8.4vw, 40px); }
+  .jp-input { min-height: 148px; font-size: 16px; }
+  .chk { grid-template-columns: 22px minmax(0, 1fr); gap: 12px; padding: 14px 0; }
+  .chk label { font-size: 15px; }
+  .miss { grid-template-columns: 10px minmax(0, 1fr) auto; gap: 10px; }
+  .miss .state { font-size: 10px; }
+  .qlist li { font-size: 14.5px; }
+  .crit-list li { grid-template-columns: 30px minmax(0, 1fr); }
+  .do-not { grid-template-columns: minmax(0, 1fr); }
+  .res-num { font-size: clamp(44px, 13vw, 64px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .res-bar i { transition: none; }
+  .tab, #copy, .next-card { transition: none; }
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "공고 조건 점검기",
+  "url": "https://bnsklabs.com/tools/jobpost/",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any",
+  "inLanguage": "ko-KR",
+  "description": "필라테스·요가 강사 구인 공고에 빠진 조건 7가지를 세고, 원장에게 보낼 질문 3개를 만들어 주는 무료 도구. 입력값은 브라우저 밖으로 나가지 않습니다.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+  "publisher": { "@type": "Organization", "name": "반석랩스 BNSK LABS", "url": "https://bnsklabs.com/" }
+}
+</script>
+</head>
+<body id="top">
+
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ═══════════ HEADER ═══════════ -->
+<header class="site-head">
+  <a class="head-mark" href="../../">BNSK&nbsp;LABS <span class="mark-kr">반석랩스</span></a>
+  <nav class="head-nav" aria-label="도구 메뉴">
+    <a href="#tool">공고 점검</a>
+    <a href="#criteria">7가지 항목</a>
+    <a href="#next">다음 단계</a>
+  </nav>
+  <a class="head-offer mono" href="https://pf.kakao.com/_GVxlaX" target="_blank" rel="noopener">카톡 상담 ↗</a>
+</header>
+
+<main id="main">
+<p class="sr-only" aria-live="polite" id="status"></p>
+
+<!-- ═══════════ COVER ═══════════ -->
+<section class="cover jp-cover" aria-labelledby="jp-title">
+  <p class="cover-kicker">필라테스·요가 강사를 위한 무료 도구</p>
+  <p class="cover-brand mono">BNSK LABS — MICRO TOOL 02</p>
+  <h1 class="cover-title" id="jp-title">공고는 페이만 말합니다.<br><strong>나머지 7개는 물어보세요.</strong></h1>
+  <p class="cover-lede">구인 공고를 그대로 붙여넣으면, 공고에 적히지 않은 조건과 숫자로 확정되지 않은 표현을 짚어 드립니다.<br class="br-m">지원 전에 원장에게 보낼 질문 3개까지 한 번에 정리합니다.</p>
+  <p class="cover-trust">이 도구는 어느 센터가 좋고 나쁘다고 판정하지 않습니다.</p>
+  <div class="cover-cta">
+    <a class="btn-solid" href="#tool">공고 점검하기 <span aria-hidden="true">↓</span></a>
+    <a class="btn-line" href="/tools/3lines/">3줄 도구 먼저 보기 <span aria-hidden="true">↗</span></a>
+  </div>
+  <ul class="cover-meta" role="list">
+    <li><span class="meta-label">확인 항목</span><strong>7</strong></li>
+    <li><span class="meta-label">소요</span><strong>1분</strong></li>
+    <li><span class="meta-label">비용</span><strong>무료</strong></li>
+    <li><span class="meta-label">입력값</span><strong class="meta-long">서버 전송 없음</strong></li>
+  </ul>
+</section>
+
+<!-- ═══════════ 01 TOOL ═══════════ -->
+<section class="section" id="tool" aria-labelledby="tool-title">
+  <header class="sec-head">
+    <span class="sec-no mono">01 — Paste &amp; Check</span>
+    <h2 class="sec-title" id="tool-title">공고를 붙여넣으면,<br>빈칸을 세어 드립니다</h2>
+  </header>
+
+  <p class="sec-note">공고 전문이 아니어도 됩니다. 붙여넣은 글에서 <strong>적혀 있는 것</strong>만 찾아, 적히지 않은 항목을 표시합니다. 판정이 아니라 질문 준비입니다.</p>
+
+  <div class="tool-wrap">
+    <div class="panel">
+      <div class="tabs" role="tablist" aria-label="입력 방식">
+        <button class="tab" role="tab" id="tab-paste" aria-selected="true" aria-controls="pane-paste">공고 붙여넣기</button>
+        <button class="tab" role="tab" id="tab-check" aria-selected="false" aria-controls="pane-check" tabindex="-1">직접 체크</button>
+      </div>
+
+      <div id="pane-paste" role="tabpanel" aria-labelledby="tab-paste">
+        <label class="sr-only" for="post">구인 공고 내용</label>
+        <textarea class="jp-input" id="post" placeholder="구인 공고 내용을 그대로 붙여넣으세요.&#10;예) 월·수 20시 그룹 수업 강사님 구인. 회당 30,000원, 수강인원 2명부터 진행..."></textarea>
+        <div class="jp-hint">
+          <span>붙여넣은 글은 저장하지 않고, 브라우저 밖으로 보내지 않습니다.</span>
+          <button type="button" class="link-btn" id="sample">예시 공고 채워 보기</button>
+        </div>
+      </div>
+
+      <div id="pane-check" role="tabpanel" aria-labelledby="tab-check" hidden>
+        <div class="chks">
+          <div class="chk"><input type="checkbox" id="m0"><label for="m0">회당 페이 또는 정산률<small>예: 회당 30,000원, 수업료의 50%</small></label></div>
+          <div class="chk"><input type="checkbox" id="m1"><label for="m1">정산일(지급 시점)<small>예: 매월 10일, 월말 일괄, 익월 5일</small></label></div>
+          <div class="chk"><input type="checkbox" id="m2"><label for="m2">세금 처리<small>3.3% 공제 후 입금인지, 세전 지급인지</small></label></div>
+          <div class="chk"><input type="checkbox" id="m3"><label for="m3">당일 취소·노쇼 시 수당<small>회원이 안 왔을 때 강사 몫이 남는지</small></label></div>
+          <div class="chk"><input type="checkbox" id="m4"><label for="m4">수업 외 업무<small>상담·청소·프론트·SNS 홍보 포함 여부</small></label></div>
+          <div class="chk"><input type="checkbox" id="m5"><label for="m5">대체강사·대강 규정<small>휴가·공강 때 어떻게 되는지</small></label></div>
+          <div class="chk"><input type="checkbox" id="m6"><label for="m6">계약 형태<small>프리랜서·전임·반전임·정규직</small></label></div>
+        </div>
+      </div>
+
+      <div class="pay-field">
+        <label class="field-label" for="pay">회당 페이 <span class="opt">선택</span></label>
+        <div class="pay-wrap">
+          <input id="pay" type="text" inputmode="numeric" autocomplete="off" placeholder="예: 30000">
+          <span class="suffix">원</span>
+        </div>
+        <p class="field-hint">넣으면 3.3% 공제 후 금액을 한 줄로 보여 드립니다. 이동·준비 시간까지 넣은 실질 시급은 3줄 도구에서 계산합니다.</p>
+      </div>
+
+      <button type="button" class="btn-solid btn-run" id="run">점검하기</button>
+      <p class="form-msg" id="msg" role="alert"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 02 RESULT ═══════════ -->
+<section class="section result-sec" id="result" aria-labelledby="result-title" hidden>
+  <header class="sec-head">
+    <span class="sec-no mono">02 — The Reading</span>
+    <h2 class="sec-title" id="result-title">점검 결과</h2>
+  </header>
+
+  <div class="tool-wrap">
+    <div class="result">
+      <div class="result-score">
+        <div>
+          <span class="res-label">공고에 적힌 항목</span>
+          <p class="res-num"><b id="hit">0</b><span id="of">/ 7</span></p>
+          <div class="res-bar" aria-hidden="true"><i id="barfill"></i></div>
+        </div>
+        <p class="res-note" id="score-note">적힌 것과 아닌 것만 셉니다. 좋고 나쁨은 판정하지 않습니다.</p>
+      </div>
+
+      <div class="result-main">
+        <div class="blk">
+          <h3 class="blk-title">공고에 적힌 것 · 없는 것 <span class="mono">7 ITEMS</span></h3>
+          <div id="miss-list"></div>
+        </div>
+
+        <div class="blk" id="flag-blk" hidden>
+          <h3 class="blk-title">숫자로 확정되지 않은 표현 <span class="mono">FLAGS</span></h3>
+          <div id="flag-list"></div>
+        </div>
+
+        <div class="blk">
+          <h3 class="blk-title">지원 전에 보낼 질문 <span class="mono">3 LINES</span></h3>
+          <div class="qbox">
+            <ol class="qlist" id="qbox"></ol>
+          </div>
+          <button type="button" id="copy">질문 복사하기</button>
+          <p class="q-hint">그대로 카톡·문자에 붙여넣으세요. 인사말까지 함께 복사됩니다.</p>
+        </div>
+
+        <p class="payline" id="payline"></p>
+
+        <p class="res-tail">조건이 좋은 자리는 지원자가 몰립니다. 그때 결정하는 건 결국 3줄입니다. <a href="/tools/3lines/">3줄 커리어 요약 만들기 →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 03 CRITERIA ═══════════ -->
+<section class="section" id="criteria" aria-labelledby="crit-title">
+  <header class="sec-head">
+    <span class="sec-no mono">03 — The Seven</span>
+    <h2 class="sec-title" id="crit-title">공고에 잘 안 적히는<br>7가지</h2>
+  </header>
+
+  <div class="crit">
+    <p class="crit-note">2026년 11월 19일 공개 구인 사이트의 필라테스·요가 강사 공고 6건을 같은 규칙으로 점검했습니다. 여섯 건 모두 <strong>페이와 요일은 적혀 있었고, 정산일·세금 처리·수업 외 업무는 적혀 있지 않았습니다.</strong> (공고 요약문 기준이며, 전문을 모두 확인한 것은 아닙니다.)</p>
+    <ol class="crit-list" role="list">
+      <li>
+        <span class="crit-no">01</span>
+        <span class="crit-label">회당 페이 또는 정산률</span>
+        <span class="crit-why">비율로 정산한다면 '무엇의 몇 %'인지까지 있어야 금액이 됩니다. 정가 기준인지, 할인가·환불 반영 후인지에 따라 같은 %가 다른 돈이 됩니다.</span>
+      </li>
+      <li>
+        <span class="crit-no">02</span>
+        <span class="crit-label">정산일(지급 시점)</span>
+        <span class="crit-why">매월 며칠인지, 수업 후 며칠 안에 들어오는지. 이게 없으면 지급이 밀려도 기준이 없습니다.</span>
+      </li>
+      <li>
+        <span class="crit-no">03</span>
+        <span class="crit-label">세금 처리</span>
+        <span class="crit-why">3.3% 원천징수 후 입금인지, 세전 금액으로 지급인지. 같은 페이라도 실수령이 3.3% 달라집니다.</span>
+      </li>
+      <li>
+        <span class="crit-no">04</span>
+        <span class="crit-label">당일 취소·노쇼 시 수당</span>
+        <span class="crit-why">회원이 안 오면 그날 수입이 0이 되는지, 강사 몫이 남는지. 대부분의 공고가 여기서 비어 있습니다.</span>
+      </li>
+      <li>
+        <span class="crit-no">05</span>
+        <span class="crit-label">수업 외 업무</span>
+        <span class="crit-why">상담·청소·프론트·SNS 홍보가 붙으면 체감 시급이 내려갑니다. 공고에 없으면 '당연히 포함'으로 처리되기 쉽습니다.</span>
+      </li>
+      <li>
+        <span class="crit-no">06</span>
+        <span class="crit-label">대체강사·대강 규정</span>
+        <span class="crit-why">휴가·공강·질병 때 어떻게 되는지가 없으면 그때부터 분쟁입니다.</span>
+      </li>
+      <li>
+        <span class="crit-no">07</span>
+        <span class="crit-label">계약 형태</span>
+        <span class="crit-why">프리랜서·전임·파트타임은 세금·보험·권리가 갈립니다. 4대보험 적용 여부까지 확인할 항목입니다.</span>
+      </li>
+    </ol>
+
+    <div class="do-not">
+      <div>
+        <h3>이 도구가 하는 일</h3>
+        <p>붙여넣은 글에 적힌 것만 세어 빈칸을 표시하고, 지원 전에 보낼 질문 3개를 만들어 드립니다.</p>
+      </div>
+      <div>
+        <h3>하지 않는 일</h3>
+        <p>센터를 평가하거나 비교하지 않습니다. 계약서 검토나 지원 대행도 아닙니다. 계약·세무·노무 사항은 전문가 확인을 권합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 04 NEXT ═══════════ -->
+<section class="section" id="next" aria-labelledby="next-title">
+  <header class="sec-head">
+    <span class="sec-no mono">04 — Next</span>
+    <h2 class="sec-title" id="next-title">질문 다음에<br>할 일</h2>
+  </header>
+
+  <div class="next-grid">
+    <a class="next-card" href="/tools/3lines/">
+      <span class="mono">MICRO TOOL 01</span>
+      <b>같은 회당 페이, 내 실질 시급은?</b>
+      <p>이동·준비 시간과 3.3%까지 넣어 계산하고, 원장이 먼저 읽는 3줄 소개를 만듭니다.</p>
+      <span class="go">3줄 도구 열기 →</span>
+    </a>
+    <a class="next-card" href="/check/">
+      <span class="mono">FREE CHECK</span>
+      <b>내 프로필이 원장에게 어디서 멈추는지</b>
+      <p>10문항 자가진단. 체크하면 결과가 바로 나옵니다. 가입도 결제도 없습니다.</p>
+      <span class="go">5분 진단 시작 →</span>
+    </a>
+    <a class="next-card" href="https://pf.kakao.com/_GVxlaX" target="_blank" rel="noopener">
+      <span class="mono">1:1</span>
+      <b>공고 조건, 같이 봐 드립니다</b>
+      <p>10년 차 센터 원장이 직접 읽습니다. 공고 캡처 한 장이면 충분합니다.</p>
+      <span class="go">카톡으로 문의 →</span>
+    </a>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="site-foot">
+  <p class="foot-sig">당신의 첫 페이지가, 반석이 됩니다.</p>
+  <div class="foot-row">
+    <a class="mono" href="../../">← 반석랩스 홈으로</a>
+    <span class="mono">© 2026 반석랩스 — BNSK LABS</span>
+    <a class="mono" href="#top">Back to Top ↑</a>
+  </div>
+  <p class="foot-legal mono"><span>반석랩스(BNSK LABS)</span><span>대표 이현석</span><span>사업자등록번호 154-11-02960</span><span>경기도 수원시 영통구 창룡대로 250</span><span><a href="mailto:bnsklabs@gmail.com">bnsklabs@gmail.com</a></span></p>
+  <p class="foot-legal mono">붙여넣은 공고 내용은 저장하지 않고 서버로 보내지 않습니다. 결과는 참고용입니다.</p>
+</footer>
+
+<noscript>
+  <p style="padding:16px 20px;background:#EFEBE3;font-size:14px;text-align:center">이 도구는 자바스크립트로 글자를 세어 판독합니다. 브라우저에서 자바스크립트를 켜 주세요.</p>
+</noscript>
+
+<!-- ═══════════ CORE LOGIC (판독 규칙) ═══════════ -->
+<script id="core-logic">
+var MISSING = [
+  { key: 'pay', label: '회당 페이 또는 정산률',
+    why: '페이가 없으면 비교 자체가 안 됩니다.',
+    ask: '회당 레슨비가 얼마인지, 수업료 비율로 정산한다면 정가 기준인지 할인가 기준인지 알 수 있을까요?',
+    re: /(\d[\d,]+\s*원|\d+(?:\.\d+)?\s*만\s*원|\d+\s*만원|(?:시급|회당|건당|타임당|일당|레슨비)\s*[:：]?\s*\d|(?:수업료|매출|레슨비)[^.\n]{0,12}\d{1,3}\s*%|\d{1,3}\s*%\s*(?:정산|지급))/ },
+
+  { key: 'settle', label: '정산일(지급 시점)',
+    why: '지급일이 없으면 밀려도 기준이 없습니다.',
+    ask: '정산일이 매월 며칠인지, 수업 후 며칠 안에 입금되는지 알 수 있을까요?',
+    re: /(정산일|지급일|지급\s*시점|정산\s*주기|매월\s*\d{1,2}\s*일|매달\s*\d{1,2}\s*일|월말|말일|익월|다음\s*달\s*\d{1,2}\s*일|수업\s*후\s*\d{1,2}\s*일)/ },
+
+  { key: 'tax', label: '세금 처리',
+    why: '3.3% 공제 여부에 따라 실수령이 3.3% 달라집니다.',
+    ask: '3.3% 원천징수 후 입금인지, 세전 금액으로 지급되는지 알 수 있을까요?',
+    re: /(3\.3|3,3\s*%|원천\s*징수|사업\s*소득|기타\s*소득|세전|세후|소득세|부가세)/ },
+
+  { key: 'cancel', label: '당일 취소·노쇼 시 수당',
+    why: '회원이 안 오면 그날 수입이 0이 됩니다.',
+    ask: '회원이 당일 취소하거나 노쇼할 때 강사 수당은 어떻게 처리되는지 알 수 있을까요?',
+    re: /(당일\s*취소|노쇼|no-?show|취소\s*수당|수업\s*취소|당일\s*결석|취소\s*시)/i },
+
+  { key: 'extra', label: '수업 외 업무',
+    why: '상담·청소·SNS가 붙으면 체감 시급이 내려갑니다.',
+    ask: '수업 외에 상담·시설 관리·SNS 업무가 포함되는지 알 수 있을까요?',
+    re: /(수업\s*외|상담\s*(?:업무|포함|응대|진행)|청소|프론트|SNS|홍보|시설\s*관리|데스크|마케팅|업무\s*협의)/ },
+
+  { key: 'sub', label: '대체강사·대강 규정',
+    why: '휴가·공강 때 규칙이 없으면 분쟁이 됩니다.',
+    ask: '휴가나 공강 때 대체강사 규정이 어떻게 되는지 알 수 있을까요?',
+    re: /(대강|대체\s*강사|대타|대체\s*수업|인수인계|공강|휴가\s*규정)/ },
+
+  { key: 'type', label: '계약 형태',
+    why: '프리랜서와 근로자는 세금·보험·권리가 다릅니다.',
+    ask: '프리랜서 계약인지 근로계약인지, 4대보험 적용 여부도 알 수 있을까요?',
+    re: /(프리랜서|정규직|전임|반전임|파트\s*타임|계약직|근로\s*계약|위수탁|용역|4대\s*보험|아르바이트|인턴)/ }
+];
+
+var FLAGS = [
+  { key: 'hyeopui', label: '"협의"로 남은 조건',
+    why: '숫자가 아니라 "협의"면 나중에 바뀔 수 있습니다. 지원 전에 숫자로 확정하세요.',
+    find: function (t) {
+      var n = (t.match(/협의/g) || []).length;
+      return n >= 2 ? '"협의" ' + n + '회' : null;
+    } },
+  { key: 'incentive', label: '인센티브 조건',
+    why: '목표 타임을 못 채우면 인센티브가 빠져 실질 단가가 내려갑니다. 기본 페이만으로 계산해 보세요.',
+    find: function (t) {
+      var m = t.match(/[^.。\n]{0,18}인센티브[^.。\n]{0,18}/);
+      if (!m) return null;
+      return /\d+\s*(타임|시간|회|개|만\s*원|만원|원)/.test(m[0]) ? m[0].trim() : null;
+    } },
+  { key: 'percent', label: '수업료·매출의 N% 정산',
+    why: '정가 기준인지, 할인가·환불 반영 후인지에 따라 같은 %가 다른 금액이 됩니다.',
+    find: function (t) {
+      var m = t.match(/(?:수업료|수업|매출|레슨비)[^.\n]{0,10}\d{1,3}\s*%/);
+      return m ? m[0].trim() : null;
+    } },
+  { key: 'training', label: '"무료 교육 후 투입"',
+    why: '교육 기간·의무 근무·수료 조건이 붙는 경우가 있습니다. 기간과 조건을 확인하세요.',
+    find: function (t) {
+      var m = t.match(/(?:무료\s*교육|교육\s*후\s*(?:바로\s*)?투입|즉시\s*투입|바로\s*투입)/);
+      return m ? m[0] : null;
+    } },
+  { key: 'age', label: '나이·성별·혼인 관련 표현',
+    why: '채용에서 나이·혼인을 조건으로 두는 것은 차별 소지가 있습니다. 자격 조건인지 확인해 보세요.',
+    find: function (t) {
+      var m = t.match(/(?:\d{2}\s*세\s*(?:미만|이하)|연령\s*제한|미혼|기혼|(?:남|여)\s*[\/·]\s*(?:남|여)\s*(?:모집|구인|한정)|(?:남성|여성)\s*(?:강사|선생))/);
+      return m ? m[0].trim() : null;
+    } }
+];
+
+var ORDER = ['settle', 'cancel', 'tax', 'extra', 'sub', 'type', 'pay'];
+
+var FILLERS = [
+  '수업 외에 준비·정리 시간이 어느 정도 필요한지 알 수 있을까요?',
+  '수업 인원과 사용 기구가 어떻게 되는지 알 수 있을까요?',
+  '첫 달 수업 배정은 어떻게 정해지는지 알 수 있을까요?',
+  '수강생이 없을 때 수업이 어떻게 처리되는지 알 수 있을까요?'
+];
+
+var VERIFY = [
+  '공고에 적힌 조건이 계약서에도 그대로 적히는지 알 수 있을까요?',
+  '정산일과 지급 방식이 서면으로 남는지 알 수 있을까요?',
+  '수업 외 업무 범위가 문서에 정리되어 있는지 알 수 있을까요?'
+];
+
+function byKey(key) {
+  for (var i = 0; i < MISSING.length; i++) {
+    if (MISSING[i].key === key) return MISSING[i];
+  }
+  return null;
+}
+
+function buildQuestions(present, missingCount) {
+  var out = [];
+  var i, m;
+  if (missingCount === 0) return VERIFY.slice(0, 3);
+  for (i = 0; i < ORDER.length && out.length < 3; i++) {
+    if (!present[ORDER[i]]) {
+      m = byKey(ORDER[i]);
+      if (m) out.push(m.ask);
+    }
+  }
+  for (i = 0; i < FILLERS.length && out.length < 3; i++) {
+    if (out.indexOf(FILLERS[i]) < 0) out.push(FILLERS[i]);
+  }
+  return out.slice(0, 3);
+}
+
+/**
+ * @param {string} text  공고문
+ * @param {Object} [override]  직접 체크 모드에서 항목별 '적혀 있음' 여부
+ */
+function analyze(text, override) {
+  var t = String(text == null ? '' : text).replace(/\s+/g, ' ').trim();
+  var present = {};
+  var hasOverride = !!override;
+
+  for (var i = 0; i < MISSING.length; i++) {
+    var m = MISSING[i];
+    if (hasOverride && Object.prototype.hasOwnProperty.call(override, m.key)) {
+      present[m.key] = !!override[m.key];
+    } else {
+      present[m.key] = m.re.test(t);
+    }
+  }
+
+  var missing = [];
+  for (var j = 0; j < MISSING.length; j++) {
+    if (!present[MISSING[j].key]) missing.push(MISSING[j]);
+  }
+
+  var flags = [];
+  if (!hasOverride) {
+    for (var f = 0; f < FLAGS.length; f++) {
+      var ev = FLAGS[f].find(t);
+      if (ev) flags.push({ key: FLAGS[f].key, label: FLAGS[f].label, why: FLAGS[f].why, evidence: ev });
+    }
+  }
+
+  return {
+    text: t,
+    present: present,
+    missing: missing,
+    hit: MISSING.length - missing.length,
+    total: MISSING.length,
+    flags: flags,
+    questions: buildQuestions(present, missing.length)
+  };
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { analyze: analyze, MISSING: MISSING, FLAGS: FLAGS };
+}
+</script>
+
+<!-- ═══════════ UI ═══════════ -->
+<script>
+(function () {
+  'use strict';
+
+  var $ = function (id) { return document.getElementById(id); };
+  var mode = 'paste';
+  var last = null;
+  var tabPaste = $('tab-paste');
+  var tabCheck = $('tab-check');
+  var panePaste = $('pane-paste');
+  var paneCheck = $('pane-check');
+  var msg = $('msg');
+
+  function setMode(next) {
+    mode = next;
+    tabPaste.setAttribute('aria-selected', next === 'paste' ? 'true' : 'false');
+    tabCheck.setAttribute('aria-selected', next === 'check' ? 'true' : 'false');
+    tabPaste.tabIndex = next === 'paste' ? 0 : -1;
+    tabCheck.tabIndex = next === 'check' ? 0 : -1;
+    panePaste.hidden = next !== 'paste';
+    paneCheck.hidden = next !== 'check';
+  }
+
+  tabPaste.addEventListener('click', function () { setMode('paste'); });
+  tabCheck.addEventListener('click', function () { setMode('check'); });
+
+  document.querySelector('.tabs').addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      e.preventDefault();
+      var next = mode === 'paste' ? 'check' : 'paste';
+      setMode(next);
+      (next === 'paste' ? tabPaste : tabCheck).focus();
+    }
+  });
+
+  $('sample').addEventListener('click', function () {
+    $('post').value = '필라테스 그룹 수업 강사님을 모십니다.\n'
+      + '· 시간: 월·수 20:00~20:50 (주 2회)\n'
+      + '· 장소: 수원 영통구 센터\n'
+      + '· 페이: 회당 3만원\n'
+      + '· 경력: 무관, 자격증 소지자\n'
+      + '· 정산은 협의, 세부 조건은 협의 후 결정\n'
+      + '· 20시간 무료 교육 후 바로 투입';
+    setMode('paste');
+    hideMsg();
+    $('post').focus();
+    var st = $('status');
+    st.textContent = '예시 공고를 채웠습니다. 점검하기를 눌러 보세요.';
+  });
+
+  function showMsg(text) {
+    msg.textContent = text;
+    msg.classList.add('is-on');
+  }
+  function hideMsg() {
+    msg.textContent = '';
+    msg.classList.remove('is-on');
+  }
+
+  function el(tag, cls, text) {
+    var node = document.createElement(tag);
+    if (cls) node.className = cls;
+    if (text != null) node.textContent = text;
+    return node;
+  }
+
+  function fmt(n) {
+    return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  function render(r) {
+    last = r;
+
+    $('hit').textContent = r.hit;
+    $('of').textContent = '/ ' + r.total;
+    $('barfill').style.width = Math.round((r.hit / r.total) * 100) + '%';
+    $('score-note').textContent = r.missing.length
+      ? '빈칸 ' + r.missing.length + '개. 아래 3줄 질문에 그대로 담았습니다.'
+      : '7개 항목이 모두 공고에 적혀 있습니다. 적힌 문구가 실제 조건과 같은지만 확인하세요.';
+
+    /* 7개 항목 전부 표시 — 적힌 것 / 아닌 것 */
+    var list = $('miss-list');
+    list.textContent = '';
+    for (var i = 0; i < MISSING.length; i++) {
+      var m = MISSING[i];
+      var on = !!r.present[m.key];
+      var row = el('div', 'miss' + (on ? '' : ' off'));
+      row.appendChild(el('span', 'dot'));
+      var body = el('div');
+      body.appendChild(el('b', null, m.label));
+      body.appendChild(el('small', null, m.why));
+      row.appendChild(body);
+      row.appendChild(el('span', 'state', on ? '적혀 있음' : '없음'));
+      list.appendChild(row);
+    }
+
+    /* 확인 문구 */
+    var fblk = $('flag-blk');
+    var flist = $('flag-list');
+    flist.textContent = '';
+    if (r.flags.length) {
+      for (var k = 0; k < r.flags.length; k++) {
+        var f = r.flags[k];
+        var box = el('div', 'flag');
+        box.appendChild(el('b', null, f.label));
+        box.appendChild(el('span', 'ev', f.evidence));
+        box.appendChild(el('p', null, f.why));
+        flist.appendChild(box);
+      }
+      fblk.hidden = false;
+    } else {
+      fblk.hidden = true;
+    }
+
+    /* 질문 3개 */
+    var qbox = $('qbox');
+    qbox.textContent = '';
+    for (var q = 0; q < r.questions.length; q++) {
+      var li = el('li');
+      li.appendChild(el('span', 'q-no', String(q + 1).padStart(2, '0')));
+      li.appendChild(el('span', 'q-text', r.questions[q]));
+      qbox.appendChild(li);
+    }
+
+    /* 실질 금액 한 줄 */
+    var payline = $('payline');
+    var payNum = parseInt(String($('pay').value || '').replace(/[^\d]/g, ''), 10);
+    if (payNum >= 1000 && payNum <= 10000000) {
+      var net = Math.round(payNum * 0.967);
+      payline.textContent = '회당 ' + fmt(payNum) + '원은 3.3% 공제 후 ' + fmt(net) + '원입니다. 이동·준비 시간까지 넣은 실질 시급은 ';
+      var a = el('a', null, '3줄 도구');
+      a.href = '/tools/3lines/';
+      payline.appendChild(a);
+      payline.appendChild(document.createTextNode('에서 계산합니다.'));
+      payline.classList.add('is-on');
+    } else {
+      payline.textContent = '';
+      payline.classList.remove('is-on');
+    }
+
+    $('result').hidden = false;
+    $('status').textContent = r.total + '개 항목 중 ' + r.hit + '개가 공고에 적혀 있습니다.';
+
+    if (!render.scrolled) {
+      $('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      render.scrolled = true;
+    } else {
+      window.scrollTo({ top: $('result').offsetTop - 70, behavior: 'smooth' });
+    }
+  }
+
+  function run() {
+    if (mode === 'check') {
+      var override = {};
+      for (var i = 0; i < MISSING.length; i++) {
+        var box = $('m' + i);
+        override[MISSING[i].key] = box ? box.checked : false;
+      }
+      hideMsg();
+      render(analyze('', override));
+      return;
+    }
+
+    var text = $('post').value;
+    if (!text || !text.trim()) {
+      showMsg('공고 내용을 붙여넣거나, 위의 "직접 체크"에서 공고에 적힌 항목을 골라 주세요.');
+      $('post').focus();
+      return;
+    }
+    hideMsg();
+    render(analyze(text, null));
+  }
+
+  $('run').addEventListener('click', run);
+
+  $('copy').addEventListener('click', function () {
+    if (!last) return;
+    var lines = ['안녕하세요, 공고 보고 문의드립니다.', ''];
+    for (var i = 0; i < last.questions.length; i++) {
+      lines.push((i + 1) + '. ' + last.questions[i]);
+    }
+    var body = lines.join('\n');
+    var btn = $('copy');
+    var done = function () {
+      btn.textContent = '복사했습니다 — 카톡·문자에 붙여넣으세요';
+      $('status').textContent = '질문 3개를 복사했습니다.';
+      window.setTimeout(function () { btn.textContent = '질문 복사하기'; }, 2400);
+    };
+    var fallback = function () {
+      var ta = document.createElement('textarea');
+      ta.value = body;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.top = '-1000px';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) { showMsg('복사가 막혀 있습니다. 질문을 길게 눌러 직접 복사해 주세요.'); }
+      document.body.removeChild(ta);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(body).then(done).catch(fallback);
+    } else {
+      fallback();
+    }
+  });
+})();
+</script>
+</body>
+</html>
