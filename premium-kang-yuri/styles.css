@@ -382,6 +382,7 @@ strong { font-weight: 600; }
 .hero__inner { max-width: 1040px; color: var(--hero-text); }
 .hero__eyebrow {
   color: var(--color-accent-deep);
+  text-wrap: balance;   /* 모바일에서 마지막 단어('강사')만 다음 줄로 떨어지는 것을 막음 */
   text-shadow: 0 1px 12px rgba(248, 247, 242, .9);   /* 라이트 영상 위 가독성 보조 */
 }
 .hero__eyebrow::before { background: var(--color-accent-deep); }
