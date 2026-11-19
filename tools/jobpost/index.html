@@ -592,8 +592,12 @@ var FLAGS = [
     why: '목표 타임을 못 채우면 인센티브가 빠져 실질 단가가 내려갑니다. 기본 페이만으로 계산해 보세요.',
     find: function (t) {
       var m = t.match(/[^.。\n]{0,18}인센티브[^.。\n]{0,18}/);
-      if (!m) return null;
-      return /\d+\s*(타임|시간|회|개|만\s*원|만원|원)/.test(m[0]) ? m[0].trim() : null;
+      if (!m || !/\d+\s*(타임|시간|회|개|만\s*원|만원|원)/.test(m[0])) return null;
+      var parts = m[0].split(/[·|]/);
+      for (var i = 0; i < parts.length; i++) {
+        if (parts[i].indexOf('인센티브') > -1) return parts[i].replace(/^[\s,]+|[\s,]+$/g, '');
+      }
+      return m[0].trim();
     } },
   { key: 'percent', label: '수업료·매출의 N% 정산',
     why: '정가 기준인지, 할인가·환불 반영 후인지에 따라 같은 %가 다른 금액이 됩니다.',
