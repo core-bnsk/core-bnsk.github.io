@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url><loc>https://bnsklabs.com/standard-bnsk-labs/sites/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 <url><loc>https://bnsklabs.com/standard-bnsk-labs/sites/01-maternity-lee-seoyeon/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
 <url><loc>https://bnsklabs.com/standard-bnsk-labs/sites/02-golf-kim-doyun/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
 <url><loc>https://bnsklabs.com/standard-bnsk-labs/sites/03-posture-jung-areum/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
@@ -17,6 +16,6 @@
 <url><loc>https://bnsklabs.com/standard-bnsk-labs/sites/14-posture-jung-soomin/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
 <url><loc>https://bnsklabs.com/standard-bnsk-labs/sites/15-editorial-han-seoa/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
 <url><loc>https://bnsklabs.com/standard-bnsk-labs/sites/16-movement-yoga-yuna/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
-<url><loc>https://bnsklabs.com/standard-bnsk-labs/sites/17-conversion-senior-misun/</loc>
-  <loc>https://bnsklabs.com/standard-bnsk-labs/sites/18-conversion-kang-mirae/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+<url><loc>https://bnsklabs.com/standard-bnsk-labs/sites/17-conversion-senior-misun/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+<url><loc>https://bnsklabs.com/standard-bnsk-labs/sites/18-conversion-kang-mirae/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
 </urlset>

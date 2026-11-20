@@ -125,6 +125,36 @@
   window.addEventListener("scroll", onBarScroll, { passive: true });
   onBarScroll();
 
+  /* ── 플로팅 카톡 버튼: 첫 화면(표지)에서는 숨김 ───────────
+     표지 하단이 버튼이 떠 있는 화면 아래쪽 밴드 위로 올라온 뒤에만
+     버튼을 보여 준다. 그래서 히어로 문구·보조 버튼과 겹치지 않고,
+     스크롤을 내리면 자연스럽게 나타난다. 판정은 매 프레임이 아니라
+     스크롤/리사이즈 rAF에서만 계산한다. */
+  const fab = document.querySelector(".float-cta");
+  const cover = document.querySelector(".cover");
+  if (fab && cover) {
+    const HOLD_BAND = 120; /* 버튼 위 120px 여유 — 이 선을 넘으면 노출 */
+    let fabTicking = false;
+    const syncFab = () => {
+      const bottom = cover.getBoundingClientRect().bottom;
+      const hold =
+        window.scrollY < 8 || bottom > window.innerHeight - HOLD_BAND;
+      fab.classList.toggle("is-hold", hold);
+    };
+    const onFabScroll = () => {
+      if (fabTicking) return;
+      fabTicking = true;
+      requestAnimationFrame(() => {
+        fabTicking = false;
+        syncFab();
+      });
+    };
+    syncFab();
+    window.addEventListener("scroll", onFabScroll, { passive: true });
+    window.addEventListener("resize", onFabScroll, { passive: true });
+    window.addEventListener("load", syncFab);
+  }
+
   /* ── contact: 페이지 링크 복사 (오픈 전 웨이브리스트 대체 액션) ──
      클립보드를 못 쓰는 환경(file://·구형 웹뷰)에서는 토스트에 주소를
      그대로 보여줘서 수동 복사라도 가능하게 한다. 가짜 접수 완료는 보내지 않는다. */

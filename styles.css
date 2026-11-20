@@ -888,7 +888,8 @@ del { color: var(--soft); }
   border-radius: 2px;
   box-shadow: 0 22px 44px -20px rgba(23, 22, 20, .55), 0 2px 6px rgba(23, 22, 20, .10);
   transition: background .35s, border-color .35s, color .35s,
-              transform .5s cubic-bezier(.22, 1, .36, 1), box-shadow .35s;
+              transform .5s cubic-bezier(.22, 1, .36, 1), box-shadow .35s,
+              opacity .35s ease, visibility .35s;
 }
 .float-cta span { font-size: 11px; line-height: 1; }
 .float-cta:hover {
@@ -897,6 +898,15 @@ del { color: var(--soft); }
   color: var(--paper);
   transform: translateY(-3px);
   box-shadow: 0 26px 48px -20px rgba(140, 59, 46, .5), 0 2px 6px rgba(23, 22, 20, .12);
+}
+/* 첫 화면(표지)에서는 버튼을 감춰 히어로 문구·보조 버튼을 가리지 않는다.
+   html.js가 있을 때만 감춤 상태를 적용하므로, 스크립트가 없거나 실패하면
+   버튼은 그대로 보인다(fail-open). 스크롤 판정은 app.js가 한다. */
+html.js .float-cta.is-hold {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  pointer-events: none;
 }
 @media (max-width: 760px) {
   .float-cta {
