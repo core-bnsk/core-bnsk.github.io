@@ -125,22 +125,81 @@
   window.addEventListener("scroll", onBarScroll, { passive: true });
   onBarScroll();
 
-  /* ── 플로팅 카톡 버튼: 첫 화면(표지)에서는 숨김 ───────────
-     표지 하단이 버튼이 떠 있는 화면 아래쪽 밴드 위로 올라온 뒤에만
-     버튼을 보여 준다. 그래서 히어로 문구·보조 버튼과 겹치지 않고,
-     스크롤을 내리면 자연스럽게 나타난다. 판정은 매 프레임이 아니라
-     스크롤/리사이즈 rAF에서만 계산한다. */
+  /* ── 플로팅 카톡 버튼: 가릴 것이 있으면 물러난다 ───────────
+     1) 첫 화면(표지): 표지 하단이 버튼이 떠 있는 화면 아래쪽 밴드 위로
+        올라온 뒤에만 버튼을 보여 준다. 히어로 문구·보조 버튼과 겹치지 않는다.
+     2) 그 밖의 구간: 버튼이 놓인 자리에 링크·버튼처럼 '누를 것'이 있거나,
+        같은 카톡 링크를 크게 다시 보여 주는 문의 섹션·푸터가 걸치면 물러난다.
+        샘플 카드의 '샘플 사이트 열기'를 덮어 누르지 못하게 하거나 푸터 법정
+        표기를 가리는 일을 막는다.
+     판정은 스크롤 중 매 프레임이 아니라 스크롤이 멈춘 뒤 한 번만 한다
+     (스크롤하는 동안 버튼이 깜빡이지 않게). 스크롤·리사이즈 판정은 rAF에서. */
   const fab = document.querySelector(".float-cta");
-  const cover = document.querySelector(".cover");
-  if (fab && cover) {
+  if (fab) {
     const HOLD_BAND = 120; /* 버튼 위 120px 여유 — 이 선을 넘으면 노출 */
-    let fabTicking = false;
-    const syncFab = () => {
-      const bottom = cover.getBoundingClientRect().bottom;
-      const hold =
-        window.scrollY < 8 || bottom > window.innerHeight - HOLD_BAND;
-      fab.classList.toggle("is-hold", hold);
+    const cover = document.querySelector(".cover");
+    const AVOID_TARGETS = "a, button, summary, input, textarea, select, label, [role='button']";
+    /* 같은 카톡 링크를 이미 크게 보여 주는 곳 — 여기서는 떠 있는 버튼이 중복이다 */
+    const avoidZones = Array.prototype.slice.call(
+      document.querySelectorAll(".section.contact, .site-foot")
+    );
+
+    /* 버튼은 translateY로 움직이므로 getBoundingClientRect는 감춰진 상태에서
+       10px 아래를 가리킨다 — 판정이 흔들리지 않도록 레이아웃 위치로 계산한다. */
+    const fabBox = () => {
+      const cs = getComputedStyle(fab);
+      const w = fab.offsetWidth;
+      const h = fab.offsetHeight;
+      const right = window.innerWidth - (parseFloat(cs.right) || 0);
+      const bottom = window.innerHeight - (parseFloat(cs.bottom) || 0);
+      return { left: right - w, top: bottom - h, width: w, height: h };
     };
+
+    const coversSomething = () => {
+      const r = fabBox();
+      if (!r.width || !r.height) return false;
+      const pts = [[0.5, 0.5], [0.25, 0.5], [0.75, 0.5], [0.5, 0.82]];
+      for (let i = 0; i < pts.length; i += 1) {
+        const stack = document.elementsFromPoint(
+          r.left + r.width * pts[i][0],
+          r.top + r.height * pts[i][1]
+        );
+        let under = null;
+        for (let j = 0; j < stack.length; j += 1) {
+          const el = stack[j];
+          if (el === fab || fab.contains(el) || el.closest(".float-cta")) continue;
+          under = el;
+          break;
+        }
+        if (!under) continue;
+        for (let k = 0; k < avoidZones.length; k += 1) {
+          if (avoidZones[k].contains(under)) return true;
+        }
+        if (under.closest(AVOID_TARGETS)) return true;
+      }
+      return false;
+    };
+
+    const holdAtTop = () => {
+      if (!cover) return false;
+      const bottom = cover.getBoundingClientRect().bottom;
+      return window.scrollY < 8 || bottom > window.innerHeight - HOLD_BAND;
+    };
+
+    let fabTicking = false;
+    let settleTimer = null;
+
+    const syncFab = () => {
+      const hold = holdAtTop();
+      fab.classList.toggle("is-hold", hold);
+      if (hold) fab.classList.remove("is-avoid");
+    };
+
+    const syncAvoid = () => {
+      if (fab.classList.contains("is-hold")) return;
+      fab.classList.toggle("is-avoid", coversSomething());
+    };
+
     const onFabScroll = () => {
       if (fabTicking) return;
       fabTicking = true;
@@ -148,11 +207,15 @@
         fabTicking = false;
         syncFab();
       });
+      clearTimeout(settleTimer);
+      settleTimer = setTimeout(syncAvoid, 150);
     };
+
     syncFab();
+    syncAvoid();
     window.addEventListener("scroll", onFabScroll, { passive: true });
     window.addEventListener("resize", onFabScroll, { passive: true });
-    window.addEventListener("load", syncFab);
+    window.addEventListener("load", onFabScroll);
   }
 
   /* ── contact: 페이지 링크 복사 (오픈 전 웨이브리스트 대체 액션) ──

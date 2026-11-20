@@ -900,9 +900,12 @@ del { color: var(--soft); }
   box-shadow: 0 26px 48px -20px rgba(140, 59, 46, .5), 0 2px 6px rgba(23, 22, 20, .12);
 }
 /* 첫 화면(표지)에서는 버튼을 감춰 히어로 문구·보조 버튼을 가리지 않는다.
+   같은 이유로, 버튼이 지금 놓인 자리에 링크·버튼 같은 누를 것이나
+   문의 섹션·푸터(같은 카톡 링크가 이미 크게 있는 곳)가 있으면 잠시 물러난다.
    html.js가 있을 때만 감춤 상태를 적용하므로, 스크립트가 없거나 실패하면
    버튼은 그대로 보인다(fail-open). 스크롤 판정은 app.js가 한다. */
-html.js .float-cta.is-hold {
+html.js .float-cta.is-hold,
+html.js .float-cta.is-avoid {
   opacity: 0;
   visibility: hidden;
   transform: translateY(10px);
@@ -918,9 +921,13 @@ html.js .float-cta.is-hold {
 }
 
 /* ═══ FOOTER ══════════════════════════════════════════════ */
-.site-foot { border-top: 1px solid var(--line-dark); padding: clamp(44px, 7vh, 84px) var(--pad) 96px; }
-/* 하단 고정 문의 버튼이 법정 표기·Back to Top을 덮지 않도록 푸터 하단 여유 */
-@media (max-width: 760px) { .site-foot { padding-bottom: 84px; } }
+.site-foot { border-top: 1px solid var(--line-dark); padding: clamp(44px, 7vh, 84px) var(--pad) 104px; }
+/* 하단 고정 문의 버튼이 법정 표기·Back to Top을 덮지 않도록 푸터 하단 여유.
+   모바일은 홈 인디케이터 영역(safe-area)까지 더해 마지막 줄이 버튼 아래로
+   깔리지 않게 한다. */
+@media (max-width: 760px) {
+  .site-foot { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
+}
 .foot-sig {
   font-family: var(--kr-serif); font-weight: 700;
   font-size: clamp(18px, 2vw, 24px); color: var(--ink);
