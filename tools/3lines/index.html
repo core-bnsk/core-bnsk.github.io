@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>3줄 커리어 요약 &amp; 실수령 시급 계산기 · BNSK LABS</title>
-<meta name="description" content="경력 연차와 주력 수업, 자신 있는 회원 변화만 고르면 원장이 먼저 읽는 3줄 소개가 만들어집니다. 3.3% 공제 후 실수령 시급도 같은 화면에서 계산합니다. BNSK LABS 무료 도구.">
+<title>3줄 소개 만들기 — 원장이 먼저 읽는 세 줄 (2종목 모드) · BNSK LABS</title>
+<meta name="description" content="경력 연차와 주력 수업, 자신 있는 회원 변화만 고르면 원장이 먼저 읽는 3줄 소개가 만들어집니다. 바레·요가처럼 두 종목을 가르친다면 2종목 모드로 보조 종목을 둘째 줄에 담습니다. 입력한 내용은 서버로 보내지 않습니다.">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#F7F5F1">
 <meta property="og:type" content="website">
-<meta property="og:title" content="3줄 커리어 요약 &amp; 실수령 시급 계산기 · BNSK LABS">
-<meta property="og:description" content="자격증 나열 대신, 원장이 먼저 읽는 3줄 소개. 3.3% 떼고 남는 실수령 시급까지 1분에.">
+<meta property="og:title" content="3줄 소개 만들기 — 원장이 먼저 읽는 세 줄 · BNSK LABS">
+<meta property="og:description" content="자격증 나열 대신, 원장이 먼저 읽는 3줄 소개. 2종목을 가르친다면 보조 종목을 둘째 줄 한 문장으로.">
 <meta property="og:site_name" content="반석랩스 BNSK LABS">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:image" content="https://bnsklabs.com/assets/og-brand.png">
@@ -18,8 +18,8 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="반석랩스 BNSK LABS — 필라테스·웰니스 강사 소개 사이트">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="3줄 커리어 요약 &amp; 실수령 시급 계산기 · BNSK LABS">
-<meta name="twitter:description" content="자격증 나열 대신, 원장이 먼저 읽는 3줄 소개. 3.3% 떼고 남는 실수령 시급까지 1분에.">
+<meta name="twitter:title" content="3줄 소개 만들기 — 원장이 먼저 읽는 세 줄 · BNSK LABS">
+<meta name="twitter:description" content="자격증 나열 대신, 원장이 먼저 읽는 3줄 소개. 2종목을 가르친다면 보조 종목을 둘째 줄 한 문장으로.">
 <meta name="twitter:image" content="https://bnsklabs.com/assets/og-brand.png">
 <meta property="og:url" content="https://bnsklabs.com/tools/3lines/">
 <link rel="canonical" href="https://bnsklabs.com/tools/3lines/">
@@ -32,7 +32,8 @@
 <style>
 /* ═══════════════════════════════════════════════════════════
    BNSK LABS — MICRO TOOL 01
-   3줄 커리어 요약 & 실수령 시급 계산기 (단일 정적 파일)
+   3줄 커리어 요약 (2종목 모드) · 단일 정적 파일
+   실수령 시급 계산은 /tools/3lines/pay/ 로 분리 (2026-11-22)
    톤: Quiet Luxury Editorial — 아이보리 종이, 딥 블랙, 헤어라인, 한글 이탤릭 금지
    ═══════════════════════════════════════════════════════════ */
 :root {
@@ -481,6 +482,32 @@ a:focus-visible, button:focus-visible, input:focus-visible, .chip:has(input:focu
   font-size: 11.5px; line-height: 1.75; color: #9A9388;
 }
 
+/* ═══ 2종목 모드 (2026-11-22) ════════════════════════════ */
+.chips-mode { margin-top: 10px; }
+.chips + .chips-mode { margin-top: 12px; }
+.chip-label { display: block; margin: 16px 0 8px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; color: var(--accent); }
+.chip.is-off { opacity: .32; pointer-events: none; }
+#subWrap { margin-top: 4px; }
+#subWrap .field-hint a { color: var(--ink); border-bottom: 1px solid var(--line); }
+#subWrap .field-hint a:hover { border-color: var(--ink); }
+.res-rule { border-top: 1px solid var(--line); padding-top: 12px; }
+
+/* ═══ FAQ (짧은 문답) ════════════════════════════════════ */
+.faq-min { border-top: 1px solid var(--line-dark); }
+.faq-min-item { border-bottom: 1px solid var(--line); }
+.faq-min-item summary {
+  list-style: none; cursor: pointer; position: relative;
+  padding: 17px 30px 17px 0; font-size: clamp(15px, 1.4vw, 16.5px); font-weight: 600; color: var(--ink);
+  word-break: keep-all;
+}
+.faq-min-item summary::-webkit-details-marker { display: none; }
+.faq-min-item summary::after {
+  content: "+"; position: absolute; right: 2px; top: 13px;
+  font-family: var(--mono); font-size: 16px; color: var(--accent); line-height: 1;
+}
+.faq-min-item[open] summary::after { content: "–"; }
+.faq-min-item p { padding: 0 30px 18px 0; font-size: 14.5px; line-height: 1.85; color: var(--soft); }
+
 /* ═══ RESPONSIVE ══════════════════════════════════════════ */
 @media (max-width: 980px) {
   .tool { grid-template-columns: minmax(0, 1fr); gap: 20px; }
@@ -512,6 +539,73 @@ a:focus-visible, button:focus-visible, input:focus-visible, .chip:has(input:focu
   * { transition: none !important; }
 }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://bnsklabs.com/#org",
+      "name": "반석랩스 BNSK LABS",
+      "alternateName": "BNSK LABS",
+      "url": "https://bnsklabs.com/",
+      "logo": "https://bnsklabs.com/assets/og-brand.png",
+      "description": "필라테스·요가·재활·시니어·골프 강사를 위한 소개 사이트 스튜디오.",
+      "address": { "@type": "PostalAddress", "addressCountry": "KR", "addressRegion": "경기도", "addressLocality": "수원시 영통구", "streetAddress": "창룡대로 250" },
+      "email": "bnsklabs@gmail.com",
+      "sameAs": ["https://pf.kakao.com/_GVxlaX"]
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://bnsklabs.com/tools/3lines/#app",
+      "name": "3줄 소개 만들기 (2종목 모드)",
+      "url": "https://bnsklabs.com/tools/3lines/",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Any",
+      "inLanguage": "ko-KR",
+      "datePublished": "2026-11-17",
+      "dateModified": "2026-11-22",
+      "description": "경력 연차·주력 수업·회원 변화를 고르면 원장이 먼저 읽는 3줄 소개를 만듭니다. 종목을 둘 가르친다면 보조 종목을 둘째 줄에 보완 관계로 넣습니다. 입력값은 서버로 보내지 않습니다.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "publisher": { "@id": "https://bnsklabs.com/#org" }
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://bnsklabs.com/tools/3lines/#howto",
+      "name": "강사 3줄 소개를 쓰는 방법",
+      "description": "자격증 나열 대신 원장이 먼저 읽는 3줄 소개를 만드는 세 단계.",
+      "inLanguage": "ko-KR",
+      "totalTime": "PT1M",
+      "step": [
+        { "@type": "HowToStep", "position": 1, "name": "재료 세 가지 고르기", "text": "경력 연차, 주력 수업, 가장 자신 있는 회원 변화를 고릅니다. 두 종목을 가르친다면 주 종목과 보조 종목을 함께 고릅니다." },
+        { "@type": "HowToStep", "position": 2, "name": "첫 줄에 연차와 대상을 쓴다", "text": "몇 년 했는지와 어떤 회원을 주로 만나 왔는지를 한 문장에 넣습니다. '열심히 지도합니다' 같은 다짐은 넣지 않습니다." },
+        { "@type": "HowToStep", "position": 3, "name": "둘째 줄에 보완, 셋째 줄에 근거", "text": "둘째 줄은 두 종목이 어떻게 이어지는지 또는 어떤 변화를 만드는지, 셋째 줄은 숫자·자격·지도 방식으로 채웁니다. 숫자와 자격은 실제 사실로만 바꿉니다." }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://bnsklabs.com/tools/3lines/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "경력이 짧아도 3줄 소개를 쓸 수 있나요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "쓸 수 있습니다. 연차가 짧으면 연차 대신 수료한 과정과 실제로 만나 본 회원의 변화로 첫 줄을 채웁니다. 없는 경력과 없는 숫자는 넣지 않습니다." }
+        },
+        {
+          "@type": "Question",
+          "name": "왜 3줄인가요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "원장과 회원이 프로필에서 멈추는 시간이 길지 않기 때문입니다. 첫 줄에서 누구인지, 둘째 줄에서 무엇을 하는지, 셋째 줄에서 무엇으로 믿을지가 한 화면에 들어와야 읽힙니다." }
+        },
+        {
+          "@type": "Question",
+          "name": "두 종목을 넣으면 줄이 늘어나지 않나요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "늘리지 않습니다. 2종목 모드에서도 첫 줄은 주 종목과 연차, 둘째 줄은 보조 종목이 주 종목을 어떻게 보완하는지, 셋째 줄은 근거와 지도 방식입니다. 세 줄마다 하는 일이 하나라 늘어나지 않습니다." }
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body id="top">
 
@@ -523,7 +617,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, .chip:has(input:focu
   <a class="head-mark" href="https://bnsklabs.com/">BNSK&nbsp;LABS <span class="mark-kr">반석랩스</span></a>
   <nav class="head-nav" aria-label="도구 메뉴">
     <a href="#profile">3줄 프로필</a>
-    <a href="#pay">실수령 시급</a>
+    <a href="#faq">자주 묻는 질문</a>
+    <a href="pay/">실수령 시급</a>
     <a href="#next">다음 단계</a>
   </nav>
   <a class="head-offer" href="https://pf.kakao.com/_GVxlaX" target="_blank" rel="noopener">카톡 상담 ↗</a>
@@ -537,13 +632,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, .chip:has(input:focu
   <p class="cover-kicker">필라테스·요가 강사를 위한 무료 도구</p>
   <p class="cover-brand mono">BNSK LABS — MICRO TOOL 01</p>
   <h1 class="cover-title" id="cover-title">이력서 한 장보다,<br><strong>세 줄이 먼저 읽힙니다</strong></h1>
-  <p class="cover-lede">경력 연차와 주력 수업, 자신 있는 회원 변화만 고르면 됩니다.<br>원장이 먼저 읽는 3줄 소개가 만들어지고, 이어서 3.3%를 떼고 남는 내 실수령 시급까지 같은 화면에서 계산합니다.</p>
+  <p class="cover-lede">경력 연차와 주력 수업, 자신 있는 회원 변화만 고르면 됩니다.<br>원장이 먼저 읽는 3줄 소개가 만들어지고, 바레·요가처럼 두 종목을 가르친다면 <strong>2종목 모드</strong>로 보조 종목까지 둘째 줄에 담깁니다.</p>
   <div class="cover-cta">
     <a class="btn-solid" href="#profile">3줄 프로필 만들기 <span aria-hidden="true">↓</span></a>
-    <a class="btn-line" href="#pay">실수령 시급 계산</a>
+    <a class="btn-line" href="pay/">실수령 시급 계산 <span aria-hidden="true">↗</span></a>
   </div>
   <ul class="cover-meta" role="list">
-    <li><span class="meta-label">고르는 항목</span><strong>3가지</strong></li>
+    <li><span class="meta-label">종목</span><strong>1~2개</strong></li>
     <li><span class="meta-label">걸리는 시간</span><strong>1분</strong></li>
     <li><span class="meta-label">비용</span><strong>무료</strong></li>
     <li><span class="meta-label">입력값</span><strong>서버 전송 없음</strong></li>
@@ -577,6 +672,31 @@ a:focus-visible, button:focus-visible, input:focus-visible, .chip:has(input:focu
             <span class="suffix">년</span>
           </div>
         </div>
+
+        <fieldset class="field" style="border:0">
+          <legend class="field-label"><b>종목</b></legend>
+          <p class="chip-label mono" style="margin-top:0">주 종목</p>
+          <div class="chips" id="mainChips">
+            <label class="chip"><input type="radio" name="main" value="pilates" checked><span>필라테스</span></label>
+            <label class="chip"><input type="radio" name="main" value="yoga"><span>요가</span></label>
+            <label class="chip"><input type="radio" name="main" value="rehab"><span>재활운동</span></label>
+          </div>
+          <div class="chips chips-mode" id="modeChips">
+            <label class="chip"><input type="radio" name="mode" value="one" checked><span>1종목</span></label>
+            <label class="chip"><input type="radio" name="mode" value="dual"><span>2종목 (주 + 보조)</span></label>
+          </div>
+          <p class="field-hint" id="modeHint">두 종목을 가르친다면 2종목을 고르세요. 3줄은 3줄 그대로입니다.</p>
+          <div id="subWrap" hidden>
+            <p class="chip-label mono">보조 종목</p>
+            <div class="chips" id="subChips">
+              <label class="chip"><input type="radio" name="sub" value="barre" checked><span>바레</span></label>
+              <label class="chip"><input type="radio" name="sub" value="yoga"><span>요가</span></label>
+              <label class="chip"><input type="radio" name="sub" value="rehab"><span>재활운동</span></label>
+              <label class="chip"><input type="radio" name="sub" value="golf"><span>골프 컨디셔닝</span></label>
+            </div>
+            <p class="field-hint">보조 종목은 네 번째 줄이 아니라 <strong>둘째 줄의 보완 관계</strong> 한 문장으로 들어갑니다. <a href="../../tools/twotrack/">2종목 3줄 규칙 보기</a></p>
+          </div>
+        </fieldset>
 
         <fieldset class="field" style="border:0">
           <legend class="field-label"><b>주력 수업</b></legend>
@@ -641,6 +761,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, .chip:has(input:focu
         </div>
 
         <p class="res-note"><b>문장은 출발점입니다.</b> 내 방식과 다른 부분은 고쳐 쓰세요. 숫자·자격·수업 방식은 본인 사실로만 바꿔 주세요.</p>
+        <p class="res-note res-rule" id="resRule" hidden><b>2종목 모드.</b> 둘째 줄은 보조 종목이 주 종목을 어떻게 보완하는지 한 문장입니다. 줄 수는 3줄 그대로입니다.</p>
       </div>
 
       <div class="use">
@@ -661,88 +782,45 @@ a:focus-visible, button:focus-visible, input:focus-visible, .chip:has(input:focu
   </div>
 </section>
 
-<!-- ═══════════ 02 — 실수령 시급 ═══════════ -->
+<!-- ═══════════ 02 — 3줄에 대한 질문 (2026-11-22 · FAQPage 마크업과 같은 문답) ═══════════ -->
+<section class="section" id="faq" aria-labelledby="faq-title">
+  <div class="sec-inner">
+    <header class="sec-head">
+      <span class="sec-no">02 — FAQ</span>
+      <h2 class="sec-title" id="faq-title">3줄 소개, 이렇게 물으시더군요</h2>
+    </header>
+    <div class="faq-min">
+      <details class="faq-min-item" open>
+        <summary>경력이 짧아도 3줄 소개를 쓸 수 있나요?</summary>
+        <p>쓸 수 있습니다. 연차가 짧으면 연차 대신 수료한 과정과 실제로 만나 본 회원의 변화로 첫 줄을 채웁니다. 없는 경력과 없는 숫자는 넣지 않습니다.</p>
+      </details>
+      <details class="faq-min-item">
+        <summary>왜 3줄인가요?</summary>
+        <p>원장과 회원이 프로필에서 멈추는 시간이 길지 않기 때문입니다. 첫 줄에서 누구인지, 둘째 줄에서 무엇을 하는지, 셋째 줄에서 무엇으로 믿을지가 한 화면에 들어와야 읽힙니다.</p>
+      </details>
+      <details class="faq-min-item">
+        <summary>두 종목을 넣으면 줄이 늘어나지 않나요?</summary>
+        <p>늘리지 않습니다. 2종목 모드에서도 첫 줄은 주 종목과 연차, 둘째 줄은 보조 종목이 주 종목을 어떻게 보완하는지, 셋째 줄은 근거와 지도 방식입니다. 세 줄마다 하는 일이 하나라 늘어나지 않습니다.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 02 — 실수령 시급 (2026-11-22 분리: /tools/3lines/pay/) ═══════════
+     한 페이지가 한 질문만 받도록, 3.3% 실수령 계산은 별도 페이지로 옮겼다.
+     여기서는 '왜 따로 봐야 하는지'만 두 문장으로 답하고 링크한다. -->
 <section class="section" id="pay" aria-labelledby="pay-title" style="background:var(--paper-deep)">
   <div class="sec-inner">
     <header class="sec-head">
-      <span class="sec-no">02 — TAKE-HOME RATE</span>
-      <h2 class="sec-title" id="pay-title">3.3%를 떼고 나면,<br>내 시급은 얼마일까</h2>
-      <p class="sec-intro">타임당 수업료만 보면 넉넉해 보입니다. 이동하고 준비하는 시간까지 넣으면 숫자가 달라집니다. 프리랜서 강사의 실제 시급을 계산해 보세요.</p>
-    </header>
-
-    <div class="tool">
-      <form class="panel" id="payForm" autocomplete="off">
-        <div class="field">
-          <label class="field-label" for="fee"><b>타임당 수업료</b></label>
-          <div class="input-wrap">
-            <input class="input" type="text" id="fee" inputmode="numeric" value="50,000">
-            <span class="suffix">원</span>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="field-label" for="weekly"><b>주간 수업 횟수</b></label>
-          <div class="input-wrap">
-            <input class="input" type="text" id="weekly" inputmode="numeric" maxlength="3" value="12">
-            <span class="suffix">회 / 주</span>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="field-label" for="mins"><b>1타임 수업 시간</b></label>
-          <div class="input-wrap">
-            <input class="input" type="text" id="mins" inputmode="numeric" maxlength="3" value="50">
-            <span class="suffix">분</span>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="field-label" for="prep"><b>이동·준비 시간</b> <span class="opt">타임당</span></label>
-          <div class="input-wrap">
-            <input class="input" type="text" id="prep" inputmode="numeric" maxlength="3" value="30">
-            <span class="suffix">분</span>
-          </div>
-          <p class="field-hint">샤워·이동·세팅·정리까지 한 타임에 붙는 시간. 0으로 두면 수업 시간만 계산합니다.</p>
-        </div>
-
-        <div class="field">
-          <label class="field-label" for="goal"><b>목표 월 실수령</b> <span class="opt">선택</span></label>
-          <div class="input-wrap">
-            <input class="input" type="text" id="goal" inputmode="numeric" placeholder="예: 3,000,000">
-            <span class="suffix">원</span>
-          </div>
-        </div>
-      </form>
-
-      <div class="calc">
-        <span class="calc-eye">월 실수령액 · 3.3% 공제 후</span>
-        <p class="calc-big"><span id="netMonth">—</span><span class="unit">원</span></p>
-        <p class="calc-sub">세전 <b><span id="grossMonth">—</span>원</b>에서 원천징수 <b><span id="taxMonth">—</span>원</b>을 뺀 금액</p>
-
-        <dl class="calc-stats">
-          <div><dt>월 수업</dt><dd><span id="sessions">—</span><span class="u">회</span></dd></div>
-          <div><dt>타임당 실수령</dt><dd><span id="perSession">—</span><span class="u">원</span></dd></div>
-          <div><dt>수업 외 시간</dt><dd><span class="u">월</span> <span class="num" id="outside">—</span><span class="u">시간</span></dd></div>
-        </dl>
-
-        <div class="bars">
-          <div class="bar-row">
-            <span class="bar-label">명목 시급</span>
-            <span class="bar-track"><i id="barNominal"></i></span>
-            <span class="bar-val" id="hourlyNominal">—</span>
-          </div>
-          <div class="bar-row is-real">
-            <span class="bar-label">실질 시급</span>
-            <span class="bar-track"><i id="barReal"></i></span>
-            <span class="bar-val" id="hourlyReal">—</span>
-          </div>
-        </div>
-
-        <p class="calc-insight" id="insight">값을 입력하면 계산됩니다.</p>
-        <p class="calc-goal" id="goalNote" hidden></p>
-        <p class="calc-foot">3.3%는 사업소득 원천징수(소득세 3% + 지방소득세 0.3%) 기준입니다. 실제 부담은 소득 구간과 신고 방식에 따라 달라지니 정확한 금액은 세무 전문가에게 확인하세요. 월 환산은 1년 52주를 12개월로 나눈 4.33주 기준입니다.</p>
+      <span class="sec-no">02 — TAKE-HOME</span>
+      <h2 class="sec-title" id="pay-title">3.3%를 떼고 나면,<br>내 시급은 얼마일까요?</h2>
+      <p class="sec-intro"><strong>세전 금액에서 3.3%를 뺀 값이 실수령이고, 그 돈을 이동·준비 시간까지 넣어 나눈 값이 실질 시급입니다.</strong> 타임당 50,000원·50분·이동 30분이면 명목 60,000원이 실질 약 36,300원이 됩니다. 계산기는 별도 페이지로 옮겼습니다 — 한 화면에 계산이 둘이면 어느 숫자가 내 것인지 헷갈리기 때문입니다.</p>
+      <div class="cover-cta" style="justify-content:flex-start;margin-top:22px">
+        <a class="btn-solid" href="pay/">실수령 시급 계산하기 <span aria-hidden="true">↗</span></a>
+        <a class="btn-line" href="/tools/jobpost/">공고 조건 먼저 점검하기</a>
       </div>
-    </div>
+      <p class="next-tail" style="margin-top:16px">입력값은 서버로 보내지 않고, 페이지를 닫으면 사라집니다.</p>
+    </header>
   </div>
 </section>
 
@@ -780,6 +858,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, .chip:has(input:focu
     </div>
 
     <p class="next-tail">공고를 받으셨다면, 조건부터 정리해 보세요. <a href="/tools/jobpost/">공고 조건 점검기</a>에서 적히지 않은 조건 7개와 원장에게 보낼 질문 3개를 만들어 드립니다.</p>
+    <p class="next-tail">바레·요가처럼 <a href="/tools/twotrack/">두 종목을 가르친다면</a> — 보조 종목을 둘째 줄에 넣는 규칙과 예시 2개를 따로 정리해 두었습니다.</p>
+    <p class="next-tail">3.3%를 떼고 남는 <a href="pay/">실수령 시급</a>은 별도 계산기에서 확인하세요.</p>
     <p class="next-tail">10년 차 센터 원장이 직접 봅니다. 먼저 물어보셔도 됩니다. <a href="https://pf.kakao.com/_GVxlaX" target="_blank" rel="noopener">카카오톡 1:1 상담</a> 또는 <a href="mailto:bnsklabs@gmail.com">bnsklabs@gmail.com</a></p>
   </div>
 </section>
@@ -813,7 +893,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, .chip:has(input:focu
       label: '체형교정',
       l1: [
         '{n}년째, 어깨가 말리고 골반이 틀어진 회원의 자세를 다시 세우는 수업을 해 왔습니다.',
-        '필라테스 {n}년, 통증은 없는데 자세가 무너져 고민인 회원을 주로 만나 왔습니다.',
+        '{t} {n}년, 통증은 없는데 자세가 무너져 고민인 회원을 주로 만나 왔습니다.',
         '{n}년간 체형교정 수업을 해 왔습니다. 운동을 잘하는 것보다 서 있는 자세가 달라지는 게 목표입니다.'
       ],
       l3: [
@@ -839,7 +919,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, .chip:has(input:focu
       label: '산전·산후',
       l1: [
         '{n}년째, 임신 중과 출산 후의 몸을 가르쳐 왔습니다.',
-        '산전·산후 필라테스 {n}년. 배가 커지는 동안과 그 뒤의 몸을 함께 봐 왔습니다.',
+        '산전·산후 {t} {n}년. 배가 커지는 동안과 그 뒤의 몸을 함께 봐 왔습니다.',
         '{n}년간 산모 수업을 하며, 출산 전에 만들어 둔 힘이 출산 후를 버티게 한다는 걸 확인해 왔습니다.'
       ],
       l3: [
@@ -852,7 +932,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, .chip:has(input:focu
       label: '기구',
       l1: [
         '{n}년째, 기구 위에서 정확한 자세를 만드는 수업을 해 왔습니다.',
-        '기구 필라테스 {n}년. 동작을 많이 하는 것보다 한 동작을 정확히 하는 수업을 해 왔습니다.',
+        '기구 {t} {n}년. 동작을 많이 하는 것보다 한 동작을 정확히 하는 수업을 해 왔습니다.',
         '{n}년간 기구 수업을 하며, 힘으로 버티는 동작을 몸이 기억하는 동작으로 바꿔 왔습니다.'
       ],
       l3: [
@@ -948,8 +1028,48 @@ a:focus-visible, button:focus-visible, input:focus-visible, .chip:has(input:focu
     }
   };
 
+  /* ── 종목 (2종목 모드 · 2026-11-22) ─────────────────────
+     두 번째 종목은 네 번째 줄이 아니라 둘째 줄의 '보완 관계' 한 문장으로만 들어간다.
+     그래서 SUBS 의 문장에는 ① 회원 변화 목표 ② 주 종목과의 관계 만 담는다. */
+  var TRACKS = { pilates: '필라테스', yoga: '요가', rehab: '재활운동' };
+
+  var SUBS = {
+    barre: {
+      label: '바레',
+      l2: [
+        '{eff}를 목표로 하는 회원에게는, 정렬을 만드는 {main}와 균형을 쓰는 바레를 번갈아 짭니다.',
+        '{main}로 몸의 정렬을 만들고, 바레로 그 정렬을 버티는 힘을 확인합니다. 두 수업은 서로를 대신하지 않습니다.',
+        '바레에서는 발끝과 중심을, {main}에서는 호흡과 정렬을 봅니다. 같은 회원에게 같은 목표를 두 방식으로 말합니다.'
+      ]
+    },
+    yoga: {
+      label: '요가',
+      l2: [
+        '{eff}를 목표로 하는 회원에게는, 힘을 쓰는 {main} 수업과 호흡·가동성을 다루는 요가를 번갈아 짭니다.',
+        '{main}에서 만든 힘을 요가에서 풀어 주고, 다음 수업에서 다시 씁니다. 두 수업은 같은 몸을 다른 각도에서 봅니다.',
+        '요가에서는 호흡과 긴장을, {main}에서는 쓰는 방법을 봅니다. 회원과 그날 필요한 쪽을 함께 정합니다.'
+      ]
+    },
+    rehab: {
+      label: '재활운동',
+      l2: [
+        '{eff}를 목표로 하는 회원에게는 {main} 수업 안에서도 아픈 곳이 일하지 않게 동작을 바꾸고, 재활 운동으로 쓰는 방법을 다시 가르칩니다.',
+        '{main}로 움직임의 질을 만들고, 재활 운동으로 통증이 있는 부위를 따로 봅니다. 두 수업은 순서가 다를 뿐 목표는 같습니다.',
+        '재활 운동에서는 아픈 곳을 먼저 확인하고, {main}에서는 그 몸으로 할 수 있는 동작을 다시 짭니다.'
+      ]
+    },
+    golf: {
+      label: '골프 컨디셔닝',
+      l2: [
+        '{eff}를 목표로 하는 회원에게는 {main}로 몸통의 회전을 만들고, 골프 컨디셔닝으로 스윙에 그 회전을 옮깁니다.',
+        '{main}에서 만든 가동성과 힘을 골프 컨디셔닝에서 스윙으로 확인합니다. 라운드 뒤 통증이 있는 회원은 순서를 바꿉니다.',
+        '골프 컨디셔닝에서는 회전과 버티는 힘을, {main}에서는 그 힘을 쓰는 자세를 봅니다.'
+      ]
+    }
+  };
+
   /* ── 상태 ─────────────────────────────────────────────── */
-  var state = { cat: 'posture', eff: 'back', v: 0, years: 5, name: '', proof: '' };
+  var state = { cat: 'posture', eff: 'back', v: 0, years: 5, name: '', proof: '', mode: 'one', main: 'pilates', sub: 'barre' };
   var $ = function (id) { return document.getElementById(id); };
   var digitsOnly = function (s) { return (s || '').replace(/[^\d]/g, ''); };
   var num = function (v) { return Number(v) || 0; };
@@ -999,9 +1119,20 @@ a:focus-visible, button:focus-visible, input:focus-visible, .chip:has(input:focu
     var e = EFFECTS[state.eff];
     var v = state.v % 3;
     var y = state.years || 1;
+    var dual = state.mode === 'dual';
+    var sub = dual ? SUBS[state.sub] : null;
+    var mainName = TRACKS[state.main];
 
-    var l1 = c.l1[v].replace(/\{n\}/g, String(y));
+    var l1 = c.l1[v].replace(/\{n\}/g, String(y)).replace(/\{t\}/g, mainName);
+
     var l2 = e.l2[v];
+    if (dual && sub) {
+      l2 = sub.l2[v]
+        .replace(/\{eff\}/g, e.label)
+        .replace(/\{main\}/g, mainName)
+        .replace(/\{sub\}/g, sub.label);
+    }
+
     var proof = cleanProof(state.proof);
     var l3 = proof ? proof + '. ' + c.l3[v] : c.l3[v];
 
@@ -1009,8 +1140,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, .chip:has(input:focu
     $('ln2').textContent = l2;
     $('ln3').textContent = l3;
 
-    var bio = c.label + ' ' + y + '년 · ' + e.label + (proof ? ' · ' + proof : '');
+    var trackPart = (dual && sub) ? mainName + '·' + sub.label : mainName;
+    var bio = trackPart + ' ' + y + '년 · ' + e.label + (proof ? ' · ' + proof : '');
     $('bio').textContent = bio;
+
+    $('resRule').hidden = !dual;
 
     var nm = String(state.name || '').trim();
     $('resName').textContent = nm ? nm + '님의 3줄 프로필' : '3줄 프로필';
@@ -1040,6 +1174,48 @@ a:focus-visible, button:focus-visible, input:focus-visible, .chip:has(input:focu
     if (ev.target.name !== 'eff') return;
     state.eff = ev.target.value;
     syncChips('effChips', 'eff', state.eff);
+    renderProfile();
+  });
+
+  /* 주 종목·보조 종목·1/2종목 (2026-11-22) */
+  function syncSubOptions() {
+    var group = $('subChips');
+    if (!group) return;
+    var labels = group.querySelectorAll('.chip');
+    var first = null;
+    for (var i = 0; i < labels.length; i++) {
+      var input = labels[i].querySelector('input');
+      var off = input.value === state.main;
+      labels[i].classList.toggle('is-off', off);
+      input.disabled = off;
+      if (!off && !first) first = input.value;
+    }
+    if (state.sub === state.main) {
+      state.sub = first || state.sub;
+      syncChips('subChips', 'sub', state.sub);
+    }
+  }
+
+  $('mainChips').addEventListener('change', function (ev) {
+    if (ev.target.name !== 'main') return;
+    state.main = ev.target.value;
+    syncChips('mainChips', 'main', state.main);
+    syncSubOptions();
+    renderProfile();
+  });
+
+  $('modeChips').addEventListener('change', function (ev) {
+    if (ev.target.name !== 'mode') return;
+    state.mode = ev.target.value;
+    $('subWrap').hidden = state.mode !== 'dual';
+    syncChips('modeChips', 'mode', state.mode);
+    renderProfile();
+  });
+
+  $('subChips').addEventListener('change', function (ev) {
+    if (ev.target.name !== 'sub') return;
+    state.sub = ev.target.value;
+    syncChips('subChips', 'sub', state.sub);
     renderProfile();
   });
 
@@ -1127,94 +1303,17 @@ a:focus-visible, button:focus-visible, input:focus-visible, .chip:has(input:focu
     btn.blur();
   });
 
-  /* ── 실수령 시급 계산 ─────────────────────────────────── */
-  var pay = { fee: 50000, weekly: 12, mins: 50, prep: 30, goal: 0 };
-
-  function dash(el, txt) { el.textContent = txt; }
-
-  function renderPay() {
-    var fee = pay.fee, weekly = pay.weekly, mins = pay.mins, prep = pay.prep;
-    var valid = fee > 0 && weekly > 0 && mins > 0;
-
-    if (!valid) {
-      dash($('netMonth'), '—');
-      dash($('grossMonth'), '—');
-      dash($('taxMonth'), '—');
-      dash($('sessions'), '—');
-      dash($('perSession'), '—');
-      dash($('outside'), '—');
-      dash($('hourlyNominal'), '—');
-      dash($('hourlyReal'), '—');
-      $('barNominal').style.width = '0%';
-      $('barReal').style.width = '0%';
-      $('insight').textContent = '타임당 수업료와 주간 수업 횟수를 입력하면 계산됩니다.';
-      $('goalNote').hidden = true;
-      return;
-    }
-
-    var perMonth = weekly * 52 / 12;
-    var gross = fee * perMonth;
-    var tax = gross * 0.033;
-    var net = gross - tax;
-
-    var nominalHourly = fee / (mins / 60);
-    var totalMin = mins + prep;
-    var realHourly = totalMin > 0 ? net / (perMonth * (totalMin / 60)) : 0;
-    var ratio = nominalHourly > 0 ? (realHourly / nominalHourly) * 100 : 0;
-    var perSessionNet = net / perMonth;
-    var outsideHours = perMonth * prep / 60;
-
-    dash($('netMonth'), comma(net));
-    dash($('grossMonth'), comma(gross));
-    dash($('taxMonth'), comma(tax));
-    dash($('sessions'), String(Math.round(perMonth)));
-    dash($('perSession'), comma(perSessionNet));
-    dash($('outside'), outsideHours >= 10 ? String(Math.round(outsideHours)) : outsideHours.toFixed(1));
-    dash($('hourlyNominal'), comma(nominalHourly) + '원');
-    dash($('hourlyReal'), comma(realHourly) + '원');
-
-    $('barNominal').style.width = '100%';
-    $('barReal').style.width = Math.max(2, Math.min(100, ratio)).toFixed(1) + '%';
-
-    var pct = ratio.toFixed(0);
-    var prepShare = Math.round((prep / totalMin) * 100);
-    var msg = '한 타임에 실제로 쓰는 시간은 <b>' + totalMin + '분</b>입니다. ';
-    if (prep > 0) {
-      msg += '이 중 <b>' + prepShare + '%</b>가 수업이 아닌 이동·준비 시간이고, ';
-    }
-    msg += '실질 시급은 명목의 <b>' + pct + '%</b>입니다.';
-    $('insight').innerHTML = msg;
-    announce('월 실수령 ' + comma(net) + '원, 실질 시급 ' + comma(realHourly) + '원입니다.');
-
-    if (pay.goal > 0) {
-      var needMonthly = pay.goal / (fee * 0.967);
-      var needWeekly = needMonthly * 12 / 52;
-      var note = $('goalNote');
-      note.hidden = false;
-      note.innerHTML = '목표 월 실수령 <b>' + comma(pay.goal) + '원</b>은 이 단가에서 주 <b>' +
-        (Math.round(needWeekly * 10) / 10) + '회</b>(' + comma(needMonthly) + '타임) 수업하면 도달합니다' +
-        (prep > 0 ? '. 이동·준비까지 넣으면 월 <b>' + comma(needMonthly * totalMin / 60) + '시간</b>을 씁니다.' : '.');
-    } else {
-      $('goalNote').hidden = true;
-    }
-  }
-
-  bindNumber($('fee'), function (v) { pay.fee = v; renderPay(); }, { maxLen: 9, maxValue: 10000000 });
-  bindNumber($('weekly'), function (v) { pay.weekly = v; renderPay(); }, { maxLen: 3, maxValue: 200 });
-  bindNumber($('mins'), function (v) { pay.mins = v; renderPay(); }, { maxLen: 3, min: 50, maxValue: 300 });
-  bindNumber($('prep'), function (v) { pay.prep = v; renderPay(); }, { maxLen: 3, maxValue: 300 });
-  bindNumber($('goal'), function (v) { pay.goal = v; renderPay(); }, { maxLen: 9, maxValue: 100000000 });
-
   /* 엔터로 폼 전송되지 않게 */
-  ['profileForm', 'payForm'].forEach(function (id) {
-    $(id).addEventListener('submit', function (e) { e.preventDefault(); });
-  });
+  $('profileForm').addEventListener('submit', function (e) { e.preventDefault(); });
 
   /* ── 시작 ─────────────────────────────────────────────── */
   syncChips('catChips', 'cat', state.cat);
   syncChips('effChips', 'eff', state.eff);
+  syncChips('mainChips', 'main', state.main);
+  syncChips('modeChips', 'mode', state.mode);
+  syncChips('subChips', 'sub', state.sub);
+  syncSubOptions();
   renderProfile();
-  renderPay();
 })();
 </script>
 </body>

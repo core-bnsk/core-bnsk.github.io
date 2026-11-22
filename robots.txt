@@ -1,3 +1,5 @@
+# BNSK LABS — robots.txt (최종 수정 2026-11-22)
+# 색인 대상: 홈 · 자가진단 · 진단 결과 해석 · 무료 도구 3장 · 가이드 2장 (sitemap.xml 10개)
 User-agent: *
 Disallow: /mission-control
 Allow: /

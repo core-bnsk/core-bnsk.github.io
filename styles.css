@@ -264,6 +264,32 @@ del { color: var(--soft); }
   word-break: keep-all;
 }
 
+/* 질문형 H2 아래 결론 두 문장 (2026-11-22 · AI 검색용 지면 구조)
+   — 제목과 본문 사이 간격을 조금 당겨, 결론이 제목에 붙어 읽히게 한다. */
+.sec-intro {
+  max-width: 68ch;
+  margin: calc(-1 * clamp(18px, 2.6vh, 34px)) 0 clamp(26px, 4vh, 42px);
+  font-size: clamp(15.5px, 1.4vw, 17px);
+  line-height: 1.85;
+  color: var(--soft);
+  word-break: keep-all;
+}
+.sec-intro strong { color: var(--ink); font-weight: 600; }
+.sec-intro .mono { font-size: 10.5px; letter-spacing: .06em; }
+
+/* 무료 도구 아래 한 줄 안내 (2종목) */
+.tools-note {
+  margin-top: clamp(18px, 2.8vh, 26px);
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+  color: var(--soft);
+  line-height: 1.8;
+}
+.tools-note .mono { color: var(--accent); margin-right: 10px; }
+.tools-note a { color: var(--ink); border-bottom: 1px solid var(--line-dark); }
+.tools-note a:hover { color: var(--accent); border-color: var(--accent); }
+
 /* ═══ 01 MANIFESTO → 03 THE FOUNDER — 수업 현장을 아는 사람이 만듭니다 ═══ */
 .ed-article { max-width: 62ch; }
 .ed-article p { font-size: clamp(16.5px, 1.35vw, 18px); line-height: 1.7; }

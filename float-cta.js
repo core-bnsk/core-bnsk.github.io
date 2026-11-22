@@ -14,7 +14,7 @@
   if (!fab) return;
 
   const HOLD_BAND = 120; /* 표지 하단에서 이만큼 떨어지면 노출 */
-  const cover = document.querySelector(".cover");
+  const cover = document.querySelector(".cover, .page-cover");
   const AVOID_TARGETS = "a, button, summary, input, textarea, select, label, [role='button']";
   /* 같은 카톡 링크를 이미 크게 보여 주는 곳 — 여기서는 떠 있는 버튼이 중복이다 */
   const avoidZones = Array.prototype.slice.call(

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3.3% 떼고 남는 실수령 시급 계산 — 필라테스 강사 · BNSK LABS</title>
+<meta name="description" content="타임당 수업료와 주간 수업 횟수, 이동·준비 시간을 넣으면 3.3% 원천징수 후 월 실수령액과 실질 시급이 계산됩니다. 입력값은 서버로 보내지 않습니다. 무료 도구.">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#F7F5F1">
+<link rel="canonical" href="https://bnsklabs.com/tools/3lines/pay/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="3.3% 떼고 남는 내 실수령 시급은? · BNSK LABS">
+<meta property="og:description" content="명목 시급과 실질 시급은 다릅니다. 이동·준비 시간까지 넣어 계산해 보세요.">
+<meta property="og:url" content="https://bnsklabs.com/tools/3lines/pay/">
+<meta property="og:image" content="https://bnsklabs.com/assets/og-brand.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="반석랩스 BNSK LABS — 실수령 시급 계산">
+<meta property="og:site_name" content="반석랩스 BNSK LABS">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="3.3% 떼고 남는 내 실수령 시급은? · BNSK LABS">
+<meta name="twitter:description" content="명목 시급과 실질 시급은 다릅니다. 이동·준비 시간까지 넣어 계산해 보세요.">
+<meta name="twitter:image" content="https://bnsklabs.com/assets/og-brand.png">
+<link rel="icon" type="image/png" sizes="64x64" href="../../../assets/favicon-64.png">
+<link rel="apple-touch-icon" href="../../../assets/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=IBM+Plex+Mono:wght@400;500&family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../../styles.css">
+<link rel="stylesheet" href="../../../content.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "@id": "https://bnsklabs.com/tools/3lines/pay/#app",
+      "name": "실수령 시급 계산기 (3.3% 원천징수 기준)",
+      "url": "https://bnsklabs.com/tools/3lines/pay/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "inLanguage": "ko-KR",
+      "datePublished": "2026-11-22",
+      "dateModified": "2026-11-22",
+      "description": "타임당 수업료와 주간 수업 횟수, 이동·준비 시간을 입력하면 3.3% 원천징수 후 월 실수령액과 실질 시급을 계산합니다. 입력값은 서버로 보내지 않습니다.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "publisher": { "@id": "https://bnsklabs.com/#org" }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://bnsklabs.com/tools/3lines/pay/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "3.3%는 무엇을 떼는 건가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "사업소득 원천징수입니다. 소득세 3%와 지방소득세 0.3%를 합친 비율로, 프리랜서 강사 계약에서 자주 쓰입니다. 실제 부담은 소득 구간과 신고 방식에 따라 달라지므로 정확한 금액은 세무 전문가에게 확인해야 합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "명목 시급과 실질 시급은 왜 다른가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "수업 시간은 타임당 50분이어도, 이동·준비·정리 시간이 타임마다 붙습니다. 그 시간을 모두 넣고 3.3%를 뺀 금액을 나누면 실질 시급이 됩니다. 준비 시간이 길수록 명목 시급과의 차이가 커집니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "목표 월 실수령은 몇 회 수업이면 되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "목표 금액을 타임당 실수령으로 나눈 만큼의 타임이 필요합니다. 계산기는 그 타임을 주간 수업 횟수로 환산하고, 이동·준비 시간까지 넣었을 때 월에 쓰는 시간도 함께 보여 줍니다."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<script>document.documentElement.className+=" js";</script>
+</head>
+<body id="top">
+
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ═══════════ HEADER ═══════════ -->
+<header class="site-head">
+  <a class="head-mark" href="../../../">BNSK&nbsp;LABS <span class="mark-kr">반석랩스</span></a>
+  <nav class="head-nav" aria-label="페이지 메뉴">
+    <a href="#calc">계산기</a>
+    <a href="#tax">3.3%</a>
+    <a href="#real">실질 시급</a>
+    <a href="#faq">질문</a>
+  </nav>
+  <a class="head-offer mono" href="https://pf.kakao.com/_GVxlaX" target="_blank" rel="noopener">카톡 상담 ↗</a>
+</header>
+
+<main id="main">
+<p class="sr-only" aria-live="polite" id="status"></p>
+
+<!-- ═══════════ 표지 ═══════════ -->
+<section class="page-cover">
+  <div class="page-wrap">
+    <nav class="crumb mono" aria-label="위치">
+      <a href="../../../">반석랩스</a><span class="sep">/</span>
+      <a href="../../3lines/">3줄 소개</a><span class="sep">/</span>
+      <span class="now">실수령 시급</span>
+    </nav>
+    <p class="page-eyebrow">MICRO TOOL 01-B — 2026. 11. 22</p>
+    <h1 class="page-title">3.3%를 떼고 나면,<br><strong>내 시급은 얼마일까</strong></h1>
+    <p class="page-lead">타임당 수업료만 보면 넉넉해 보입니다. 이동하고 준비하는 시간까지 넣으면 숫자가 달라집니다.</p>
+    <div class="answer">
+      <b>실수령은 세전 금액에서 3.3%를 뺀 값이고, 실질 시급은 그 돈을 수업 외 시간까지 포함해 나눈 값입니다.</b> 타임당 50,000원·50분·이동·준비 30분·주 12회를 넣으면 명목 시급 60,000원이 실질 약 36,300원이 됩니다.
+    </div>
+    <p class="page-meta"><span>입력값 서버 전송 없음</span><span>계산 즉시</span><span>무료</span><span>3.3% 원천징수 기준</span></p>
+  </div>
+</section>
+
+<!-- ═══════════ 계산기 ═══════════ -->
+<div class="page-body" id="calc">
+  <div class="calc-wrap">
+    <form class="calc-panel" id="payForm" autocomplete="off">
+      <div class="calc-field">
+        <label class="calc-label" for="fee">타임당 수업료</label>
+        <div class="calc-input"><input type="text" id="fee" inputmode="numeric" value="50,000"><span class="suffix">원</span></div>
+      </div>
+      <div class="calc-field">
+        <label class="calc-label" for="weekly">주간 수업 횟수</label>
+        <div class="calc-input"><input type="text" id="weekly" inputmode="numeric" maxlength="3" value="12"><span class="suffix">회 / 주</span></div>
+      </div>
+      <div class="calc-field">
+        <label class="calc-label" for="mins">1타임 수업 시간</label>
+        <div class="calc-input"><input type="text" id="mins" inputmode="numeric" maxlength="3" value="50"><span class="suffix">분</span></div>
+      </div>
+      <div class="calc-field">
+        <label class="calc-label" for="prep">이동·준비 시간<span class="opt">타임당</span></label>
+        <div class="calc-input"><input type="text" id="prep" inputmode="numeric" maxlength="3" value="30"><span class="suffix">분</span></div>
+        <p class="calc-hint">샤워·이동·세팅·정리까지 한 타임에 붙는 시간. 0으로 두면 수업 시간만 계산합니다.</p>
+      </div>
+      <div class="calc-field">
+        <label class="calc-label" for="goal">목표 월 실수령<span class="opt">선택</span></label>
+        <div class="calc-input"><input type="text" id="goal" inputmode="numeric" placeholder="예: 3,000,000"><span class="suffix">원</span></div>
+      </div>
+    </form>
+
+    <div class="calc-out">
+      <span class="calc-eye">월 실수령액 · 3.3% 공제 후</span>
+      <p class="calc-big"><span id="netMonth">—</span><span class="unit">원</span></p>
+      <p class="calc-sub">세전 <b><span id="grossMonth">—</span>원</b>에서 원천징수 <b><span id="taxMonth">—</span>원</b>을 뺀 금액</p>
+
+      <dl class="calc-stats">
+        <div><dt>월 수업</dt><dd><span id="sessions">—</span><span class="u">회</span></dd></div>
+        <div><dt>타임당 실수령</dt><dd><span id="perSession">—</span><span class="u">원</span></dd></div>
+        <div><dt>수업 외 시간</dt><dd><span class="u">월</span><span id="outside">—</span><span class="u">시간</span></dd></div>
+      </dl>
+
+      <div class="bars">
+        <div class="bar-row">
+          <span>명목 시급</span>
+          <span class="bar-track"><i id="barNominal"></i></span>
+          <span class="bar-val" id="hourlyNominal">—</span>
+        </div>
+        <div class="bar-row is-real">
+          <span>실질 시급</span>
+          <span class="bar-track"><i id="barReal"></i></span>
+          <span class="bar-val" id="hourlyReal">—</span>
+        </div>
+      </div>
+
+      <p class="calc-insight" id="insight">값을 입력하면 계산됩니다.</p>
+      <p class="calc-goal" id="goalNote" hidden></p>
+      <p class="calc-foot">3.3%는 사업소득 원천징수(소득세 3% + 지방소득세 0.3%) 기준입니다. 실제 부담은 소득 구간과 신고 방식에 따라 달라지니 정확한 금액은 세무 전문가에게 확인하세요. 월 환산은 1년 52주를 12개월로 나눈 4.33주 기준입니다.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ 본문 ═══════════ -->
+<div class="page-body" style="padding-top:0">
+  <article class="prose">
+
+    <h2 id="tax"><span class="q-no">01 — TAX</span>3.3%는 무엇을 떼는 건가요?</h2>
+    <p class="lead">사업소득 원천징수입니다. 소득세 3%와 지방소득세 0.3%를 합친 비율로, 프리랜서 강사 계약에서 자주 쓰입니다.</p>
+    <p>그래서 "회당 50,000원"이라는 조건은 <strong>세전 50,000원</strong>인지 <strong>세후 50,000원</strong>인지에 따라 3.3%만큼 달라집니다. 공고에 이 구분이 없으면 실수령이 예상과 어긋납니다. 공고를 받았다면 세금 처리 항목부터 확인해 보세요.</p>
+    <p>계산기는 입력한 수업료를 세전 금액으로 보고 3.3%를 뺍니다. 실제 부담은 소득 구간과 신고 방식(종합소득세 신고 시 정산)에 따라 달라지므로, 이 숫자는 <strong>월 현금 흐름을 가늠하는 값</strong>으로만 쓰세요.</p>
+    <p class="num-note">기준 — 사업소득 원천징수 3.3%(소득세 3% + 지방소득세 0.3%). 세율·신고 방식은 국세청 안내와 개인 상황에 따릅니다. 확인일 2026-11-22.</p>
+
+    <h2 id="real"><span class="q-no">02 — REAL HOURLY</span>이동·준비 시간을 넣으면 왜 시급이 달라지나요?</h2>
+    <p class="lead">수업 시간은 50분이어도 그 타임에 붙는 시간은 80분이기 때문입니다. 같은 돈을 더 긴 시간으로 나누면 시급이 내려갑니다.</p>
+    <p>타임당 50,000원·50분·이동·준비 30분·주 12회로 계산하면 이렇게 됩니다.</p>
+    <ul>
+      <li>명목 시급 — 50,000원 ÷ (50분/60) = <strong>60,000원</strong></li>
+      <li>월 실수령 — 50,000 × 4.33주 × 12회 = 2,600,000원에서 3.3% 85,800원을 빼 <strong>2,514,200원</strong></li>
+      <li>실질 시급 — 2,514,200원 ÷ (월 69.3시간) = <strong>약 36,300원</strong> (명목의 약 60%)</li>
+    </ul>
+    <p>이동·준비 시간을 0으로 두면 실질 시급은 58,020원(명목의 약 97%)이 됩니다. <strong>같은 수업료인데 준비 시간을 넣느냐에 따라 시급이 2만 원 넘게 달라집니다.</strong> 센터가 멀거나 타임 사이 대기 시간이 길면, 회당 페이가 높아도 실질은 낮을 수 있습니다.</p>
+    <p class="num-note">계산 기준 — 월 환산 4.33주(52주 ÷ 12개월), 3.3% 원천징수. 위 숫자는 예시 입력값의 결과입니다.</p>
+
+    <h2 id="goal"><span class="q-no">03 — GOAL</span>목표 월 실수령은 몇 회 수업이면 되나요?</h2>
+    <p class="lead">목표 금액을 타임당 실수령으로 나누면 필요한 타임 수가 나옵니다. 계산기는 그 타임을 주간 횟수로 환산하고, 이동·준비까지 넣은 월 시간도 함께 보여 줍니다.</p>
+    <p>예를 들어 타임당 50,000원에서 월 300만 원을 실수령으로 만들려면 약 62타임, 주 14.3회입니다. 여기에 이동·준비 30분을 넣으면 월 83시간가량을 수업과 이동에 쓰게 됩니다.</p>
+    <p>숫자를 보고 나면 결정이 달라지기도 합니다. <strong>회당 페이를 5,000원 올리는 것보다, 이동이 짧은 센터를 고르는 편이 실질 시급에 더 크게 남는 경우가 있습니다.</strong> 공고를 비교할 때 이 두 숫자를 같이 보세요.</p>
+
+    <h2 id="faq"><span class="q-no">04 — FAQ</span>자주 묻는 질문</h2>
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary>3.3%는 무엇을 떼는 건가요?</summary>
+        <p>사업소득 원천징수입니다. 소득세 3%와 지방소득세 0.3%를 합친 비율로, 프리랜서 강사 계약에서 자주 쓰입니다. 실제 부담은 소득 구간과 신고 방식에 따라 달라지므로 정확한 금액은 세무 전문가에게 확인해야 합니다.</p>
+      </details>
+      <details class="faq-item">
+        <summary>명목 시급과 실질 시급은 왜 다른가요?</summary>
+        <p>수업 시간은 타임당 50분이어도, 이동·준비·정리 시간이 타임마다 붙습니다. 그 시간을 모두 넣고 3.3%를 뺀 금액을 나누면 실질 시급이 됩니다. 준비 시간이 길수록 명목 시급과의 차이가 커집니다.</p>
+      </details>
+      <details class="faq-item">
+        <summary>목표 월 실수령은 몇 회 수업이면 되나요?</summary>
+        <p>목표 금액을 타임당 실수령으로 나눈 만큼의 타임이 필요합니다. 계산기는 그 타임을 주간 수업 횟수로 환산하고, 이동·준비 시간까지 넣었을 때 월에 쓰는 시간도 함께 보여 줍니다.</p>
+      </details>
+      <details class="faq-item">
+        <summary>입력한 금액이 저장되나요?</summary>
+        <p>아니요. 계산은 브라우저 안에서만 이루어지고, 입력값은 서버로 보내지 않으며 저장하지 않습니다.</p>
+      </details>
+    </div>
+
+    <div class="related">
+      <span class="mono">이어서 볼 것</span>
+      <a href="../">3줄 소개 만들기 — 원장이 먼저 읽는 세 줄 →</a>
+      <a href="../../jobpost/">공고 조건 점검기 — 정산일·세금 처리 확인 →</a>
+      <a href="../../../guide/profile-7/">강사 프로필에 꼭 들어가야 하는 것 7가지 →</a>
+    </div>
+  </article>
+</div>
+
+<!-- ═══════════ 다음 단계 ═══════════ -->
+<section class="cta-band" aria-labelledby="cta-title">
+  <div class="page-wrap">
+    <h2 id="cta-title">숫자를 알았으면, 문장을 만들 차례</h2>
+    <p>같은 경력이라도 세 줄로 먼저 읽히면 지원서의 온도가 달라집니다. 무료 도구로 1분이면 만들어집니다.</p>
+    <div class="cta-row">
+      <a class="btn-solid" href="../">3줄 소개 만들기 <span aria-hidden="true">↗</span></a>
+      <a class="btn-line" href="https://pf.kakao.com/_GVxlaX" target="_blank" rel="noopener">카톡으로 물어보기 <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<a class="float-cta mono" href="https://pf.kakao.com/_GVxlaX" target="_blank" rel="noopener" aria-label="카카오톡으로 제작 문의">카톡 문의 <span aria-hidden="true">↗</span></a>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="site-foot">
+  <p class="foot-sig">당신의 첫 페이지가, 반석이 됩니다.</p>
+  <div class="foot-row">
+    <a class="mono" href="../">← 3줄 소개로</a>
+    <span class="mono">© 2026 반석랩스 — BNSK LABS</span>
+    <a class="mono" href="#top">Back to Top ↑</a>
+  </div>
+  <p class="foot-legal mono"><span>반석랩스(BNSK LABS)</span><span>대표 이현석</span><span>사업자등록번호 154-11-02960</span><span>경기도 수원시 영통구 창룡대로 250</span><span><a href="mailto:bnsklabs@gmail.com">bnsklabs@gmail.com</a></span></p>
+  <p class="foot-legal mono">계산은 브라우저 안에서만 이루어집니다. 입력한 내용은 서버로 보내지 않고 저장하지 않습니다.</p>
+</footer>
+
+<noscript>
+  <p style="padding:16px 20px;background:#EFEBE3;font-size:14px;text-align:center">이 계산기는 자바스크립트로 계산합니다. 브라우저에서 자바스크립트를 켜 주세요.</p>
+</noscript>
+
+<script>
+(function () {
+  'use strict';
+
+  var $ = function (id) { return document.getElementById(id); };
+  var digitsOnly = function (s) { return (s || '').replace(/[^\d]/g, ''); };
+  var comma = function (n) { return Math.round(n).toLocaleString('ko-KR'); };
+  var statusTimer = null;
+  function announce(text) {
+    clearTimeout(statusTimer);
+    statusTimer = setTimeout(function () { $('status').textContent = text; }, 700);
+  }
+
+  function bindNumber(input, onChange, opts) {
+    opts = opts || {};
+    input.addEventListener('input', function () {
+      var caret = input.selectionStart || 0;
+      var beforeDigits = input.value.slice(0, caret).replace(/[^\d]/g, '').length;
+      var raw = digitsOnly(input.value).slice(0, opts.maxLen || 9);
+      var value = raw ? Number(raw) : 0;
+      if (opts.maxValue) value = Math.min(value, opts.maxValue);
+      input.value = value ? value.toLocaleString('ko-KR') : '';
+      var pos = 0, seen = 0;
+      if (beforeDigits > 0) {
+        for (var i = 0; i < input.value.length; i++) {
+          if (/[0-9]/.test(input.value[i])) seen++;
+          if (seen === beforeDigits) { pos = i + 1; break; }
+        }
+      }
+      input.setSelectionRange(pos, pos);
+      onChange(value);
+    });
+    input.addEventListener('blur', function () {
+      if (opts.min && digitsOnly(input.value) === '') {
+        input.value = opts.min.toLocaleString('ko-KR');
+        onChange(opts.min);
+      }
+    });
+  }
+
+  var pay = { fee: 50000, weekly: 12, mins: 50, prep: 30, goal: 0 };
+  function dash(el, txt) { el.textContent = txt; }
+
+  function renderPay() {
+    var fee = pay.fee, weekly = pay.weekly, mins = pay.mins, prep = pay.prep;
+    var valid = fee > 0 && weekly > 0 && mins > 0;
+
+    if (!valid) {
+      ['netMonth', 'grossMonth', 'taxMonth', 'sessions', 'perSession', 'outside', 'hourlyNominal', 'hourlyReal'].forEach(function (id) { dash($(id), '—'); });
+      $('barNominal').style.width = '0%';
+      $('barReal').style.width = '0%';
+      $('insight').textContent = '타임당 수업료와 주간 수업 횟수를 입력하면 계산됩니다.';
+      $('goalNote').hidden = true;
+      return;
+    }
+
+    var perMonth = weekly * 52 / 12;
+    var gross = fee * perMonth;
+    var tax = gross * 0.033;
+    var net = gross - tax;
+
+    var nominalHourly = fee / (mins / 60);
+    var totalMin = mins + prep;
+    var realHourly = totalMin > 0 ? net / (perMonth * (totalMin / 60)) : 0;
+    var ratio = nominalHourly > 0 ? (realHourly / nominalHourly) * 100 : 0;
+    var perSessionNet = net / perMonth;
+    var outsideHours = perMonth * prep / 60;
+
+    dash($('netMonth'), comma(net));
+    dash($('grossMonth'), comma(gross));
+    dash($('taxMonth'), comma(tax));
+    dash($('sessions'), String(Math.round(perMonth)));
+    dash($('perSession'), comma(perSessionNet));
+    dash($('outside'), outsideHours >= 10 ? String(Math.round(outsideHours)) : outsideHours.toFixed(1));
+    dash($('hourlyNominal'), comma(nominalHourly) + '원');
+    dash($('hourlyReal'), comma(realHourly) + '원');
+
+    $('barNominal').style.width = '100%';
+    $('barReal').style.width = Math.max(2, Math.min(100, ratio)).toFixed(1) + '%';
+
+    var pct = ratio.toFixed(0);
+    var prepShare = Math.round((prep / totalMin) * 100);
+    var msg = '한 타임에 실제로 쓰는 시간은 <b>' + totalMin + '분</b>입니다. ';
+    if (prep > 0) {
+      msg += '이 중 <b>' + prepShare + '%</b>가 수업이 아닌 이동·준비 시간이고, ';
+    }
+    msg += '실질 시급은 명목의 <b>' + pct + '%</b>입니다.';
+    $('insight').innerHTML = msg;
+    announce('월 실수령 ' + comma(net) + '원, 실질 시급 ' + comma(realHourly) + '원입니다.');
+
+    if (pay.goal > 0) {
+      var needMonthly = pay.goal / (fee * 0.967);
+      var needWeekly = needMonthly * 12 / 52;
+      var note = $('goalNote');
+      note.hidden = false;
+      note.innerHTML = '목표 월 실수령 <b>' + comma(pay.goal) + '원</b>은 이 단가에서 주 <b>' +
+        (Math.round(needWeekly * 10) / 10) + '회</b>(' + comma(needMonthly) + '타임) 수업하면 도달합니다' +
+        (prep > 0 ? '. 이동·준비까지 넣으면 월 <b>' + comma(needMonthly * totalMin / 60) + '시간</b>을 씁니다.' : '.');
+    } else {
+      $('goalNote').hidden = true;
+    }
+  }
+
+  bindNumber($('fee'), function (v) { pay.fee = v; renderPay(); }, { maxLen: 9, maxValue: 10000000 });
+  bindNumber($('weekly'), function (v) { pay.weekly = v; renderPay(); }, { maxLen: 3, maxValue: 200 });
+  bindNumber($('mins'), function (v) { pay.mins = v; renderPay(); }, { maxLen: 3, min: 50, maxValue: 300 });
+  bindNumber($('prep'), function (v) { pay.prep = v; renderPay(); }, { maxLen: 3, maxValue: 300 });
+  bindNumber($('goal'), function (v) { pay.goal = v; renderPay(); }, { maxLen: 9, maxValue: 100000000 });
+
+  $('payForm').addEventListener('submit', function (e) { e.preventDefault(); });
+
+  renderPay();
+})();
+</script>
+<script src="../../../float-cta.js" defer></script>
+</body>
+</html>

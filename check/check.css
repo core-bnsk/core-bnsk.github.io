@@ -606,3 +606,19 @@ body.check-page .grain {
   .gw-cta .btn-solid,
   .gw-cta .btn-line { width: 100%; }
 }
+
+/* ═══ 짧은 문답 (2026-11-22 · /check/ FAQPage 마크업과 같은 문답) ═══════ */
+.faq-min { max-width: 760px; border-top: 1px solid var(--line-dark); }
+.faq-min-item { border-bottom: 1px solid var(--line); }
+.faq-min-item summary {
+  list-style: none; cursor: pointer; position: relative;
+  padding: 16px 30px 16px 0; font-size: 15.5px; font-weight: 600; color: var(--ink);
+  word-break: keep-all;
+}
+.faq-min-item summary::-webkit-details-marker { display: none; }
+.faq-min-item summary::after {
+  content: "+"; position: absolute; right: 2px; top: 12px;
+  font-family: var(--mono); font-size: 16px; color: var(--accent); line-height: 1;
+}
+.faq-min-item[open] summary::after { content: "–"; }
+.faq-min-item p { padding: 0 30px 18px 0; font-size: 14.5px; line-height: 1.85; color: var(--soft); }

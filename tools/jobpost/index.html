@@ -63,6 +63,20 @@
   color: var(--soft); margin-top: 12px;
 }
 
+/* ═══ 시즌 안내 — 「1월 시작」 (Top 3 · 2026-11-22) ═══════════
+   공고는 11월 넷째 주에 이미 나온다. 시즌이 지나면 문구째로 지우면 되는 블록. */
+.season-note {
+  max-width: 46ch; margin: clamp(18px, 2.6vh, 26px) auto 0;
+  border-left: 1px solid var(--accent); padding: 2px 0 2px 14px;
+  text-align: left; font-size: 14.5px; line-height: 1.8; color: var(--ink);
+  word-break: keep-all;
+}
+.season-tag {
+  display: block; font-size: 10px; letter-spacing: .12em;
+  color: var(--accent); margin-bottom: 4px;
+}
+.season-note em { font-style: normal; display: block; margin-top: 4px; font-size: 12.5px; color: var(--soft); line-height: 1.7; }
+
 /* ═══ TOOL PANEL ═════════════════════════════════════════ */
 .sec-note { font-size: 14.5px; color: var(--soft); max-width: 60ch; margin-bottom: clamp(24px, 3.4vh, 34px); line-height: 1.8; }
 .tool-wrap { max-width: 840px; }
@@ -219,6 +233,10 @@
 .qlist li + li { border-top: 1px solid var(--line); }
 .qlist .q-no { font-family: var(--mono); font-size: 11px; color: var(--accent); padding-top: 4px; }
 .q-hint { font-size: 12.5px; color: var(--soft); margin-top: 10px; line-height: 1.7; }
+.q-hint a, .next-tail a { color: var(--ink); border-bottom: 1px solid var(--line); }
+.q-hint a:hover, .next-tail a:hover { border-color: var(--ink); }
+.next-tail { margin-top: clamp(22px, 3.4vh, 30px); font-size: 14px; line-height: 1.8; color: var(--soft); }
+.next-tail a { border-bottom-color: var(--line-dark); }
 #copy {
   width: 100%; margin-top: 12px; padding: 14px 16px; min-height: 46px;
   font-family: var(--mono); font-size: 11.5px; font-weight: 600; letter-spacing: .08em;
@@ -332,6 +350,11 @@
   <h1 class="cover-title" id="jp-title">공고는 페이만 말합니다.<br><strong>나머지 7개는 물어보세요.</strong></h1>
   <p class="cover-lede">구인 공고를 그대로 붙여넣으면, 공고에 적히지 않은 조건과 숫자로 확정되지 않은 표현을 짚어 드립니다. <br class="br-m">지원 전에 원장에게 보낼 질문 3개까지 한 번에 정리합니다.</p>
   <p class="cover-trust">이 도구는 어느 센터가 좋고 나쁘다고 판정하지 않습니다.</p>
+  <p class="season-note">
+    <span class="mono season-tag">Season — 2026. 11. 22 기준</span>
+    지금 올라온 공고는 절반 이상이 1월 시작입니다. 마감은 11월 말에 몰려 있습니다.
+    <em>2026년 11월 22일 확인한 공개 구인 공고 10건 중 6건이 12월 오픈~2027년 1월 시작이었습니다. 공고마다 다르니 마감일은 직접 확인하세요.</em>
+  </p>
   <div class="cover-cta">
     <a class="btn-solid" href="#tool">공고 점검하기 <span aria-hidden="true">↓</span></a>
     <a class="btn-line" href="/tools/3lines/">3줄 도구 먼저 보기 <span aria-hidden="true">↗</span></a>
@@ -348,10 +371,10 @@
 <section class="section" id="tool" aria-labelledby="tool-title">
   <header class="sec-head">
     <span class="sec-no mono">01 — Paste &amp; Check</span>
-    <h2 class="sec-title" id="tool-title">공고를 붙여넣으면,<br>빈칸을 세어 드립니다</h2>
+    <h2 class="sec-title" id="tool-title">공고에서 무엇이 빠졌는지<br>어떻게 알 수 있나요?</h2>
   </header>
 
-  <p class="sec-note">공고 전문이 아니어도 됩니다. 붙여넣은 글에서 <strong>적혀 있는 것</strong>만 찾아, 적히지 않은 항목을 표시합니다. 판정이 아니라 질문 준비입니다.</p>
+  <p class="sec-note">공고를 그대로 붙여넣으면 <strong>적혀 있는 항목만 찾아, 비어 있는 것을 표시</strong>합니다. 공고 전문이 아니어도 되고, 판정이 아니라 질문 준비입니다.</p>
 
   <div class="tool-wrap">
     <div class="panel">
@@ -400,7 +423,7 @@
 <section class="section result-sec" id="result" aria-labelledby="result-title" hidden>
   <header class="sec-head">
     <span class="sec-no mono">02 — The Reading</span>
-    <h2 class="sec-title" id="result-title">점검 결과</h2>
+    <h2 class="sec-title" id="result-title">점검 결과는 어떻게 읽나요?</h2>
   </header>
 
   <div class="tool-wrap">
@@ -431,7 +454,7 @@
             <ol class="qlist" id="qbox"></ol>
           </div>
           <button type="button" id="copy">질문 복사하기</button>
-          <p class="q-hint">그대로 카톡·문자에 붙여넣으세요. 인사말까지 함께 복사됩니다.</p>
+          <p class="q-hint">그대로 카톡·문자에 붙여넣으세요. 인사말까지 함께 복사됩니다. <a href="questions/">질문 7개 전체 모음 보기 →</a></p>
         </div>
 
         <p class="payline" id="payline"></p>
@@ -446,7 +469,7 @@
 <section class="section" id="criteria" aria-labelledby="crit-title">
   <header class="sec-head">
     <span class="sec-no mono">03 — The Seven</span>
-    <h2 class="sec-title" id="crit-title">공고에 잘 안 적히는<br>7가지</h2>
+    <h2 class="sec-title" id="crit-title">공고에 잘 안 적히는<br>7가지는 무엇인가요?</h2>
   </header>
 
   <div class="crit">
@@ -506,7 +529,7 @@
 <section class="section" id="next" aria-labelledby="next-title">
   <header class="sec-head">
     <span class="sec-no mono">04 — Next</span>
-    <h2 class="sec-title" id="next-title">질문 다음에<br>할 일</h2>
+    <h2 class="sec-title" id="next-title">질문을 보낸 다음에는<br>무엇을 하나요?</h2>
   </header>
 
   <div class="next-grid">
@@ -529,6 +552,8 @@
       <span class="go">카톡으로 문의 →</span>
     </a>
   </div>
+
+  <p class="next-tail">두 종목을 가르친다면, 공고의 종목별 단가를 읽는 법과 3줄에 담는 규칙을 <a href="/tools/twotrack/">두 종목 프로필</a>에 정리해 두었습니다. 질문 문장만 필요하면 <a href="questions/">질문 7개 모음</a>에서 복사하세요.</p>
 </section>
 
 </main>
