@@ -1129,6 +1129,7 @@ html.js .float-cta.is-avoid {
   background: var(--paper-deep);
   padding: clamp(16px, 2.2vw, 22px) clamp(16px, 2.4vw, 26px) clamp(18px, 2.4vw, 26px);
 }
+.gw-sample-note { margin-top: 10px; font-size: 11.5px; line-height: 1.7; color: var(--soft); }
 .gw-sample-cap {
   display: block;
   font-size: 10.5px;
