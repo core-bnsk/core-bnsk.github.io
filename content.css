@@ -144,8 +144,8 @@
 .steps b { display: block; font-size: 15px; font-weight: 700; color: var(--ink); }
 .steps span.tx { display: block; margin-top: 3px; font-size: 14.5px; line-height: 1.75; color: var(--soft); }
 
-/* ═══ 사다리 — '지금 내 위치' 5단계 ═════════════════════
-   /check/result-guide/ 전용. 단계마다 완료 기준 1줄 + 다음 행동 링크 1개.
+/* ═══ 다섯 단계 — '지금 내 위치' ═════════════════════════
+   /check/result-guide/ 전용. 단계마다 '여기까지 오면' 1줄 + 다음 링크 1개.
    색은 기존 토큰만 쓴다(무료 구간은 soft, 유료 구간의 가격은 accent). */
 .prose .ladder { list-style: none; margin-top: 1.5em; border-top: 1px solid var(--line-dark); }
 .prose .ladder li {
@@ -174,7 +174,7 @@
 .ladder-sub a:hover { color: var(--accent); border-color: var(--accent); }
 .prose .ladder li.is-free .ladder-no { color: var(--soft); }
 
-/* 구간별 '왜 이 구간인가' + 다음 행동 1개 */
+/* 구간별 '이 결과가 나온 이유' + 지금 해볼 것 링크 */
 .band-why { margin-top: 1.1em; padding-top: 13px; border-top: 1px solid var(--line); }
 .band-why p { font-size: clamp(14.5px, 1.3vw, 16px); line-height: 1.8; color: var(--text); }
 .band-why .mono { display: block; margin-bottom: 5px; color: var(--soft); }
