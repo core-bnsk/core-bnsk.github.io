@@ -360,58 +360,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, .chip:has(input:focu
 }
 .band a:hover { color: var(--ink); border-color: var(--ink); }
 
-/* ═══ CALCULATOR ══════════════════════════════════════════ */
-.calc {
-  border: 1px solid var(--line); background: var(--card);
-  padding: clamp(22px, 3vw, 36px); border-radius: 2px;
-}
-.calc-eye { font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; color: var(--soft); }
-.calc-big {
-  font-family: var(--kr-serif); font-weight: 700; color: var(--ink);
-  font-size: clamp(34px, 5.4vw, 52px); line-height: 1.15; letter-spacing: -.02em;
-  margin-top: 6px; font-variant-numeric: tabular-nums;
-}
-.calc-big .unit { font-size: .38em; font-weight: 400; letter-spacing: 0; color: var(--soft); margin-left: 5px; }
-.calc-sub { font-size: 13px; color: var(--soft); margin-top: 10px; font-variant-numeric: tabular-nums; }
-.calc-sub b { font-weight: 600; color: var(--text); }
-
-.calc-stats {
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 2px; margin-top: clamp(20px, 3vw, 28px);
-  border-top: 1px solid var(--line); padding-top: 16px;
-}
-.calc-stats div { padding-right: 8px; }
-.calc-stats dt { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; color: var(--soft); }
-.calc-stats dd {
-  font-family: var(--kr-serif); font-size: 17px; font-weight: 700; color: var(--ink);
-  margin-top: 4px; letter-spacing: -.01em; font-variant-numeric: tabular-nums;
-}
-.calc-stats dd .u { font-family: var(--sans); font-size: 12px; font-weight: 500; color: var(--soft); letter-spacing: 0; }
-.calc-stats dd .num { font-variant-numeric: tabular-nums; }
-
-.bars { margin-top: clamp(20px, 3vw, 26px); border-top: 1px solid var(--line); padding-top: 18px; }
-.bar-row { display: grid; grid-template-columns: 62px minmax(0, 1fr) auto; align-items: center; gap: 12px; }
-.bar-row + .bar-row { margin-top: 12px; }
-.bar-label { font-size: 12.5px; color: var(--soft); white-space: nowrap; }
-.bar-track { height: 7px; background: var(--paper-deep); overflow: hidden; }
-.bar-track i {
-  display: block; height: 100%; width: 0;
-  background: #8E8779;
-  transition: width .6s cubic-bezier(.22, 1, .36, 1);
-}
-.bar-row.is-real .bar-track i { background: var(--accent); }
-.bar-val { font-family: var(--mono); font-size: 12px; letter-spacing: .02em; color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
-.bar-row.is-real .bar-val { color: var(--accent); font-weight: 500; }
-
-.calc-insight {
-  margin-top: 18px; font-size: 13.5px; line-height: 1.8; color: var(--text);
-  border-left: 2px solid var(--accent); padding-left: 13px;
-}
-.calc-insight b { font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
-.calc-goal { margin-top: 10px; font-size: 12.5px; color: var(--soft); line-height: 1.75; }
-.calc-goal b { color: var(--accent); font-weight: 700; }
-.calc-foot { margin-top: 16px; font-size: 11.5px; line-height: 1.7; color: #776F63; }
-
 /* ═══ NEXT STEP CARDS ═════════════════════════════════════ */
 .next-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 2vw, 22px); }
 .next-card {
@@ -523,13 +471,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, .chip:has(input:focu
   .cover-cta a { width: 100%; }
   .cover-meta { gap: 14px 18px; }
   .cover-meta li { flex: 1 1 40%; }
-  .calc-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 8px; }
-  .calc-stats div:last-child { grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: 12px; display: flex; align-items: baseline; gap: 10px; }
-  .calc-stats div:last-child dd { margin-top: 0; }
   .head-offer { min-height: 44px; }
   .foot-row a { min-height: 44px; }
-  .bar-row { grid-template-columns: 58px minmax(0, 1fr); row-gap: 4px; }
-  .bar-val { grid-column: 2; text-align: right; }
   .res-actions { flex-direction: column; }
   .btn-copy, .btn-again { width: 100%; }
   .sec-head { margin-bottom: 24px; }

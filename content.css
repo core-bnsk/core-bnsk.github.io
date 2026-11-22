@@ -136,7 +136,6 @@
 .triple li { position: relative; padding: 0; margin-top: .85em; font-size: clamp(15px, 1.3vw, 16.5px); line-height: 1.85; color: var(--ink); }
 .triple li::before { content: none; }
 .triple .ln-no { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--accent); margin-bottom: 3px; }
-.triple-cap { margin-top: 1.3em; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--soft); }
 
 /* 단계 목록 */
 .steps { list-style: none; margin-top: 1.3em; border-top: 1px solid var(--line); }

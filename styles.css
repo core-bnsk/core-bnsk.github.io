@@ -32,6 +32,11 @@ html {
 
 /* 스티키 헤더에 가려지지 않도록 앵커 이동 시 여유 */
 section[id] { scroll-margin-top: 96px; }
+/* 섹션 밖에 있는 앵커 목적지(본문 h2 등)도 헤더에 가리지 않게 */
+[id] { scroll-margin-top: 88px; }
+@media (max-width: 1010px) {
+  [id] { scroll-margin-top: 124px; }
+}
 
 a:focus-visible, button:focus-visible, summary:focus-visible {
   outline: 2px solid var(--accent);
