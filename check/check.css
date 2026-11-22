@@ -408,7 +408,94 @@ body.check-page .grain {
   .result-num { margin-top: 0; font-size: 64px; }
   .result-band { padding-bottom: 8px; }
   .result-cta .btn-solid, .result-cta .btn-line { width: 100%; }
+  .where-list li { font-size: 12px; padding: 6px 9px; }
 }
+
+/* ═══ 지금 내 위치 — 5단계 스트립 (2026-11-23) ══════════ */
+.where-strip {
+  margin-top: clamp(20px, 3.2vh, 32px);
+  border: 1px solid #EAE6DF;
+  border-radius: 6px;
+  background: #FFFFFF;
+  padding: clamp(16px, 2.4vw, 22px) clamp(16px, 2.6vw, 26px);
+}
+.where-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 16px;
+}
+.where-tag { color: var(--accent); }
+.where-link {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: .04em;
+  color: var(--soft);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 1px;
+  white-space: nowrap;
+}
+.where-link:hover { color: var(--accent); border-color: var(--accent); }
+.where-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 13px 0 0;
+  padding: 0;
+}
+.where-list li {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  border: 1px solid var(--line);
+  padding: 6px 10px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--text);
+  word-break: keep-all;
+}
+.where-list li .mono { font-size: 9.5px; letter-spacing: .08em; color: var(--soft); }
+.where-list li em {
+  font-style: normal;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .01em;
+  color: var(--soft);
+}
+.where-list li.is-now { border-color: var(--ink); color: var(--ink); }
+.where-list li.is-now .mono { color: var(--accent); }
+.where-note {
+  margin-top: 11px;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--soft);
+}
+
+.result-why {
+  margin-top: 16px;
+  padding-top: 13px;
+  border-top: 1px solid var(--line);
+  font-size: 14.5px;
+  line-height: 1.78;
+  color: var(--text);
+  word-break: keep-all;
+}
+.result-why .mono { display: block; margin-bottom: 4px; color: var(--soft); }
+.result-act {
+  display: inline-block;
+  margin-top: 13px;
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.6;
+  color: var(--ink);
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 2px;
+}
+.result-act[hidden] { display: none; }
+.result-act:hover { color: var(--accent); border-color: var(--accent); }
+.result + .tally-note { margin-top: 14px; }
 
 /* ═══ DIAGNOSE — 1:1 진단 ════════════════════════════════ */
 .diagnose { border-top: 1px solid var(--line); }

@@ -58,6 +58,9 @@
   const resDesc = document.getElementById("resDesc");
   const resNextWrap = document.getElementById("resNextWrap");
   const resNext = document.getElementById("resNext");
+  const resWhyWrap = document.getElementById("resWhyWrap");
+  const resWhy = document.getElementById("resWhy");
+  const resAct = document.getElementById("resAct");
   const resetBtn = document.getElementById("resetBtn");
 
   const BANDS = {
@@ -66,6 +69,8 @@
       label: "양호",
       title: "지금 방식대로, 회원과의 라포에 집중하셔도 좋습니다",
       desc: "프로필이 이미 실력을 잘 담고 있습니다. 다만 원장이 보는 자리 — 채용과 출강 — 는 기준이 조금 다르니, 지원용으로 링크 하나만 건네면 끝나는 페이지가 있는지만 확인해 보세요.",
+      why: "감점이 거의 없는 상태입니다. 남은 위험은 실력이 아니라 순서입니다 — 지원·출강 자리에서 링크 하나로 끝나지 않으면 좋은 프로필도 한 번에 읽히지 않습니다.",
+      act: { label: "3줄 소개로 한 줄 확정하기", href: "../tools/3lines/" },
       next: [
         "지원·출강용 링크가 하나로 정리돼 있는지 확인하기",
         "최근 1년 수업 사례를 회원의 말로 한 줄씩 쌓아 두기",
@@ -77,6 +82,8 @@
       label: "주의",
       title: "실력은 충분한데, 프로필이 그 실력을 반도 담지 못합니다",
       desc: "원장이나 회원이 볼 때 '흔한 프리랜서 강사' 중 한 명으로 보이기 쉬운 상태입니다. 두세 군데만 손보면 같은 경력이 다르게 읽힙니다.",
+      why: "감점은 실력이 아니라 '목록'에서 나옵니다. 자격과 근무지가 나열된 자리에 회원 변화 한 문장이 없어서, 원장이 확인할 것이 남아 있는 상태입니다.",
+      act: { label: "연차·수업·회원 변화를 한 줄로 만들기", href: "../tools/3lines/" },
       next: [
         "프로필 첫 화면에서 가장 강한 한 줄을 뽑아 맨 앞으로 옮기기",
         "걸려 있는 링크를 소개·연락·작업물 세 갈래로만 정리하기",
@@ -88,6 +95,8 @@
       label: "위험",
       title: "수업에 쓴 10,000시간이 첫인상에서 깎이고 있습니다",
       desc: "디자인을 바꾸기 전에 '원장과 회원이 혹하는 언어로 재구성'하는 작업이 시급합니다. 두세 문장을 바꾸는 것만으로 같은 경력이 다르게 읽힙니다.",
+      why: "첫 화면에 원장이 찾는 세 가지 — 누구를 잘 돕는지, 무엇을 먼저 하는지, 어떤 변화를 만들었는지 — 가 한 줄도 없습니다. 디자인보다 이 세 문장이 먼저입니다.",
+      act: { label: "첫 문장부터 3줄로 다시 만들기", href: "../tools/3lines/" },
       next: [
         "이력서의 '수료' 한 줄을, 어떤 회원을 어떻게 호전시켰는지의 한 문장으로 바꾸기",
         "'어떤 분을 가장 잘 돕는지'를 한 줄로 정하고 나머지는 덜어내기",
@@ -118,6 +127,10 @@
         "위 목록에서 지금의 나에게 해당하는 항목을 눌러 주세요. 체크한 개수에 따라 프로필의 상태를 세 단계로 나눠, 가장 먼저 손볼 곳까지 짚어 드립니다.";
       resNextWrap.hidden = true;
       resNext.innerHTML = "";
+      resWhyWrap.hidden = true;
+      resWhy.textContent = "";
+      resAct.hidden = true;
+      resAct.removeAttribute("href");
       return;
     }
 
@@ -133,6 +146,11 @@
           `<li><span class="rn">0${i + 1}</span><span>${t}</span></li>`
       )
       .join("");
+    resWhyWrap.hidden = false;
+    resWhy.textContent = b.why;
+    resAct.hidden = false;
+    resAct.href = b.act.href;
+    resAct.textContent = `${b.act.label} →`;
     card.classList.add("is-swap");
   };
 

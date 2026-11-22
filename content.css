@@ -144,6 +144,43 @@
 .steps b { display: block; font-size: 15px; font-weight: 700; color: var(--ink); }
 .steps span.tx { display: block; margin-top: 3px; font-size: 14.5px; line-height: 1.75; color: var(--soft); }
 
+/* ═══ 사다리 — '지금 내 위치' 5단계 ═════════════════════
+   /check/result-guide/ 전용. 단계마다 완료 기준 1줄 + 다음 행동 링크 1개.
+   색은 기존 토큰만 쓴다(무료 구간은 soft, 유료 구간의 가격은 accent). */
+.prose .ladder { list-style: none; margin-top: 1.5em; border-top: 1px solid var(--line-dark); }
+.prose .ladder li {
+  display: grid; grid-template-columns: 34px minmax(0, 1fr);
+  gap: clamp(10px, 1.8vw, 20px);
+  padding: clamp(15px, 2.3vw, 22px) 0; margin-top: 0; padding-left: 0;
+  border-bottom: 1px solid var(--line);
+}
+.prose .ladder li::before { content: none; }
+.ladder-no { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--accent); padding-top: 7px; }
+.ladder-main { min-width: 0; }
+.ladder-head { display: block; }
+.prose .ladder-head h3 {
+  margin: 0; padding: 0; border: 0;
+  font-family: var(--sans); font-weight: 700;
+  font-size: clamp(16px, 1.6vw, 18px); line-height: 1.5; color: var(--ink);
+}
+.ladder-price { display: block; margin-top: 2px; font-family: var(--mono); font-size: 12px; letter-spacing: .01em; color: var(--accent); }
+.ladder-price .sub { display: inline; margin-left: 8px; font-size: 11px; line-height: 1.7; color: var(--soft); }
+.ladder-goal { margin-top: 7px; font-size: clamp(14.5px, 1.3vw, 16px); line-height: 1.8; color: var(--text); }
+.ladder-goal .mono { color: var(--soft); margin-right: 8px; }
+.ladder-link { display: inline-block; margin-top: 9px; font-size: 14.5px; line-height: 1.6; color: var(--ink); border-bottom: 1px solid var(--ink); padding-bottom: 1px; }
+.ladder-link:hover { color: var(--accent); border-color: var(--accent); }
+.ladder-sub { margin-top: 7px; font-size: 13px; line-height: 1.75; color: var(--soft); }
+.ladder-sub a { color: var(--soft); border-bottom: 1px solid var(--line); }
+.ladder-sub a:hover { color: var(--accent); border-color: var(--accent); }
+.prose .ladder li.is-free .ladder-no { color: var(--soft); }
+
+/* 구간별 '왜 이 구간인가' + 다음 행동 1개 */
+.band-why { margin-top: 1.1em; padding-top: 13px; border-top: 1px solid var(--line); }
+.band-why p { font-size: clamp(14.5px, 1.3vw, 16px); line-height: 1.8; color: var(--text); }
+.band-why .mono { display: block; margin-bottom: 5px; color: var(--soft); }
+.band-next { display: inline-block; margin-top: 10px; font-size: 14.5px; line-height: 1.6; color: var(--ink); border-bottom: 1px solid var(--ink); padding-bottom: 1px; }
+.band-next:hover { color: var(--accent); border-color: var(--accent); }
+
 /* 복사 카드 — 질문 모음 */
 .copy-list { margin-top: 1.4em; border-top: 1px solid var(--line); }
 .copy-item { border-bottom: 1px solid var(--line); padding: 18px 0; }
@@ -219,4 +256,8 @@
   .calc-wrap { grid-template-columns: 1fr; }
   .cmp { min-width: 460px; }
   .cmp th, .cmp td { font-size: 13.5px; padding-right: 10px; }
+  .prose .ladder li { grid-template-columns: 26px minmax(0, 1fr); gap: 10px; }
+  .ladder-no { padding-top: 5px; }
+  .ladder-goal .mono { display: block; margin-right: 0; margin-bottom: 2px; }
+  .ladder-link, .band-next { padding: 7px 0; }
 }
