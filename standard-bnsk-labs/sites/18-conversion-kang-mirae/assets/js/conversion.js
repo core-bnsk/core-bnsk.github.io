@@ -26,7 +26,7 @@
         en.target.classList.add('in');
         obs.unobserve(en.target);
       });
-    }, { threshold: 0.12 });
+    }, { threshold: 0, rootMargin: '0px 0px -6% 0px' });
     revealEls.forEach(function (el) { revealObs.observe(el); });
   }
 
@@ -212,7 +212,7 @@
     };
     requestAnimationFrame(step);
   };
-  var facts = qsa('.trust-grid .trust-value');
+  var facts = qsa('.statbar .trust-value');
   if (facts.length && 'IntersectionObserver' in window) {
     var factObs = new IntersectionObserver(function (entries, obs) {
       entries.forEach(function (en) {
