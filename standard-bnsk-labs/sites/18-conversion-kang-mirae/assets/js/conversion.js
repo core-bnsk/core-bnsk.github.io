@@ -2,6 +2,7 @@
    BNSK conversion.js — STANDARD ENGINE v2 · 컨버전 테마 런타임
    - 스크롤 리빌(.rv): body.anim 부여 후 등장 (reduced-motion·JS 불가 시 정적)
    - 모바일 메뉴 토글
+   - 헤더: 스크롤 시 헤어라인 그림자, 현재 구역 내비 표시
    - 상담 다이얼로그(<dialog>): 열기/닫기·포커스 복귀·레슨 사전 선택
    - 데모 폼: 선택 결과만 표시 (저장·전송 없음)
    - 실서비스 폼: webhook 설정 시에만 전송, 미설정 시 안내 후 종료
@@ -43,6 +44,35 @@
       if (e.target.closest('a')) { nav.removeAttribute('data-open'); toggle.setAttribute('aria-expanded', 'false'); }
     });
   }
+
+  /* [2-1] 헤더 스크롤 상태 + 지금 읽는 구역 표시 */
+  var header = qs('[data-header]');
+  var navLinks = nav ? qsa('a[href^="#"]', nav) : [];
+  var spyTargets = navLinks.map(function (a) { return qs(a.getAttribute('href')); }).filter(Boolean);
+  var headerFrame = 0;
+  var syncHeader = function () {
+    headerFrame = 0;
+    if (header) {
+      if ((window.scrollY || 0) > 8) header.setAttribute('data-scrolled', '');
+      else header.removeAttribute('data-scrolled');
+    }
+    if (!spyTargets.length) return;
+    var line = (header ? header.offsetHeight : 0) + 96;
+    var current = null, currentTop = -Infinity;
+    spyTargets.forEach(function (sec) {
+      var top = sec.getBoundingClientRect().top;
+      if (top - line <= 0 && top > currentTop) { currentTop = top; current = sec; }
+    });
+    navLinks.forEach(function (a) {
+      if (current && a.getAttribute('href') === '#' + current.id) a.setAttribute('aria-current', 'location');
+      else a.removeAttribute('aria-current');
+    });
+  };
+  window.addEventListener('scroll', function () {
+    if (!headerFrame) headerFrame = requestAnimationFrame(syncHeader);
+  }, { passive: true });
+  window.addEventListener('resize', syncHeader, { passive: true });
+  syncHeader();
 
   /* [3] 상담 다이얼로그 — 데모/실서비스 공통 열기·닫기 */
   var dialog = qs('#consult-dialog');
